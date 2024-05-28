@@ -13,7 +13,7 @@ struct MainTabView: View {
     }
     var body: some View {
         TabView{
-            placeholderItemView("Update")
+            UpdataTabScreen()
                 .font(.caption)
                 .tabItem {
                     Image(systemName: Tab.update.icon)
