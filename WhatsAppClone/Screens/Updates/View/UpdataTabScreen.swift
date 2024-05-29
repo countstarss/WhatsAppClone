@@ -182,7 +182,7 @@ private struct ChannelListView :View {
         ScrollView(.horizontal,showsIndicators: false) {
             HStack{
                 ForEach(0 ..< 5){_ in
-                    ChannelItemView()
+                    suggestChannelItemView()
                 }
             }
         }
@@ -199,7 +199,7 @@ private struct ChannelListView :View {
 }
 
 //MARK: - ChannelItemView
-private struct ChannelItemView :View {
+private struct suggestChannelItemView :View {
     var body: some View{
         VStack{
             Circle()

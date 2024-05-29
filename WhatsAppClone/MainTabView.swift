@@ -31,12 +31,12 @@ struct MainTabView: View {
                     Image(systemName: Tab.community.icon)
                     Text("Community")
                 }
-            placeholderItemView("Chats")
+            ChannelTabScreen()
                 .tabItem {
                     Image(systemName: Tab.chats.icon)
                     Text("Chats")
                 }
-            placeholderItemView("Settings")
+            SettingsTabScreen()
                 .tabItem {
                     Image(systemName: Tab.settings.icon)
                     Text("Settings")
@@ -56,14 +56,14 @@ struct MainTabView: View {
 
 //MARK: - 设置统一风格
 extension MainTabView {
-    private func placeholderItemView(_ title: String) -> some View{
-        ScrollView{
-            ForEach(0..<120){_ in
-                Text(title)
-                    .font(.largeTitle)
-            }
-        }
-    }
+//    private func placeholderItemView(_ title: String) -> some View{
+//        ScrollView{
+//            ForEach(0..<120){_ in
+//                Text(title)
+//                    .font(.largeTitle)
+//            }
+//        }
+//    }
     
     private enum Tab {
         case update,calls,community,chats,settings
