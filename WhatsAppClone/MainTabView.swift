@@ -19,13 +19,13 @@ struct MainTabView: View {
                     Image(systemName: Tab.update.icon)
                     Text("Updatas")
                 }
-            placeholderItemView("Calls")
+            CallsTabScreen()
                 .font(.caption)
                 .tabItem {
                     Image(systemName: Tab.calls.icon)
                     Text("Calls")
                 }
-            placeholderItemView("Community")
+            CommunityTabScreen()
                 .font(.caption)
                 .tabItem {
                     Image(systemName: Tab.community.icon)
@@ -64,7 +64,6 @@ extension MainTabView {
             }
         }
     }
-    
     
     private enum Tab {
         case update,calls,community,chats,settings

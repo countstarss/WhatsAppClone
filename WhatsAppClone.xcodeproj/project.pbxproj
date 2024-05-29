@@ -12,6 +12,8 @@
 		DFFFBD102C0598710072B200 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFFFBD0F2C0598710072B200 /* Preview Assets.xcassets */; };
 		DFFFBD192C05B2FE0072B200 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD182C05B2FD0072B200 /* MainTabView.swift */; };
 		DFFFBD1B2C05B4820072B200 /* UpdataTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD1A2C05B4820072B200 /* UpdataTabScreen.swift */; };
+		DFFFBD1D2C05CA250072B200 /* CallsTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD1C2C05CA250072B200 /* CallsTabScreen.swift */; };
+		DFFFBD282C06ADF20072B200 /* CommunityTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD272C06ADF20072B200 /* CommunityTabScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		DFFFBD0F2C0598710072B200 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DFFFBD182C05B2FD0072B200 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		DFFFBD1A2C05B4820072B200 /* UpdataTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdataTabScreen.swift; sourceTree = "<group>"; };
+		DFFFBD1C2C05CA250072B200 /* CallsTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallsTabScreen.swift; sourceTree = "<group>"; };
+		DFFFBD272C06ADF20072B200 /* CommunityTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTabScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,11 +57,11 @@
 		DFFFBD072C05986F0072B200 /* WhatsAppClone */ = {
 			isa = PBXGroup;
 			children = (
+				DFFFBD1E2C06AD450072B200 /* Screens */,
 				DFFFBD082C05986F0072B200 /* WhatsAppCloneApp.swift */,
 				DFFFBD182C05B2FD0072B200 /* MainTabView.swift */,
 				DFFFBD0C2C0598710072B200 /* Assets.xcassets */,
 				DFFFBD0E2C0598710072B200 /* Preview Content */,
-				DFFFBD1A2C05B4820072B200 /* UpdataTabScreen.swift */,
 			);
 			path = WhatsAppClone;
 			sourceTree = "<group>";
@@ -68,6 +72,80 @@
 				DFFFBD0F2C0598710072B200 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DFFFBD1E2C06AD450072B200 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				DFFFBD252C06ADCC0072B200 /* Settings */,
+				DFFFBD242C06ADBD0072B200 /* Channel */,
+				DFFFBD232C06ADB70072B200 /* Community */,
+				DFFFBD212C06AD880072B200 /* Calls */,
+				DFFFBD1F2C06AD670072B200 /* Updates */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		DFFFBD1F2C06AD670072B200 /* Updates */ = {
+			isa = PBXGroup;
+			children = (
+				DFFFBD202C06AD7D0072B200 /* View */,
+			);
+			path = Updates;
+			sourceTree = "<group>";
+		};
+		DFFFBD202C06AD7D0072B200 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DFFFBD1A2C05B4820072B200 /* UpdataTabScreen.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DFFFBD212C06AD880072B200 /* Calls */ = {
+			isa = PBXGroup;
+			children = (
+				DFFFBD222C06AD930072B200 /* View */,
+			);
+			path = Calls;
+			sourceTree = "<group>";
+		};
+		DFFFBD222C06AD930072B200 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DFFFBD1C2C05CA250072B200 /* CallsTabScreen.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DFFFBD232C06ADB70072B200 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				DFFFBD262C06ADDB0072B200 /* View */,
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
+		DFFFBD242C06ADBD0072B200 /* Channel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Channel;
+			sourceTree = "<group>";
+		};
+		DFFFBD252C06ADCC0072B200 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		DFFFBD262C06ADDB0072B200 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DFFFBD272C06ADF20072B200 /* CommunityTabScreen.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +219,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFFFBD092C05986F0072B200 /* WhatsAppCloneApp.swift in Sources */,
+				DFFFBD1D2C05CA250072B200 /* CallsTabScreen.swift in Sources */,
+				DFFFBD282C06ADF20072B200 /* CommunityTabScreen.swift in Sources */,
 				DFFFBD192C05B2FE0072B200 /* MainTabView.swift in Sources */,
 				DFFFBD1B2C05B4820072B200 /* UpdataTabScreen.swift in Sources */,
 			);

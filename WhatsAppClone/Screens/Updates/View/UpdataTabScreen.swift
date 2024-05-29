@@ -213,7 +213,7 @@ private struct ChannelItemView :View {
             Button(action: {
                 
             }, label: {
-                Text("Foolow")
+                Text("Follow")
                     .bold()
                     .padding(5)
                     .frame(maxWidth: .infinity)
