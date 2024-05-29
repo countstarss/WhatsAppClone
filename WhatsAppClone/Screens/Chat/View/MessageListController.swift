@@ -22,6 +22,7 @@ final class MessageListController:UIViewController{
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
 //        tableView.backgroundColor = .red
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -50,15 +51,11 @@ extension MessageListController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        cell.backgroundColor = UIColor.gray.withAlphaComponent(0.1)
+        cell.backgroundColor = .clear
+        cell.selectionStyle = .none
         // 使在UIKit内部可以使用SwiftUI来填充单元格
         cell.contentConfiguration = UIHostingConfiguration{
-            Text("PleacHolder")
-                .font(.title)
-                .bold()
-                .frame(maxWidth: .infinity)
-                .frame(height: 150)
-                .background(Color(.systemGray5))
+            BubbleTextView(item: .sentPlaceHolder)
         }
         
         return cell

@@ -23,6 +23,10 @@
 		DFFFBD3B2C06CFD80072B200 /* TextInputArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD3A2C06CFD80072B200 /* TextInputArea.swift */; };
 		DFFFBD3D2C06E71C0072B200 /* MessageListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD3C2C06E71C0072B200 /* MessageListController.swift */; };
 		DFFFBD3F2C06EAB60072B200 /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD3E2C06EAB60072B200 /* MessageListView.swift */; };
+		DFFFBD422C0704F30072B200 /* MessageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD412C0704F30072B200 /* MessageItem.swift */; };
+		DFFFBD442C0705CE0072B200 /* BubbleTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD432C0705CE0072B200 /* BubbleTextView.swift */; };
+		DFFFBD462C0707B30072B200 /* BubbleTailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD452C0707B30072B200 /* BubbleTailView.swift */; };
+		DFFFBD492C07096E0072B200 /* CustomModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD482C07096E0072B200 /* CustomModifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +47,10 @@
 		DFFFBD3A2C06CFD80072B200 /* TextInputArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputArea.swift; sourceTree = "<group>"; };
 		DFFFBD3C2C06E71C0072B200 /* MessageListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListController.swift; sourceTree = "<group>"; };
 		DFFFBD3E2C06EAB60072B200 /* MessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListView.swift; sourceTree = "<group>"; };
+		DFFFBD412C0704F30072B200 /* MessageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItem.swift; sourceTree = "<group>"; };
+		DFFFBD432C0705CE0072B200 /* BubbleTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTextView.swift; sourceTree = "<group>"; };
+		DFFFBD452C0707B30072B200 /* BubbleTailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailView.swift; sourceTree = "<group>"; };
+		DFFFBD482C07096E0072B200 /* CustomModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +83,7 @@
 		DFFFBD072C05986F0072B200 /* WhatsAppClone */ = {
 			isa = PBXGroup;
 			children = (
+				DFFFBD472C0709490072B200 /* Helpers */,
 				DFFFBD1E2C06AD450072B200 /* Screens */,
 				DFFFBD082C05986F0072B200 /* WhatsAppCloneApp.swift */,
 				DFFFBD182C05B2FD0072B200 /* MainTabView.swift */,
@@ -199,9 +208,8 @@
 		DFFFBD362C06CD530072B200 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				DFFFBD402C0704CA0072B200 /* Model */,
 				DFFFBD392C06CFBD0072B200 /* View */,
-				DFFFBD3C2C06E71C0072B200 /* MessageListController.swift */,
-				DFFFBD3E2C06EAB60072B200 /* MessageListView.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -211,8 +219,28 @@
 			children = (
 				DFFFBD372C06CD740072B200 /* ChatRoomScreen.swift */,
 				DFFFBD3A2C06CFD80072B200 /* TextInputArea.swift */,
+				DFFFBD3C2C06E71C0072B200 /* MessageListController.swift */,
+				DFFFBD3E2C06EAB60072B200 /* MessageListView.swift */,
+				DFFFBD432C0705CE0072B200 /* BubbleTextView.swift */,
+				DFFFBD452C0707B30072B200 /* BubbleTailView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DFFFBD402C0704CA0072B200 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DFFFBD412C0704F30072B200 /* MessageItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DFFFBD472C0709490072B200 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DFFFBD482C07096E0072B200 /* CustomModifiers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,12 +319,16 @@
 				DFFFBD282C06ADF20072B200 /* CommunityTabScreen.swift in Sources */,
 				DFFFBD3D2C06E71C0072B200 /* MessageListController.swift in Sources */,
 				DFFFBD3B2C06CFD80072B200 /* TextInputArea.swift in Sources */,
+				DFFFBD462C0707B30072B200 /* BubbleTailView.swift in Sources */,
 				DFFFBD2B2C06B32C0072B200 /* ChannelTabScreen.swift in Sources */,
 				DFFFBD192C05B2FE0072B200 /* MainTabView.swift in Sources */,
 				DFFFBD3F2C06EAB60072B200 /* MessageListView.swift in Sources */,
 				DFFFBD382C06CD740072B200 /* ChatRoomScreen.swift in Sources */,
 				DFFFBD322C06BF6E0072B200 /* SettingsItemView.swift in Sources */,
+				DFFFBD442C0705CE0072B200 /* BubbleTextView.swift in Sources */,
+				DFFFBD422C0704F30072B200 /* MessageItem.swift in Sources */,
 				DFFFBD2D2C06B8400072B200 /* ChannelItemView.swift in Sources */,
+				DFFFBD492C07096E0072B200 /* CustomModifiers.swift in Sources */,
 				DFFFBD1B2C05B4820072B200 /* UpdataTabScreen.swift in Sources */,
 				DFFFBD352C06C1B00072B200 /* SettingsItem.swift in Sources */,
 			);
