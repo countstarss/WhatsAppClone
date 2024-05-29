@@ -68,7 +68,7 @@ extension SettingsItem {
     )
     
     static let chats = SettingsItem(
-        imageName: "whatsapp-black",
+        imageName: "whatsapp-setting",
         imageType: .assetImage,
         backgroundColor: .green,
         title: "Chats"

@@ -16,7 +16,11 @@ struct ChannelTabScreen: View {
                     .padding(.horizontal)
                 
                 ForEach(0..<5){_ in
-                    ChannelItemView()
+                    NavigationLink{
+                        ChatRoomScreen()
+                    }label:{
+                        ChannelItemView()
+                    }
                 }
                 inboxFooterView()
                     .listRowSeparator(.hidden)

@@ -19,6 +19,8 @@
 		DFFFBD302C06BEF70072B200 /* SettingsTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD2F2C06BEF70072B200 /* SettingsTabScreen.swift */; };
 		DFFFBD322C06BF6E0072B200 /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD312C06BF6E0072B200 /* SettingsItemView.swift */; };
 		DFFFBD352C06C1B00072B200 /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD342C06C1B00072B200 /* SettingsItem.swift */; };
+		DFFFBD382C06CD740072B200 /* ChatRoomScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD372C06CD740072B200 /* ChatRoomScreen.swift */; };
+		DFFFBD3B2C06CFD80072B200 /* TextInputArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD3A2C06CFD80072B200 /* TextInputArea.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		DFFFBD2F2C06BEF70072B200 /* SettingsTabScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTabScreen.swift; sourceTree = "<group>"; };
 		DFFFBD312C06BF6E0072B200 /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
 		DFFFBD342C06C1B00072B200 /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
+		DFFFBD372C06CD740072B200 /* ChatRoomScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomScreen.swift; sourceTree = "<group>"; };
+		DFFFBD3A2C06CFD80072B200 /* TextInputArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputArea.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,7 @@
 		DFFFBD242C06ADBD0072B200 /* Channel */ = {
 			isa = PBXGroup;
 			children = (
+				DFFFBD362C06CD530072B200 /* Chat */,
 				DFFFBD292C06B3170072B200 /* View */,
 			);
 			path = Channel;
@@ -185,6 +190,23 @@
 				DFFFBD342C06C1B00072B200 /* SettingsItem.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DFFFBD362C06CD530072B200 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				DFFFBD392C06CFBD0072B200 /* View */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		DFFFBD392C06CFBD0072B200 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DFFFBD372C06CD740072B200 /* ChatRoomScreen.swift */,
+				DFFFBD3A2C06CFD80072B200 /* TextInputArea.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,8 +283,10 @@
 				DFFFBD1D2C05CA250072B200 /* CallsTabScreen.swift in Sources */,
 				DFFFBD302C06BEF70072B200 /* SettingsTabScreen.swift in Sources */,
 				DFFFBD282C06ADF20072B200 /* CommunityTabScreen.swift in Sources */,
+				DFFFBD3B2C06CFD80072B200 /* TextInputArea.swift in Sources */,
 				DFFFBD2B2C06B32C0072B200 /* ChannelTabScreen.swift in Sources */,
 				DFFFBD192C05B2FE0072B200 /* MainTabView.swift in Sources */,
+				DFFFBD382C06CD740072B200 /* ChatRoomScreen.swift in Sources */,
 				DFFFBD322C06BF6E0072B200 /* SettingsItemView.swift in Sources */,
 				DFFFBD2D2C06B8400072B200 /* ChannelItemView.swift in Sources */,
 				DFFFBD1B2C05B4820072B200 /* UpdataTabScreen.swift in Sources */,
