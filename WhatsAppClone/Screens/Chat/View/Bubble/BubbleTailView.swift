@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BubbleTailView: View {
     var direction: MessageDirection
+    let item : MessageItem
     
     private var backgroundColor : Color {
         return direction == .sent ? .bubbleGreen : .bubbleWhite
@@ -22,13 +23,14 @@ struct BubbleTailView: View {
 //            .offset(x:direction == .sent ? 5 : -5,y:3)
             .offset(y:1)
             .foregroundStyle(backgroundColor)
+            .rotationEffect(.degrees(item.degree))
     }
 }
 
 #Preview {
     ScrollView{
-        BubbleTailView(direction: .sent)
-        BubbleTailView(direction: .received)
+        BubbleTailView(direction: .sent, item: .sentPlaceHolder)
+        BubbleTailView(direction: .received, item: .receivePlaceHolder)
     }
     .frame(maxWidth: .infinity)
     .background(Color.green)

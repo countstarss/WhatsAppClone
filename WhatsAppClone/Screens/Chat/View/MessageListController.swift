@@ -2,17 +2,83 @@
 //  MessageListController.swift
 //  WhatsAppClone
 //
-//  Created by 王佩豪 on 2024/5/30.
+//  Created by 王佩豪 on 2024/5/29.
 //
 
+import Foundation
+import UIKit
 import SwiftUI
 
-struct MessageListController: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+final class MessageListController:UIViewController{
+    //MARK: -  View's lifeCycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpViews()
     }
+    
+    //MARK: - Properties
+    private let cellIdentifier = "MessageListControllerCells"
+    private lazy var tableView :UITableView = {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .lightGray
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+        // create tableView here
+    }()
+    
+    //MARK: - Methods
+    private func setUpViews(){
+        view.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        // register tableView here
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+    }
+    
 }
 
-#Preview {
-    MessageListController()
+//MARK: - UITableViewDelegate & UITableViewDataSource
+extension MessageListController:UITableViewDelegate,UITableViewDataSource{
+    /// use a UIKit tableView, use a SwifUI view as the cell
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        cell.backgroundColor = .clear
+        cell.selectionStyle = .none
+        
+        let message = MessageItem.stubMessage[indexPath.row]
+        
+        // 使在UIKit内部可以使用SwiftUI来填充单元格
+        cell.contentConfiguration = UIHostingConfiguration{
+            switch message.type{
+            case .text:
+                BubbleTextView(item: message)
+//                    .frame(maxWidth: .infinity)
+            case .video ,.photo:
+                BubbleImageView(item: message)
+//                    .background(.red)
+            case .audio:
+                BubbleAudioView(item: message)
+//                    .background(.indigo)
+            }
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return MessageItem.stubMessage.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }

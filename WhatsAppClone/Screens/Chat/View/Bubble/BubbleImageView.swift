@@ -19,10 +19,7 @@ struct BubbleImageView: View {
                 messageTextView()
                     .shadow(color: Color(.systemGray3).opacity(0.1), radius: 10, x: 0, y: 20)
                     .padding(.vertical)
-                    .overlay(alignment:.bottomTrailing){
-                        timeStmpTextView()
-                            .offset(x:-10,y:5)
-                    }
+                    
                     .overlay {
                         playButton()
                             .opacity(item.type == .video ? 1 : 0)
@@ -31,6 +28,7 @@ struct BubbleImageView: View {
 
                 if item.direction == .received { shareButton() }
             }
+            
             if item.direction == .received { Spacer() }
         }
         
@@ -58,14 +56,22 @@ struct BubbleImageView: View {
                     RoundedRectangle(cornerRadius: 20,style:.continuous)
                         .stroke(Color(.systemGray3))
                 )
+                .overlay(alignment:.bottomTrailing){
+                    timeStmpTextView()
+                        .padding(2)
+                        .padding(.horizontal,3)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(20)
+                        .padding(4)
+                        
+                }
+
                 
             Text(item.text)
                 .padding([.horizontal,.bottom],8)
                 .frame(maxWidth: .infinity,alignment: .leading)
                 .frame(width: 220)
-//            timeStmpTextView()
         }
-        
         .background(item.direction == .sent ? .bubbleGreen : .bubbleWhite)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .applyTail(item.direction)

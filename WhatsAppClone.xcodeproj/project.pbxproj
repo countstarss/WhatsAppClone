@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DF2419612C0800DF0036D7FC /* MessageListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2419602C0800DF0036D7FC /* MessageListController.swift */; };
+		DF2419632C08039C0036D7FC /* BubbleAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2419622C08039C0036D7FC /* BubbleAudioView.swift */; };
 		DFFFBD092C05986F0072B200 /* WhatsAppCloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD082C05986F0072B200 /* WhatsAppCloneApp.swift */; };
 		DFFFBD0D2C0598710072B200 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFFFBD0C2C0598710072B200 /* Assets.xcassets */; };
 		DFFFBD102C0598710072B200 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFFFBD0F2C0598710072B200 /* Preview Assets.xcassets */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		DF2419602C0800DF0036D7FC /* MessageListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListController.swift; sourceTree = "<group>"; };
+		DF2419622C08039C0036D7FC /* BubbleAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleAudioView.swift; sourceTree = "<group>"; };
 		DFFFBD052C05986F0072B200 /* WhatsAppClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsAppClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFFFBD082C05986F0072B200 /* WhatsAppCloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsAppCloneApp.swift; sourceTree = "<group>"; };
 		DFFFBD0C2C0598710072B200 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				DFFFBD432C0705CE0072B200 /* BubbleTextView.swift */,
 				DFFFBD452C0707B30072B200 /* BubbleTailView.swift */,
 				DFFFBD4B2C07553E0072B200 /* BubbleImageView.swift */,
+				DF2419622C08039C0036D7FC /* BubbleAudioView.swift */,
 			);
 			path = Bubble;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				DFFFBD422C0704F30072B200 /* MessageItem.swift in Sources */,
 				DFFFBD2D2C06B8400072B200 /* ChannelItemView.swift in Sources */,
 				DFFFBD492C07096E0072B200 /* CustomModifiers.swift in Sources */,
+				DF2419632C08039C0036D7FC /* BubbleAudioView.swift in Sources */,
 				DFFFBD1B2C05B4820072B200 /* UpdataTabScreen.swift in Sources */,
 				DFFFBD352C06C1B00072B200 /* SettingsItem.swift in Sources */,
 			);

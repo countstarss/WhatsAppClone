@@ -15,7 +15,7 @@ struct BubbleTextView: View {
     
     var body: some View {
         VStack(alignment:item.horizontalAlignment,spacing: 3){
-            Text("Hello, World! how are you doing")
+            Text("Hello, World! how are you doing what's your name")
                 .padding(10)
                 .background(item.backgroundColor)
                 .clipShape(RoundedRectangle(cornerRadius: 16,style: .continuous))
@@ -27,8 +27,8 @@ struct BubbleTextView: View {
         }
         .shadow(color: Color(.systemGray3).opacity(0.1), radius: 10, x: 0, y: 20)
         .frame(maxWidth: .infinity,alignment: item.alignment)
-        .padding(.leading,item.direction == .received ? 5 : 100)
-        .padding(.trailing,item.direction == .received ? 100 : 5)
+        .padding(.leading,item.direction == .received ? 0 : 50)
+        .padding(.trailing,item.direction == .received ? 50 : 0)
     }
     
     private func timeStampTextView() -> some View {
@@ -53,6 +53,6 @@ struct BubbleTextView: View {
         BubbleTextView(item: .stubMessage[0])
         BubbleTextView(item: .stubMessage[1])
     }
-    .frame(maxWidth: .infinity)
+//    .frame(maxWidth: .infinity)
     .background(Color(.systemGray5))
 }

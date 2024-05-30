@@ -35,11 +35,18 @@ struct MessageItem:Identifiable{
         return direction == .sent ? .bubbleGreen : .bubbleWhite
     }
     
+    var degree : Double {
+        return direction == .sent ? -15 : 15
+    }
+    
     // 静态资源,可以通过struct MessageItem调用
     static let stubMessage: [MessageItem] = [
         MessageItem(text: "Hi,there", type: .text, direction: .sent),
         MessageItem(text: "check out this photo", type: .photo, direction: .received),
         MessageItem(text: "Play on this video", type: .video, direction: .sent),
+        MessageItem(text: "Listen to this video", type: .audio, direction: .sent),
+        MessageItem(text: "Hi,there", type: .text, direction: .sent),
+        MessageItem(text: "Listen to this video", type: .audio, direction: .received),
         MessageItem(text: "Listen to this video", type: .audio, direction: .sent)
     ]
     
@@ -55,5 +62,5 @@ enum MessageDirection{
 
 enum MessageType {
     case text,photo,video
-//    case audio
+    case audio
 }
