@@ -13,6 +13,7 @@ private struct BubbleTailModifier:ViewModifier {
     func body(content: Content) -> some View {
         content.overlay(alignment: direction == .received ? .bottomLeading : .bottomTrailing) {
             BubbleTailView(direction: direction)
+                .padding(.horizontal,1)
         }
     }
 }

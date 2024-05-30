@@ -18,7 +18,6 @@ struct TextInputArea: View {
             sendMessageButton()
         }
         .padding(.horizontal,4)
-        .padding(.top)
         .padding(.bottom,10)
         .background(.whatsAppWhite)
     }
