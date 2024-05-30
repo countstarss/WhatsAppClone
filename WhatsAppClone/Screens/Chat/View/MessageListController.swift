@@ -23,7 +23,6 @@ final class MessageListController:UIViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .lightGray
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
         // create tableView here

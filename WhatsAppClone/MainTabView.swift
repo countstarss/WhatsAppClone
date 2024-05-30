@@ -7,9 +7,14 @@
 
 import SwiftUI
 
+
+
 struct MainTabView: View {
     init(){
         makeTabBarOpaque()
+        // 设置滑动条的样式
+        let thumbimage = UIImage(systemName: "circle.fill")
+        UISlider.appearance().setThumbImage(thumbimage, for: .normal)
     }
     var body: some View {
         TabView{

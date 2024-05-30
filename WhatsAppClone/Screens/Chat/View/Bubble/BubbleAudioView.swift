@@ -77,4 +77,9 @@ struct BubbleAudioView: View {
     }
     .frame(maxWidth: .infinity)
     .background(Color.gray.opacity(0.3))
+    .onAppear{
+        // 设置滑动条的样式
+        let thumbimage = UIImage(systemName: "circle.fill")
+        UISlider.appearance().setThumbImage(thumbimage, for: .normal)
+    }
 }
