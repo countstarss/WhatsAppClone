@@ -30,6 +30,8 @@
 		DFE007D32C09C096004EC795 /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE007D22C09C096004EC795 /* FirebaseConstants.swift */; };
 		DFE007D52C09E78A004EC795 /* ChatPartnerPickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE007D42C09E78A004EC795 /* ChatPartnerPickerScreen.swift */; };
 		DFE007D72C09ECAF004EC795 /* ChatPartnerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE007D62C09ECAF004EC795 /* ChatPartnerRowView.swift */; };
+		DFE007DA2C09FDFB004EC795 /* ChatPartnerPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE007D92C09FDFB004EC795 /* ChatPartnerPickerViewModel.swift */; };
+		DFE007DC2C0A0192004EC795 /* AddGroupChatPartnersScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE007DB2C0A0192004EC795 /* AddGroupChatPartnersScreen.swift */; };
 		DFFFBD092C05986F0072B200 /* WhatsAppCloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD082C05986F0072B200 /* WhatsAppCloneApp.swift */; };
 		DFFFBD0D2C0598710072B200 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFFFBD0C2C0598710072B200 /* Assets.xcassets */; };
 		DFFFBD102C0598710072B200 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFFFBD0F2C0598710072B200 /* Preview Assets.xcassets */; };
@@ -69,6 +71,8 @@
 		DFE007D22C09C096004EC795 /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
 		DFE007D42C09E78A004EC795 /* ChatPartnerPickerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPartnerPickerScreen.swift; sourceTree = "<group>"; };
 		DFE007D62C09ECAF004EC795 /* ChatPartnerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPartnerRowView.swift; sourceTree = "<group>"; };
+		DFE007D92C09FDFB004EC795 /* ChatPartnerPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPartnerPickerViewModel.swift; sourceTree = "<group>"; };
+		DFE007DB2C0A0192004EC795 /* AddGroupChatPartnersScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupChatPartnersScreen.swift; sourceTree = "<group>"; };
 		DFFFBD052C05986F0072B200 /* WhatsAppClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsAppClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFFFBD082C05986F0072B200 /* WhatsAppCloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsAppCloneApp.swift; sourceTree = "<group>"; };
 		DFFFBD0C2C0598710072B200 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -190,6 +194,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		DFE007D82C09FDD2004EC795 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DFE007D92C09FDFB004EC795 /* ChatPartnerPickerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		DFFFBCFC2C05986F0072B200 = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +299,7 @@
 		DFFFBD242C06ADBD0072B200 /* Channel */ = {
 			isa = PBXGroup;
 			children = (
+				DFE007D82C09FDD2004EC795 /* ViewModel */,
 				DFFFBD292C06B3170072B200 /* View */,
 			);
 			path = Channel;
@@ -315,6 +328,7 @@
 				DFFFBD2A2C06B32C0072B200 /* ChannelTabScreen.swift */,
 				DFFFBD2C2C06B8400072B200 /* ChannelItemView.swift */,
 				DFE007D42C09E78A004EC795 /* ChatPartnerPickerScreen.swift */,
+				DFE007DB2C0A0192004EC795 /* AddGroupChatPartnersScreen.swift */,
 				DFE007D62C09ECAF004EC795 /* ChatPartnerRowView.swift */,
 			);
 			path = View;
@@ -485,6 +499,7 @@
 				DFE007CA2C09A99B004EC795 /* RootScreen.swift in Sources */,
 				DFFFBD2B2C06B32C0072B200 /* ChannelTabScreen.swift in Sources */,
 				DFFFBD192C05B2FE0072B200 /* MainTabView.swift in Sources */,
+				DFE007DC2C0A0192004EC795 /* AddGroupChatPartnersScreen.swift in Sources */,
 				DFFFBD4C2C07553E0072B200 /* BubbleImageView.swift in Sources */,
 				DFE007D52C09E78A004EC795 /* ChatPartnerPickerScreen.swift in Sources */,
 				DFFFBD3F2C06EAB60072B200 /* MessageListView.swift in Sources */,
@@ -500,6 +515,7 @@
 				DFFFBD492C07096E0072B200 /* CustomModifiers.swift in Sources */,
 				DF2419632C08039C0036D7FC /* BubbleAudioView.swift in Sources */,
 				DFFFBD1B2C05B4820072B200 /* UpdataTabScreen.swift in Sources */,
+				DFE007DA2C09FDFB004EC795 /* ChatPartnerPickerViewModel.swift in Sources */,
 				DFFFBD352C06C1B00072B200 /* SettingsItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

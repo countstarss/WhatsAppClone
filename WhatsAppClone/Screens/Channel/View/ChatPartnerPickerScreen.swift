@@ -11,11 +11,15 @@ struct ChatPartnerPickerScreen: View {
     @State private var searchText = ""
     @Binding var showChatPartnerPickerScreen : Bool
     @Environment(\.dismiss) var dismiss
+    @StateObject private var viewModel = ChatPartnerPickerViewModel()
     var body: some View {
-        NavigationStack{
+        NavigationStack(path: $viewModel.navStack){
             List{
                 ForEach(ChatPartnerPickerOption.allCases){ item in
                     HeaderItemView(item: item)
+                        .onTapGesture {
+                            viewModel.navStack.append(.addGroupChatMembers)
+                        }
                 }
                 
                 Section{
@@ -29,11 +33,39 @@ struct ChatPartnerPickerScreen: View {
                 }
             }
             .navigationTitle("New Chat")
+            .navigationDestination(for: ChannelCreationRoute.self){ route in
+                DestinationRoute(for: route)
+                    .onTapGesture {
+                        
+                    }
+            }
             .navigationBarTitleDisplayMode(.inline)
-            .searchable(text: $searchText,prompt: "Search name or number")
+            .searchable(
+                text: $searchText,
+                placement: .navigationBarDrawer(
+                    displayMode: .always
+                ),
+                prompt: "Search name or number"
+            )
             .toolbar{
                 trailingNavItem()
             }
+        }
+        
+    }
+}
+
+extension ChatPartnerPickerScreen{
+    
+    // 使其成为ViewBUilder
+    @ViewBuilder
+    private func DestinationRoute(for route: ChannelCreationRoute) -> some View {
+        switch route {
+        case .addGroupChatMembers:
+//            Text("ADD GROUP CHAT PARTNER")
+            AddGroupChatPartnersScreen(viewModel: viewModel)
+        case .setUpGroupChat:
+            Text("SETUP GROUP CHAT")
         }
         
     }
