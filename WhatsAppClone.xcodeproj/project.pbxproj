@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DF07CA502C08C1350018B6A2 /* AuthScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF07CA4F2C08C1350018B6A2 /* AuthScreenModel.swift */; };
+		DF07CA532C094D340018B6A2 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF07CA522C094D340018B6A2 /* AuthProvider.swift */; };
 		DF2419612C0800DF0036D7FC /* MessageListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2419602C0800DF0036D7FC /* MessageListController.swift */; };
 		DF2419632C08039C0036D7FC /* BubbleAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2419622C08039C0036D7FC /* BubbleAudioView.swift */; };
 		DF2419662C081CBD0036D7FC /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DF2419652C081CBD0036D7FC /* FirebaseAnalytics */; };
@@ -16,8 +17,6 @@
 		DF24197A2C081CBD0036D7FC /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF2419792C081CBD0036D7FC /* FirebaseDatabaseSwift */; };
 		DF24197E2C081CBD0036D7FC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DF24197D2C081CBD0036D7FC /* FirebaseFirestore */; };
 		DF2419822C081CBD0036D7FC /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DF2419812C081CBD0036D7FC /* FirebaseFirestoreSwift */; };
-		DF2419882C081CBD0036D7FC /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = DF2419872C081CBD0036D7FC /* FirebaseInAppMessaging-Beta */; };
-		DF2419902C081CBD0036D7FC /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = DF24198F2C081CBD0036D7FC /* FirebaseMessaging */; };
 		DF2419982C081CBD0036D7FC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DF2419972C081CBD0036D7FC /* FirebaseStorage */; };
 		DF45C2942C082760008C0468 /* AuthTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF45C2932C082760008C0468 /* AuthTextField.swift */; };
 		DF45C2962C087CA7008C0468 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF45C2952C087CA7008C0468 /* AuthButton.swift */; };
@@ -49,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		DF07CA4F2C08C1350018B6A2 /* AuthScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreenModel.swift; sourceTree = "<group>"; };
+		DF07CA522C094D340018B6A2 /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 		DF2419602C0800DF0036D7FC /* MessageListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListController.swift; sourceTree = "<group>"; };
 		DF2419622C08039C0036D7FC /* BubbleAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleAudioView.swift; sourceTree = "<group>"; };
 		DF45C2932C082760008C0468 /* AuthTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTextField.swift; sourceTree = "<group>"; };
@@ -90,10 +90,8 @@
 				DF2419662C081CBD0036D7FC /* FirebaseAnalytics in Frameworks */,
 				DF2419822C081CBD0036D7FC /* FirebaseFirestoreSwift in Frameworks */,
 				DF2419722C081CBD0036D7FC /* FirebaseAuth in Frameworks */,
-				DF2419882C081CBD0036D7FC /* FirebaseInAppMessaging-Beta in Frameworks */,
 				DF24197A2C081CBD0036D7FC /* FirebaseDatabaseSwift in Frameworks */,
 				DF2419982C081CBD0036D7FC /* FirebaseStorage in Frameworks */,
-				DF2419902C081CBD0036D7FC /* FirebaseMessaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,9 +106,18 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		DF07CA512C094D120018B6A2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DF07CA522C094D340018B6A2 /* AuthProvider.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		DF56422D2C082325000F0670 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				DF07CA512C094D120018B6A2 /* Services */,
 				DF07CA4E2C08C11A0018B6A2 /* ViewModel */,
 				DF56422E2C08232C000F0670 /* View */,
 			);
@@ -343,8 +350,6 @@
 				DF2419792C081CBD0036D7FC /* FirebaseDatabaseSwift */,
 				DF24197D2C081CBD0036D7FC /* FirebaseFirestore */,
 				DF2419812C081CBD0036D7FC /* FirebaseFirestoreSwift */,
-				DF2419872C081CBD0036D7FC /* FirebaseInAppMessaging-Beta */,
-				DF24198F2C081CBD0036D7FC /* FirebaseMessaging */,
 				DF2419972C081CBD0036D7FC /* FirebaseStorage */,
 			);
 			productName = WhatsAppClone;
@@ -411,6 +416,7 @@
 				DF2419612C0800DF0036D7FC /* MessageListController.swift in Sources */,
 				DFFFBD1D2C05CA250072B200 /* CallsTabScreen.swift in Sources */,
 				DF5642322C0823F4000F0670 /* AuthHeaderView.swift in Sources */,
+				DF07CA532C094D340018B6A2 /* AuthProvider.swift in Sources */,
 				DFFFBD302C06BEF70072B200 /* SettingsTabScreen.swift in Sources */,
 				DFFFBD282C06ADF20072B200 /* CommunityTabScreen.swift in Sources */,
 				DFFFBD3B2C06CFD80072B200 /* TextInputArea.swift in Sources */,
@@ -668,14 +674,6 @@
 		DF2419812C081CBD0036D7FC /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FirebaseFirestoreSwift;
-		};
-		DF2419872C081CBD0036D7FC /* FirebaseInAppMessaging-Beta */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = "FirebaseInAppMessaging-Beta";
-		};
-		DF24198F2C081CBD0036D7FC /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FirebaseMessaging;
 		};
 		DF2419972C081CBD0036D7FC /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -9,20 +9,22 @@ import SwiftUI
 
 struct SignUpScreen: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var authViewModel = AuthScreenModel()
+    @StateObject private var authScreenModel = AuthScreenModel()
     var body: some View {
         VStack{
             Spacer()
             AuthHeaderView()
-            AuthTextField(type: .email, text: $authViewModel.email)
+            AuthTextField(type: .email, text: $authScreenModel.email)
             let userNameInputType = AuthTextField.InputType.custom("Username", "at")
-            AuthTextField(type: userNameInputType, text: $authViewModel.username)
-            AuthTextField(type: .password, text: $authViewModel.password)
-            AuthButton(title: "Sign Up") {
-                
-            
+            AuthTextField(type: userNameInputType, text: $authScreenModel.username)
+            AuthTextField(type: .password, text: $authScreenModel.password)
+            AuthButton(title: "Create an account") {
+                Task{
+                    print("SignUp Button is pressed!")
+                    await authScreenModel.handleSignUp()
+                }
             }
-            .disabled(authViewModel.disableSignUpButton)
+            .disabled(authScreenModel.disableSignUpButton)
             .padding(.top,24)
             
             Spacer()

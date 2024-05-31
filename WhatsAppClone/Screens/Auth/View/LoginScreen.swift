@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginScreen: View {
-    @StateObject private var authViewModel = AuthScreenModel()
+    @StateObject private var authScreenModel = AuthScreenModel()
     
     var body: some View {
         NavigationStack{
@@ -16,19 +16,19 @@ struct LoginScreen: View {
                 Spacer()
                 AuthHeaderView()
                 
-                AuthTextField(type: .email, text: $authViewModel.email)
-                AuthTextField(type: .password, text: $authViewModel.password)
+                AuthTextField(type: .email, text: $authScreenModel.email)
+                AuthTextField(type: .password, text: $authScreenModel.password)
                 
                 AuthButton(title: "Login in now") {
-                    //
+                    
                 }
-                .disabled(authViewModel.disableLoginButton)
+                .disabled(authScreenModel.disableLoginButton)
                 .padding(.top,24)
                 Spacer()
                 
                 
                 forgetPasswordButton()
-                siagnUpButton() 
+                signUpButton() 
                     .padding(.bottom,24)
             }
             .frame(maxWidth: .infinity,maxHeight: .infinity)
@@ -51,7 +51,7 @@ struct LoginScreen: View {
         }
     }
     
-    private func siagnUpButton() -> some View {
+    private func signUpButton() -> some View {
         
         NavigationLink{
             SignUpScreen()

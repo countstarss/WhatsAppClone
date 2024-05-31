@@ -22,7 +22,7 @@ struct AuthButton: View {
     
     var body: some View {
         Button{
-            
+            onTap()
         }label: {
             Text(title)
             
