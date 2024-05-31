@@ -11,8 +11,11 @@ import FirebaseAuth
 import FirebaseDatabase
 
 enum AuthState{
-    case pending, loggedIn, loggedOut
+    // 向loggedIn 添加UserItem,以至于我们可以知道是哪个用户处于登陆状态
+    case pending, loggedIn(UserItem), loggedOut
 }
+
+
 /// 00
 protocol AuthProvider{
     // 在这里写AuthProvider能做些什么
@@ -25,12 +28,28 @@ protocol AuthProvider{
     func logOut() async throws
 }
 
+enum AuthError: Error{
+    case accountCreationFailed(_ description :String)
+    case failedToSaveUserInfo(_ description :String)
+}
+
+extension AuthError: LocalizedError {
+    var errorDescription :String? {
+        switch self {
+        case .accountCreationFailed(let description):
+            return description
+        case .failedToSaveUserInfo(let description):
+            return description
+        }
+    }
+}
+
 
 // Singleten 单例
 final class AuthManager:AuthProvider {
     
     private init(){
-        
+        Task { await autoLogin() }
     }
     /// 00
     static let shared :AuthProvider = AuthManager()
@@ -38,23 +57,30 @@ final class AuthManager:AuthProvider {
     var authState = CurrentValueSubject<AuthState, Never>(.pending)
     
     func autoLogin() async {
-        
+        //
+        if Auth.auth().currentUser == nil {
+            authState.send(.loggedOut)
+        }else{
+            fetchCurrentUserInfo()
+        }
     }
     func login(with email: String, and password: String) async throws {
             
     }
     func createAccount(for username: String, with email: String, and password: String) async throws {
-        // invoke firebase create account method : store the new user info in our firebase auth
-        
-        
-        // store the new user info in our database
-        let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
-        let uid = authResult.user.uid
-        print("创建用户实体")
-        let newUser = UserItem(uid: uid, username: username, email: email)
-        /// 02
-        print("接下来就是向数据库中存储用户数据")
-        try await saveUserInfoDatabase(user: newUser)
+
+        do{
+            let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
+            let uid = authResult.user.uid
+            let newUser = UserItem(uid: uid, username: username, email: email)
+            /// 02
+            try await saveUserInfoDatabase(user: newUser)
+            // 把newUser放进authState中的loggedIn状态里
+            self.authState.send(.loggedIn(newUser))
+        }catch{
+            print("🔞 :Failed to create a account:\(error.localizedDescription)")
+            throw AuthError.failedToSaveUserInfo(error.localizedDescription)
+        }
     }
     func logOut() async throws {
         
@@ -63,8 +89,28 @@ final class AuthManager:AuthProvider {
 /// 01
 extension AuthManager {
     private func saveUserInfoDatabase(user: UserItem) async throws {
-        let userDictionary = ["uid": user.uid, "username": user.username, "email":user.email]
-        try await Database.database(url:"https://whatsapp-a26a2-default-rtdb.asia-southeast1.firebasedatabase.app").reference().child("user").child(user.uid).setValue(userDictionary)
+        do{
+            let userDictionary = ["uid": user.uid, "username": user.username, "email":user.email]
+            try await Database.database(url:"https://whatsapp-a26a2-default-rtdb.asia-southeast1.firebasedatabase.app").reference().child("user").child(user.uid).setValue(userDictionary)
+        }catch{
+            print("🔞 :Failed to save user info to database:\(error.localizedDescription)")
+            throw AuthError.failedToSaveUserInfo(error.localizedDescription)
+        }
+    }
+    
+    // 获取当前用户
+    private func fetchCurrentUserInfo() {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        Database.database(url:"https://whatsapp-a26a2-default-rtdb.asia-southeast1.firebasedatabase.app").reference().child("user").child(currentUid).observe(.value) { [weak self] snapshot in
+            
+            guard let userDict = snapshot.value as? [String :Any] else {return}
+            let loggedInUser = UserItem(dictionary: userDict)
+            self?.authState.send(.loggedIn(loggedInUser))
+            print("🔞 :\(loggedInUser.username) is logged")
+            
+        } withCancel: { error in
+            print("Failed to get current user info")
+        }
     }
 }
 
@@ -84,4 +130,24 @@ struct UserItem :Identifiable,Hashable,Decodable{
     var bioUnwrapped:String{
         return bio ?? " Hey there i'm using WhatsApp"
     }
+}
+
+
+// 字典映射
+extension UserItem{
+    init(dictionary :[String : Any]) {
+        self.uid = dictionary[.uid] as? String ?? ""
+        self.username = dictionary[.username] as? String ?? ""
+        self.email = dictionary[.email] as? String ?? ""
+        self.bio = dictionary[.bio] as? String ?? nil
+        self.profileImageUrl = dictionary[.profileImageUrl] as? String ?? nil
+    }
+}
+
+extension String{
+    static let uid = "uid"
+    static let username = "username"
+    static let email = "email"
+    static let bio = "bio"
+    static let profileImageUrl = "profileImageUrl"
 }

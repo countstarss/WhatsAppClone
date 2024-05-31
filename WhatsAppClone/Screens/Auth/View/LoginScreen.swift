@@ -35,6 +35,12 @@ struct LoginScreen: View {
             .background(Color.teal.gradient)
             .ignoresSafeArea()
             .navigationBarBackButtonHidden()
+            .alert(isPresented: $authScreenModel.errorState.showError){
+                Alert(
+                    title: Text(authScreenModel.errorState.errorMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
         }
     }
     

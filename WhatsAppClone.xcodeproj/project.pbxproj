@@ -24,6 +24,8 @@
 		DF56422C2C082136000F0670 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF56422B2C082135000F0670 /* GoogleService-Info.plist */; };
 		DF5642302C08233C000F0670 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF56422F2C08233C000F0670 /* LoginScreen.swift */; };
 		DF5642322C0823F4000F0670 /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5642312C0823F3000F0670 /* AuthHeaderView.swift */; };
+		DFE007CA2C09A99B004EC795 /* RootScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE007C92C09A99B004EC795 /* RootScreen.swift */; };
+		DFE007CD2C09A9C2004EC795 /* RootScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE007CC2C09A9C2004EC795 /* RootScreenModel.swift */; };
 		DFFFBD092C05986F0072B200 /* WhatsAppCloneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFFBD082C05986F0072B200 /* WhatsAppCloneApp.swift */; };
 		DFFFBD0D2C0598710072B200 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFFFBD0C2C0598710072B200 /* Assets.xcassets */; };
 		DFFFBD102C0598710072B200 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFFFBD0F2C0598710072B200 /* Preview Assets.xcassets */; };
@@ -57,6 +59,8 @@
 		DF56422B2C082135000F0670 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF56422F2C08233C000F0670 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		DF5642312C0823F3000F0670 /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
+		DFE007C92C09A99B004EC795 /* RootScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootScreen.swift; sourceTree = "<group>"; };
+		DFE007CC2C09A9C2004EC795 /* RootScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootScreenModel.swift; sourceTree = "<group>"; };
 		DFFFBD052C05986F0072B200 /* WhatsAppClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsAppClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFFFBD082C05986F0072B200 /* WhatsAppCloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsAppCloneApp.swift; sourceTree = "<group>"; };
 		DFFFBD0C2C0598710072B200 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -136,6 +140,31 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		DFE007C72C09A981004EC795 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				DFE007CB2C09A9A4004EC795 /* ViewModel */,
+				DFE007C82C09A988004EC795 /* View */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		DFE007C82C09A988004EC795 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DFE007C92C09A99B004EC795 /* RootScreen.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DFE007CB2C09A9A4004EC795 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DFE007CC2C09A9C2004EC795 /* RootScreenModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		DFFFBCFC2C05986F0072B200 = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +206,7 @@
 		DFFFBD1E2C06AD450072B200 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				DFE007C72C09A981004EC795 /* Root */,
 				DF56422D2C082325000F0670 /* Auth */,
 				DFFFBD362C06CD530072B200 /* Chat */,
 				DFFFBD252C06ADCC0072B200 /* Settings */,
@@ -412,6 +442,7 @@
 			files = (
 				DFFFBD092C05986F0072B200 /* WhatsAppCloneApp.swift in Sources */,
 				DF07CA502C08C1350018B6A2 /* AuthScreenModel.swift in Sources */,
+				DFE007CD2C09A9C2004EC795 /* RootScreenModel.swift in Sources */,
 				DF45C2962C087CA7008C0468 /* AuthButton.swift in Sources */,
 				DF2419612C0800DF0036D7FC /* MessageListController.swift in Sources */,
 				DFFFBD1D2C05CA250072B200 /* CallsTabScreen.swift in Sources */,
@@ -421,6 +452,7 @@
 				DFFFBD282C06ADF20072B200 /* CommunityTabScreen.swift in Sources */,
 				DFFFBD3B2C06CFD80072B200 /* TextInputArea.swift in Sources */,
 				DFFFBD462C0707B30072B200 /* BubbleTailView.swift in Sources */,
+				DFE007CA2C09A99B004EC795 /* RootScreen.swift in Sources */,
 				DFFFBD2B2C06B32C0072B200 /* ChannelTabScreen.swift in Sources */,
 				DFFFBD192C05B2FE0072B200 /* MainTabView.swift in Sources */,
 				DFFFBD4C2C07553E0072B200 /* BubbleImageView.swift in Sources */,

@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 // 什么时候使用final
+
+@MainActor
 final class AuthScreenModel :ObservableObject {
     
     /// 00
@@ -31,7 +33,7 @@ final class AuthScreenModel :ObservableObject {
     }
     
     /// 01
-    @MainActor
+//    @MainActor
     func handleSignUp() async {
         isLoading = true
         do {
