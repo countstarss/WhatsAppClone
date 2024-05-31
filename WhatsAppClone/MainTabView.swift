@@ -10,7 +10,10 @@ import SwiftUI
 
 
 struct MainTabView: View {
-    init(){
+    private let currentUser: UserItem
+    
+    init(_ currentUser : UserItem){
+        self.currentUser = currentUser
         makeTabBarOpaque()
         // 设置滑动条的样式
         let thumbimage = UIImage(systemName: "circle.fill")
@@ -92,6 +95,6 @@ extension MainTabView {
 }
 
 #Preview {
-    MainTabView()
+    MainTabView(.placeholder)
 //        .background(Color(.systemGray3))
 }

@@ -20,7 +20,10 @@ struct LoginScreen: View {
                 AuthTextField(type: .password, text: $authScreenModel.password)
                 
                 AuthButton(title: "Login in now") {
-                    
+                    Task{
+                        print("Login Button is pressed!")
+                        await authScreenModel.handleLogin()
+                    }
                 }
                 .disabled(authScreenModel.disableLoginButton)
                 .padding(.top,24)

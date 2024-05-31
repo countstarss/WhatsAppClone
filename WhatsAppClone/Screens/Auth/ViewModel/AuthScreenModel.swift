@@ -45,4 +45,17 @@ final class AuthScreenModel :ObservableObject {
             isLoading = false
         }
     }
+    
+    func handleLogin() async {
+        isLoading = true
+        do {
+            // 单例 AuthManager  只有一个AuthManager
+            try await AuthManager.shared.login(with: email, and: password)
+            print("handleSignUp")
+        }catch {
+            errorState.errorMessage = "Failed to Login \(error.localizedDescription)"
+            errorState.showError = true
+            isLoading = false
+        }
+    }
 }
