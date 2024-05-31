@@ -83,15 +83,22 @@ final class AuthManager:AuthProvider {
         }
     }
     func logOut() async throws {
-        
+        do{
+            try Auth.auth().signOut()
+            authState.send(.loggedOut)
+            print("🔞 :successfully to log out")
+        }catch{
+            print("🔞 :Failed to log out current user:\(error.localizedDescription)")
+        }
     }
 }
 /// 01
 extension AuthManager {
     private func saveUserInfoDatabase(user: UserItem) async throws {
         do{
-            let userDictionary = ["uid": user.uid, "username": user.username, "email":user.email]
-            try await Database.database(url:"https://whatsapp-a26a2-default-rtdb.asia-southeast1.firebasedatabase.app").reference().child("user").child(user.uid).setValue(userDictionary)
+            // 因为在userItem中已经声明了String的extension ,所以后边的String类型都可以替代
+            let userDictionary :[String : Any] = [.uid: user.uid, .username: user.username, .email:user.email]
+            try await FirebaseConstants.UserRef.child(user.uid).setValue(userDictionary)
         }catch{
             print("🔞 :Failed to save user info to database:\(error.localizedDescription)")
             throw AuthError.failedToSaveUserInfo(error.localizedDescription)
@@ -101,7 +108,8 @@ extension AuthManager {
     // 获取当前用户
     private func fetchCurrentUserInfo() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        Database.database(url:"https://whatsapp-a26a2-default-rtdb.asia-southeast1.firebasedatabase.app").reference().child("user").child(currentUid).observe(.value) { [weak self] snapshot in
+        // 用声明的常量 FirebaseConstants.UserRef 代替原来的写法
+        FirebaseConstants.UserRef.child(currentUid).observe(.value) { [weak self] snapshot in
             
             guard let userDict = snapshot.value as? [String :Any] else {return}
             let loggedInUser = UserItem(dictionary: userDict)
@@ -114,40 +122,40 @@ extension AuthManager {
     }
 }
 
-/// 00
+/// 00 将UserItem提取到一个单独的Model文件中
 // 用户模型
-struct UserItem :Identifiable,Hashable,Decodable{
-    let uid: String
-    let username:String
-    let email:String
-    var bio:String? = nil
-    var profileImageUrl:String? = nil
-    
-    var id:String {
-        return uid
-    }
-    
-    var bioUnwrapped:String{
-        return bio ?? " Hey there i'm using WhatsApp"
-    }
-}
-
-
-// 字典映射
-extension UserItem{
-    init(dictionary :[String : Any]) {
-        self.uid = dictionary[.uid] as? String ?? ""
-        self.username = dictionary[.username] as? String ?? ""
-        self.email = dictionary[.email] as? String ?? ""
-        self.bio = dictionary[.bio] as? String ?? nil
-        self.profileImageUrl = dictionary[.profileImageUrl] as? String ?? nil
-    }
-}
-
-extension String{
-    static let uid = "uid"
-    static let username = "username"
-    static let email = "email"
-    static let bio = "bio"
-    static let profileImageUrl = "profileImageUrl"
-}
+//struct UserItem :Identifiable,Hashable,Decodable{
+//    let uid: String
+//    let username:String
+//    let email:String
+//    var bio:String? = nil
+//    var profileImageUrl:String? = nil
+//    
+//    var id:String {
+//        return uid
+//    }
+//    
+//    var bioUnwrapped:String{
+//        return bio ?? " Hey there i'm using WhatsApp"
+//    }
+//}
+//
+//
+//// 字典映射
+//extension UserItem{
+//    init(dictionary :[String : Any]) {
+//        self.uid = dictionary[.uid] as? String ?? ""
+//        self.username = dictionary[.username] as? String ?? ""
+//        self.email = dictionary[.email] as? String ?? ""
+//        self.bio = dictionary[.bio] as? String ?? nil
+//        self.profileImageUrl = dictionary[.profileImageUrl] as? String ?? nil
+//    }
+//}
+//
+//extension String{
+//    static let uid = "uid"
+//    static let username = "username"
+//    static let email = "email"
+//    static let bio = "bio"
+//    static let profileImageUrl = "profileImageUrl"
+//}
