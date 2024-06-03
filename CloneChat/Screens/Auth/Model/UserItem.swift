@@ -25,6 +25,21 @@ struct UserItem :Identifiable,Hashable,Decodable{
     }
     
     static let placeholder = UserItem(uid: "1", username: "Luke", email: "swiftSkool@gamil.com")
+    
+    static let placeholders : [UserItem] = [
+            UserItem(uid: "1", username: "Luke", email: "swiftSkool@gamil.com"),
+            UserItem(uid: "2", username: "smith", email: "smith@gamil.com"),
+            UserItem(uid: "3", username: "John", email: "John@gamil.com"),
+            UserItem(uid: "4", username: "Lily", email: "Lily@gamil.com"),
+            UserItem(uid: "5", username: "curl", email: "curl@gamil.com"),
+            UserItem(uid: "6", username: "bob", email: "swiftSkool@gamil.com"),
+            UserItem(uid: "7", username: "bill", email: "jobs@gamil.com"),
+            UserItem(uid: "8", username: "locus", email: "locus@gamil.com"),
+            UserItem(uid: "9", username: "jonas", email: "locus@gamil.com"),
+            UserItem(uid: "10", username: "jams", email: "swiftSkool@gamil.com"),
+            UserItem(uid: "11", username: "jobs", email: "jobs@gamil.com"),
+            UserItem(uid: "12", username: "clair", email: "clair@gamil.com"),
+        ]
 }
 
 

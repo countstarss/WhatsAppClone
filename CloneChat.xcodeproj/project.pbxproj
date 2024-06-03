@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DF03461F2C0D583F00A70B47 /* CloneChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03461E2C0D583F00A70B47 /* CloneChatApp.swift */; };
+		DF03461F2C0D583F00A70B47 /* WhatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03461E2C0D583F00A70B47 /* WhatsApp.swift */; };
 		DF0346262C0D584100A70B47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF0346252C0D584100A70B47 /* Preview Assets.xcassets */; };
 		DF03462E2C0D58E900A70B47 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DF03462D2C0D58E900A70B47 /* FirebaseAuth */; };
 		DF0346302C0D58E900A70B47 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = DF03462F2C0D58E900A70B47 /* FirebaseDatabase */; };
@@ -50,16 +50,18 @@
 		DF0346992C0D594000A70B47 /* ChannelTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0346792C0D594000A70B47 /* ChannelTabScreen.swift */; };
 		DF03469A2C0D594000A70B47 /* ChatPartnerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03467A2C0D594000A70B47 /* ChatPartnerRowView.swift */; };
 		DF03469B2C0D594000A70B47 /* ChatPartnerPickerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03467B2C0D594000A70B47 /* ChatPartnerPickerScreen.swift */; };
-		DF03469C2C0D594000A70B47 /* AddGroupChatPartnersScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03467C2C0D594000A70B47 /* AddGroupChatPartnersScreen.swift */; };
+		DF03469C2C0D594000A70B47 /* GroupChatPartnersScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03467C2C0D594000A70B47 /* GroupChatPartnersScreen.swift */; };
 		DF03469D2C0D594000A70B47 /* ChatPartnerPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03467E2C0D594000A70B47 /* ChatPartnerPickerViewModel.swift */; };
 		DF03469F2C0D595600A70B47 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03469E2C0D595600A70B47 /* MainTabView.swift */; };
 		DF0346A22C0D596C00A70B47 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF0346A02C0D596C00A70B47 /* GoogleService-Info.plist */; };
 		DF0346A32C0D596C00A70B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF0346A12C0D596C00A70B47 /* Assets.xcassets */; };
+		DF0346A52C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0346A42C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift */; };
+		DF8583A22C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DF03461B2C0D583F00A70B47 /* CloneChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloneChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF03461E2C0D583F00A70B47 /* CloneChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloneChatApp.swift; sourceTree = "<group>"; };
+		DF03461E2C0D583F00A70B47 /* WhatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsApp.swift; sourceTree = "<group>"; };
 		DF0346252C0D584100A70B47 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DF0346422C0D592C00A70B47 /* FirebaseConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
 		DF0346452C0D593900A70B47 /* CustomModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomModifiers.swift; sourceTree = "<group>"; };
@@ -92,11 +94,13 @@
 		DF0346792C0D594000A70B47 /* ChannelTabScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTabScreen.swift; sourceTree = "<group>"; };
 		DF03467A2C0D594000A70B47 /* ChatPartnerRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPartnerRowView.swift; sourceTree = "<group>"; };
 		DF03467B2C0D594000A70B47 /* ChatPartnerPickerScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPartnerPickerScreen.swift; sourceTree = "<group>"; };
-		DF03467C2C0D594000A70B47 /* AddGroupChatPartnersScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupChatPartnersScreen.swift; sourceTree = "<group>"; };
+		DF03467C2C0D594000A70B47 /* GroupChatPartnersScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupChatPartnersScreen.swift; sourceTree = "<group>"; };
 		DF03467E2C0D594000A70B47 /* ChatPartnerPickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatPartnerPickerViewModel.swift; sourceTree = "<group>"; };
 		DF03469E2C0D595600A70B47 /* MainTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		DF0346A02C0D596C00A70B47 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF0346A12C0D596C00A70B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DF0346A42C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedChatPartnerScreen.swift; sourceTree = "<group>"; };
+		DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupSetUpScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +146,7 @@
 				DF0346472C0D594000A70B47 /* Screens */,
 				DF0346442C0D593900A70B47 /* Helpers */,
 				DF0346412C0D592C00A70B47 /* Utils */,
-				DF03461E2C0D583F00A70B47 /* CloneChatApp.swift */,
+				DF03461E2C0D583F00A70B47 /* WhatsApp.swift */,
 				DF03469E2C0D595600A70B47 /* MainTabView.swift */,
 				DF0346A12C0D596C00A70B47 /* Assets.xcassets */,
 				DF0346A02C0D596C00A70B47 /* GoogleService-Info.plist */,
@@ -392,7 +396,9 @@
 				DF0346792C0D594000A70B47 /* ChannelTabScreen.swift */,
 				DF03467A2C0D594000A70B47 /* ChatPartnerRowView.swift */,
 				DF03467B2C0D594000A70B47 /* ChatPartnerPickerScreen.swift */,
-				DF03467C2C0D594000A70B47 /* AddGroupChatPartnersScreen.swift */,
+				DF03467C2C0D594000A70B47 /* GroupChatPartnersScreen.swift */,
+				DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */,
+				DF0346A42C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -492,8 +498,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF0346842C0D594000A70B47 /* BubbleTailView.swift in Sources */,
+				DF8583A22C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift in Sources */,
 				DF0346942C0D594000A70B47 /* AuthScreenModel.swift in Sources */,
 				DF03469A2C0D594000A70B47 /* ChatPartnerRowView.swift in Sources */,
+				DF0346A52C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift in Sources */,
 				DF0346972C0D594000A70B47 /* RootScreenModel.swift in Sources */,
 				DF0346952C0D594000A70B47 /* UserItem.swift in Sources */,
 				DF0346922C0D594000A70B47 /* AuthButton.swift in Sources */,
@@ -518,10 +526,10 @@
 				DF0346882C0D594000A70B47 /* CommunityTabScreen.swift in Sources */,
 				DF0346852C0D594000A70B47 /* ChatRoomScreen.swift in Sources */,
 				DF0346462C0D593900A70B47 /* CustomModifiers.swift in Sources */,
-				DF03469C2C0D594000A70B47 /* AddGroupChatPartnersScreen.swift in Sources */,
+				DF03469C2C0D594000A70B47 /* GroupChatPartnersScreen.swift in Sources */,
 				DF0346982C0D594000A70B47 /* ChannelItemView.swift in Sources */,
 				DF03468E2C0D594000A70B47 /* SignUpScreen.swift in Sources */,
-				DF03461F2C0D583F00A70B47 /* CloneChatApp.swift in Sources */,
+				DF03461F2C0D583F00A70B47 /* WhatsApp.swift in Sources */,
 				DF0346912C0D594000A70B47 /* LoginScreen.swift in Sources */,
 				DF03468D2C0D594000A70B47 /* SettingsItem.swift in Sources */,
 				DF0346802C0D594000A70B47 /* MessageListView.swift in Sources */,

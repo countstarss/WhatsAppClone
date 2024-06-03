@@ -9,19 +9,33 @@ import Foundation
 
 
 enum ChannelCreationRoute{
-    case addGroupChatMembers
+    case groupPartnerPicker
     case setUpGroupChat
 }
+
+/// 规定Group的最大人数
+enum ChannelConstants{
+    static let maxGroupParticipants = 12
+}
+
 final class ChatPartnerPickerViewModel:ObservableObject {
     // ObservableObject可以让app更加响应式
     // 通过创建ViewModel来协调所有的功能
     @Published var navStack = [ChannelCreationRoute]()
     // 用于选中和取消
     @Published var selectedChatPartners = [UserItem]()
+    
+    
+    
     // 用于显示/隐藏选中的chatPartners的视图
     var showSelectedUsers :Bool {
         // 只要不空
         return !selectedChatPartners.isEmpty
+    }
+    
+    // 用于Enable Next按钮
+    var disableNextButton:Bool {
+        return selectedChatPartners.isEmpty
     }
     
     //MARK: - Public Methods
