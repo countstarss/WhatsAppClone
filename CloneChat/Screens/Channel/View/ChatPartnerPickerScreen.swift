@@ -34,7 +34,16 @@ struct ChatPartnerPickerScreen: View {
                         ChatPartnerRowView(user: user)
                             // 与单个用户创建聊天
                             .onTapGesture{
-                                onCreate(.placeholder)
+//                                onCreate(.placeholder)
+                                viewModel.selectedChatPartners.append(user)
+                                let createChannel = viewModel.createChannel(nil)
+                                switch createChannel{
+                                case .success(let channelItem):
+                                    onCreate(channelItem)
+                                case .failure(let error):
+                                    //
+                                    print("💿Failed to create channel : \(error.localizedDescription)")
+                                }
                             }
                     }
                 }header: {

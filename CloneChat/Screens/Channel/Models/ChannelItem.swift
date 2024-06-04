@@ -34,3 +34,37 @@ struct ChannelItem :Identifiable{
         members: []
     )
 }
+
+// 确保ChannelItem可以接收dict
+extension ChannelItem {
+    init(_ dict :[String :Any]) {
+        self.id = dict[.id] as? String ?? ""
+        self.name = dict[.name] as? String
+        self.lastMessage = dict[.lastMessage] as? String ?? ""
+        
+        let creationInterval = dict[.creationDate] as? Double ?? 0
+        self.creationDate = Date(timeIntervalSince1970: creationInterval)
+        
+        let lastMsgTimeStmpInterval = dict[.lastMessageTimeStmp] as? Double ?? 0
+        self.lastMessageTimeStmp = Date(timeIntervalSince1970: lastMsgTimeStmpInterval)
+        
+        self.membersCount = dict[.membersCount] as? UInt ?? 0
+        self.adminUids = dict[.adminUids] as? [String] ?? []
+        self.thumbnailUrl = dict[.thumbnailUrl] as? String ?? nil
+        self.membersUids = dict[.membersUids] as? [String] ?? []
+        self.members = dict[.members] as? [UserItem] ?? []
+    }
+}
+
+extension String{
+    static let id = "id"
+    static let name = "name"
+    static let lastMessage = "lastMessage"
+    static let creationDate = "creationDate"
+    static let lastMessageTimeStmp = "lastMessageTimeStmp"
+    static let membersCount = "membersCount"
+    static let adminUids = "adminUids"
+    static let membersUids = "membersUids"
+    static let thumbnailUrl = "thumbnailUrl"
+    static let members = "members"
+}

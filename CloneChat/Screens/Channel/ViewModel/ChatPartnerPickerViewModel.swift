@@ -18,6 +18,11 @@ enum ChannelConstants{
     static let maxGroupParticipants = 12
 }
 
+enum ChannelCreationError :Error {
+    case noChatPartner
+    case failedToCreateIds
+}
+
 @MainActor
 final class ChatPartnerPickerViewModel:ObservableObject {
     // ObservableObject可以让app更加响应式
@@ -89,7 +94,52 @@ final class ChatPartnerPickerViewModel:ObservableObject {
         return isSelected
     }
     
-    func buildDirectChannel() async -> Result<ChannelItem,Error>{
+//    func buildDirectChannel() async -> Result<ChannelItem,Error>{
+//        
+//    }
+    // 这是一个创建Chat的通用方法
+    func createChannel(_ channelName:String?) -> Result<ChannelItem,Error>{
+        // 为了适配创建Group,所以selectedChatPartners不为空时才能createChannel
+        guard !selectedChatPartners.isEmpty else { return .failure(ChannelCreationError.noChatPartner) }
+        
+        guard let channelId = FirebaseConstants.ChannerRef.childByAutoId().key,
+              let currentUid = Auth.auth().currentUser?.uid
+//              let messageId = FirebaseConstants.MessageRef.childByAutoId().key
+        else{ return .failure(ChannelCreationError.failedToCreateIds) }
+        
+        
+        let timeStmp = Date().timeIntervalSince1970
+        var membersUids = selectedChatPartners.compactMap{ $0.uid }
+        membersUids.append(currentUid)
+        // 填充ChannelItem
+        var channelDict :[String :Any] = [
+            .id: channelId,
+            .lastMessage: "",
+            .creationDate: timeStmp,
+            .lastMessageTimeStmp: timeStmp,
+            .membersUids: membersUids,
+            .membersCount: membersUids.count,
+            .adminUids: [currentUid]
+        ]
+        if let channelName = channelName, channelName.isEmptyorWhiteSpace {
+            channelDict[.name] = channelName
+        }
+        
+        // 需要存储的东西
+        FirebaseConstants.ChannerRef.child(channelId).setValue(channelDict)
+        
+        
+        membersUids.forEach{ userId in
+            // keeping an index of the channel that a specific user belongs to
+            FirebaseConstants.UserChannelRef.child(userId).child(channelId).setValue(true)
+            // make sure that a direct channel is unique
+            FirebaseConstants.UserDirectChannels.child(userId).child(channelId).setValue(true)
+        }
+        
+        // 存储用户所属的direct channel
+        
+        let newChannelItem = ChannelItem(channelDict)
+        return .success(newChannelItem)
         
     }
 }
