@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ChannelTabScreen: View {
     @State private var searchText:String = ""
-    @State private var showChatPartnerPickerScreen = false
+    
+    @StateObject private var viewModel = ChannelTabViewModel()
     var body: some View {
         NavigationStack{
             List{
@@ -33,8 +34,19 @@ struct ChannelTabScreen: View {
                 leadingNavItem()
                 trailingNavItem()
             }
-            .sheet(isPresented: $showChatPartnerPickerScreen){
-                ChatPartnerPickerScreen(showChatPartnerPickerScreen: $showChatPartnerPickerScreen)
+            .sheet(isPresented: $viewModel.showChatPartnerPickerScreen){
+                ChatPartnerPickerScreen(
+                    showChatPartnerPickerScreen: $viewModel.showChatPartnerPickerScreen,
+                    // 实现点击ChatPartnerRowView关闭NavigationView
+                    onCreate: viewModel.onNewChannelCreation
+                )
+                    
+            }
+            // 导航到新的ChatRom
+            .navigationDestination(isPresented: $viewModel.navigateToChatRoom) {
+                if let newChannel = viewModel.newChannel{
+                    ChatRoomScreen()
+                }
             }
         }
     }
@@ -69,6 +81,7 @@ extension ChannelTabScreen{
         }
     }
     
+    
     private func AiButton() -> some View{
         Button{
             
@@ -76,6 +89,7 @@ extension ChannelTabScreen{
             Image(.circle)
         }
     }
+    
     private func caremaButton() -> some View{
         Button{
             
@@ -83,9 +97,10 @@ extension ChannelTabScreen{
             Image(systemName: "camera")
         }
     }
+    
     private func newChatButton() -> some View{
         Button{
-            showChatPartnerPickerScreen = true
+            viewModel.showChatPartnerPickerScreen = true
         } label: {
             Image(.plus)
         }

@@ -12,6 +12,12 @@ struct ChatPartnerPickerScreen: View {
     @Binding var showChatPartnerPickerScreen : Bool
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = ChatPartnerPickerViewModel()
+    
+    // 创建新对话:
+    //    1.关闭当前页面
+    //    2.进入新创建的chat
+    var onCreate:(_ newChannel:ChannelItem) -> Void
+    
     var body: some View {
         NavigationStack(path: $viewModel.navStack){
             List{
@@ -27,6 +33,9 @@ struct ChatPartnerPickerScreen: View {
                     ForEach(viewModel.users){ user in
                         ChatPartnerRowView(user: user)
                             // 与单个用户创建聊天
+                            .onTapGesture{
+                                onCreate(.placeholder)
+                            }
                     }
                 }header: {
                     Text("Contact on Whatsapp")
@@ -170,5 +179,7 @@ enum ChatPartnerPickerOption: String,CaseIterable,Identifiable{
 }
 
 #Preview {
-    ChatPartnerPickerScreen(showChatPartnerPickerScreen: .constant(false))
+    ChatPartnerPickerScreen(showChatPartnerPickerScreen: .constant(false)){ channel in
+        // 
+    }
 }

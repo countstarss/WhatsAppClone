@@ -27,9 +27,8 @@ final class ChatPartnerPickerViewModel:ObservableObject {
     @Published var selectedChatPartners = [UserItem]()
     // 用于保存
     @Published private(set) var users = [UserItem]()
-    
+    // 保存第一个作为指针
     private var lastCursor : String?
-    
     
     
     // 用于显示/隐藏选中的chatPartners的视图
@@ -43,6 +42,7 @@ final class ChatPartnerPickerViewModel:ObservableObject {
         return selectedChatPartners.isEmpty
     }
     
+    // 判断时候可分页,用于防止重复fetchUser
     var isPageinatable: Bool{
         return !users.isEmpty
     }
@@ -82,9 +82,14 @@ final class ChatPartnerPickerViewModel:ObservableObject {
             selectedChatPartners.append(item)
         }
     }
+    
     // 通过contains判断是否已经选中
     func isUserSelected(_ user: UserItem) -> Bool {
         let isSelected = selectedChatPartners.contains {$0.uid == user.uid}
         return isSelected
+    }
+    
+    func buildDirectChannel() async -> Result<ChannelItem,Error>{
+        
     }
 }

@@ -58,6 +58,8 @@
 		DF0346A52C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0346A42C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift */; };
 		DF8583A22C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */; };
 		DF8583A52C0DB8360052B6A2 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8583A42C0DB8360052B6A2 /* UserService.swift */; };
+		DF8583AA2C0EEF390052B6A2 /* ChannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8583A92C0EEF390052B6A2 /* ChannelItem.swift */; };
+		DF8583AC2C0EF3EE0052B6A2 /* ChannelTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8583AB2C0EF3EE0052B6A2 /* ChannelTabViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +106,8 @@
 		DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupSetUpScreen.swift; sourceTree = "<group>"; };
 		DF8583A42C0DB8360052B6A2 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		DF8583A72C0EEE6B0052B6A2 /* DatabaseDesignPrinciple.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DatabaseDesignPrinciple.md; sourceTree = "<group>"; };
+		DF8583A92C0EEF390052B6A2 /* ChannelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelItem.swift; sourceTree = "<group>"; };
+		DF8583AB2C0EF3EE0052B6A2 /* ChannelTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTabViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,13 +191,13 @@
 		DF0346472C0D594000A70B47 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				DF0346482C0D594000A70B47 /* Chat */,
 				DF0346552C0D594000A70B47 /* Community */,
 				DF0346582C0D594000A70B47 /* Calls */,
 				DF03465B2C0D594000A70B47 /* Updates */,
 				DF03465E2C0D594000A70B47 /* Settings */,
 				DF0346642C0D594000A70B47 /* Auth */,
 				DF0346712C0D594000A70B47 /* Root */,
+				DF0346482C0D594000A70B47 /* Chat */,
 				DF0346762C0D594000A70B47 /* Channel */,
 			);
 			path = Screens;
@@ -388,8 +392,9 @@
 		DF0346762C0D594000A70B47 /* Channel */ = {
 			isa = PBXGroup;
 			children = (
-				DF0346772C0D594000A70B47 /* View */,
+				DF8583A82C0EEF220052B6A2 /* Models */,
 				DF03467D2C0D594000A70B47 /* ViewModel */,
+				DF0346772C0D594000A70B47 /* View */,
 			);
 			path = Channel;
 			sourceTree = "<group>";
@@ -412,6 +417,7 @@
 			isa = PBXGroup;
 			children = (
 				DF03467E2C0D594000A70B47 /* ChatPartnerPickerViewModel.swift */,
+				DF8583AB2C0EF3EE0052B6A2 /* ChannelTabViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -422,6 +428,14 @@
 				DF8583A42C0DB8360052B6A2 /* UserService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		DF8583A82C0EEF220052B6A2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DF8583A92C0EEF390052B6A2 /* ChannelItem.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -518,6 +532,7 @@
 				DF0346972C0D594000A70B47 /* RootScreenModel.swift in Sources */,
 				DF0346952C0D594000A70B47 /* UserItem.swift in Sources */,
 				DF0346922C0D594000A70B47 /* AuthButton.swift in Sources */,
+				DF8583AC2C0EF3EE0052B6A2 /* ChannelTabViewModel.swift in Sources */,
 				DF0346812C0D594000A70B47 /* BubbleTextView.swift in Sources */,
 				DF03468B2C0D594000A70B47 /* SettingsTabScreen.swift in Sources */,
 				DF0346902C0D594000A70B47 /* AuthHeaderView.swift in Sources */,
@@ -526,6 +541,7 @@
 				DF03469F2C0D595600A70B47 /* MainTabView.swift in Sources */,
 				DF0346822C0D594000A70B47 /* BubbleAudioView.swift in Sources */,
 				DF03468C2C0D594000A70B47 /* SettingsItemView.swift in Sources */,
+				DF8583AA2C0EEF390052B6A2 /* ChannelItem.swift in Sources */,
 				DF03469D2C0D594000A70B47 /* ChatPartnerPickerViewModel.swift in Sources */,
 				DF0346962C0D594000A70B47 /* RootScreen.swift in Sources */,
 				DF03467F2C0D594000A70B47 /* MessageListController.swift in Sources */,
