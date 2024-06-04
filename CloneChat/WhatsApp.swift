@@ -26,9 +26,9 @@ struct WhatsAppCloneApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
-//            RootScreen()
+            RootScreen()
 //            LoginScreen()
-            MainTabView(UserItem.placeholder)
+//            MainTabView(UserItem.placeholder)
 //            MessageListView()
         }
     }

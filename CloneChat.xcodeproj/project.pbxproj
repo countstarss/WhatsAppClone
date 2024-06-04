@@ -57,6 +57,7 @@
 		DF0346A32C0D596C00A70B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF0346A12C0D596C00A70B47 /* Assets.xcassets */; };
 		DF0346A52C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0346A42C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift */; };
 		DF8583A22C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */; };
+		DF8583A52C0DB8360052B6A2 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8583A42C0DB8360052B6A2 /* UserService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +102,7 @@
 		DF0346A12C0D596C00A70B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF0346A42C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedChatPartnerScreen.swift; sourceTree = "<group>"; };
 		DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupSetUpScreen.swift; sourceTree = "<group>"; };
+		DF8583A42C0DB8360052B6A2 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 		DF03461D2C0D583F00A70B47 /* CloneChat */ = {
 			isa = PBXGroup;
 			children = (
+				DF8583A32C0DB8200052B6A2 /* Service */,
 				DF0346472C0D594000A70B47 /* Screens */,
 				DF0346442C0D593900A70B47 /* Helpers */,
 				DF0346412C0D592C00A70B47 /* Utils */,
@@ -393,11 +396,11 @@
 			isa = PBXGroup;
 			children = (
 				DF0346782C0D594000A70B47 /* ChannelItemView.swift */,
-				DF0346792C0D594000A70B47 /* ChannelTabScreen.swift */,
 				DF03467A2C0D594000A70B47 /* ChatPartnerRowView.swift */,
+				DF0346792C0D594000A70B47 /* ChannelTabScreen.swift */,
+				DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */,
 				DF03467B2C0D594000A70B47 /* ChatPartnerPickerScreen.swift */,
 				DF03467C2C0D594000A70B47 /* GroupChatPartnersScreen.swift */,
-				DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */,
 				DF0346A42C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift */,
 			);
 			path = View;
@@ -409,6 +412,14 @@
 				DF03467E2C0D594000A70B47 /* ChatPartnerPickerViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DF8583A32C0DB8200052B6A2 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				DF8583A42C0DB8360052B6A2 /* UserService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -529,6 +540,7 @@
 				DF03469C2C0D594000A70B47 /* GroupChatPartnersScreen.swift in Sources */,
 				DF0346982C0D594000A70B47 /* ChannelItemView.swift in Sources */,
 				DF03468E2C0D594000A70B47 /* SignUpScreen.swift in Sources */,
+				DF8583A52C0DB8360052B6A2 /* UserService.swift in Sources */,
 				DF03461F2C0D583F00A70B47 /* WhatsApp.swift in Sources */,
 				DF0346912C0D594000A70B47 /* LoginScreen.swift in Sources */,
 				DF03468D2C0D594000A70B47 /* SettingsItem.swift in Sources */,

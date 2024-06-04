@@ -17,18 +17,26 @@ struct GroupChatPartnersScreen: View {
             if viewModel.showSelectedUsers {
                 SelectedChatPartnerView(users: viewModel.selectedChatPartners) { user in
                     viewModel.handleItemSelection(user)
+                        
+                }
+                .onTapGesture {
+                    print("Tap")
                 }
             }
             
             Section{
-                ForEach(UserItem.placeholders){item in
+                ForEach(viewModel.users){item in
                     // 使具有选中功能
                     Button{
                         viewModel.handleItemSelection(item)
+                        print("Item Button is Pressed")
                     }label: {
                         chatPartnerRowView(item)
                     }
                 }
+            }
+            if viewModel.isPageinatable{
+                loadMoreUsers()
             }
             
         }
@@ -52,6 +60,15 @@ struct GroupChatPartnersScreen: View {
                 .imageScale(.large)
         }
     }
+    
+    private func loadMoreUsers() -> some View {
+        ProgressView()
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color.clear)
+            .task {
+                await viewModel.fetchUsers()
+            }
+    }
 }
 
 
@@ -68,7 +85,8 @@ extension GroupChatPartnersScreen {
                 let count = viewModel.selectedChatPartners.count
                 // 人数基数
 //                let maxCount = 12
-                let maxCount = ChannelConstants.maxGroupParticipants
+//                let maxCount = ChannelConstants.maxGroupParticipants
+                let maxCount = viewModel.users.count
                 Text("\(count)/\(maxCount)")
                     .foregroundStyle(.gray)
                     .font(.footnote)

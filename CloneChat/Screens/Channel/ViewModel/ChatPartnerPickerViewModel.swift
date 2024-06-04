@@ -18,12 +18,17 @@ enum ChannelConstants{
     static let maxGroupParticipants = 12
 }
 
+@MainActor
 final class ChatPartnerPickerViewModel:ObservableObject {
     // ObservableObject可以让app更加响应式
     // 通过创建ViewModel来协调所有的功能
     @Published var navStack = [ChannelCreationRoute]()
     // 用于选中和取消
     @Published var selectedChatPartners = [UserItem]()
+    // 用于保存
+    @Published private(set) var users = [UserItem]()
+    
+    private var lastCursor : String?
     
     
     
@@ -38,7 +43,30 @@ final class ChatPartnerPickerViewModel:ObservableObject {
         return selectedChatPartners.isEmpty
     }
     
+    var isPageinatable: Bool{
+        return !users.isEmpty
+    }
+    
+    init(){
+        Task{
+            print("FetchUsers")
+            await fetchUsers()
+        }
+    }
+    
     //MARK: - Public Methods
+    
+    func fetchUsers() async {
+        do{
+            let userNode = try await UserService.paginateUsers(lastCursor: lastCursor, pageSize: 10)
+            self.users.append(contentsOf: userNode.users)
+            self.lastCursor = userNode.currentCursor
+            print("💿DEBUG:\(lastCursor) --- userCount :\(users.count)")
+        }catch{
+            print("💿 Failed to fetch user in ChatPartnerPickerViewModel : \(error.localizedDescription)")
+        }
+    }
+    
     func handleItemSelection(_ item:UserItem) {
         if isUserSelected(item) {
             // 如果已经被选中了,那就取消选中 -- deselect

@@ -23,14 +23,20 @@ struct ChatPartnerPickerScreen: View {
                 }
                 
                 Section{
-                    ForEach(0..<10){ _ in
-                        ChatPartnerRowView(user: .placeholder)
+                    ForEach(viewModel.users){ user in
+                        ChatPartnerRowView(user: user)
+                            // 与单个用户创建聊天
                     }
                 }header: {
                     Text("Contact on Whatsapp")
                         .textCase(nil)
                         .bold()
                 }
+                
+                if viewModel.isPageinatable{
+                    loadMoreUsers()
+                }
+                
             }
             .navigationTitle("New Chat")
             .navigationDestination(for: ChannelCreationRoute.self){ route in
@@ -52,6 +58,14 @@ struct ChatPartnerPickerScreen: View {
             }
         }
         
+    }
+    private func loadMoreUsers() -> some View {
+        ProgressView()
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color.clear)
+            .task {
+                await viewModel.fetchUsers()
+            }
     }
 }
 

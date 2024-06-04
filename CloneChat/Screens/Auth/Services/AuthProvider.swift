@@ -132,6 +132,51 @@ extension AuthManager {
     }
 }
 
+
+extension AuthManager{
+    static let testAccount:[String] = [
+        "test1@test.com",
+        "test2@test.com",
+        "test3@test.com",
+        "test4@test.com",
+        "test5@test.com",
+        "test6@test.com",
+        "test7@test.com",
+        "test8@test.com",
+        "test9@test.com",
+        "test10@test.com",
+        "test11@test.com",
+        "test12@test.com",
+        "test13@test.com",
+        "test14@test.com",
+        "test15@test.com",
+        "test16@test.com",
+        "test17@test.com",
+        "test18@test.com",
+        "test19@test.com",
+        "test20@test.com",
+        "test21@test.com",
+        "test22@test.com",
+        "test23@test.com",
+        "test24@test.com",
+        "test25@test.com",
+        "test26@test.com",
+        "test27@test.com",
+        "test28@test.com",
+        "test29@test.com",
+        "test30@test.com",
+        "test31@test.com",
+        "test32@test.com",
+        "test33@test.com",
+        "test34@test.com",
+        "test35@test.com",
+        "test36@test.com",
+        "test37@test.com",
+        "test38@test.com",
+        "test39@test.com",
+        "test40@test.com",
+    ]
+}
 /// 00 将UserItem提取到一个单独的Model文件中
 // 用户模型
 //struct UserItem :Identifiable,Hashable,Decodable{
