@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct ChatRoomScreen: View {
+    let channel : ChannelItem
+    
+    
+    
     var body: some View {
         MessageListView()
         .toolbar(.hidden, for: .tabBar)
@@ -28,8 +32,12 @@ extension ChatRoomScreen{
             HStack{
                 Circle()
                     .frame(width: 35, height: 35)
-                
-                Text("Quser 12")
+                // 本身没有定义title,如果想这样使用,
+                // 就要先使用Firebase获取到当前的user,然后使用filter过滤一下members
+                // 声明title,根据不同的条件返回不同的值,ChannelItem中的name是可选值,所以使用if-binding
+                // 如果是group channel 返回"Group channel"
+                // 如果是direct channel 返回member中的第一个的userName
+                Text(channel.title)
                     .bold()
             }
         }
@@ -55,6 +63,6 @@ extension ChatRoomScreen{
 
 #Preview {
     NavigationStack{
-        ChatRoomScreen()
+        ChatRoomScreen(channel: .placeholder)
     }
 }

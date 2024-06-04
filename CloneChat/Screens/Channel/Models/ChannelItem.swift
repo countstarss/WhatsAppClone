@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 struct ChannelItem :Identifiable{
     var id:String
@@ -21,6 +22,22 @@ struct ChannelItem :Identifiable{
     
     var isGroupChat: Bool {
         return membersCount > 2
+    }
+    // 下面代码的目的是给ChatRoomScreen提供title接口
+    var membersExcludingMe : [UserItem]{
+        guard let currentUid = Auth.auth().currentUser?.uid else{ return [] }
+        return members.filter{ $0.uid != currentUid }
+    }
+    
+    var title :String{
+        if let name = name {
+            return name
+        }
+        if isGroupChat{
+            return "Group Chat"
+        }else{
+            return membersExcludingMe.first?.username ?? ""
+        }
     }
     
     static let placeholder = ChannelItem.init(

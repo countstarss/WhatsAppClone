@@ -220,9 +220,9 @@
 			children = (
 				DF03464A2C0D594000A70B47 /* MessageListController.swift */,
 				DF03464B2C0D594000A70B47 /* MessageListView.swift */,
-				DF03464C2C0D594000A70B47 /* Bubble */,
 				DF0346512C0D594000A70B47 /* ChatRoomScreen.swift */,
 				DF0346522C0D594000A70B47 /* TextInputArea.swift */,
+				DF03464C2C0D594000A70B47 /* Bubble */,
 			);
 			path = View;
 			sourceTree = "<group>";

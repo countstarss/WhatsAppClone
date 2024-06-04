@@ -52,6 +52,11 @@ final class ChatPartnerPickerViewModel:ObservableObject {
         return !users.isEmpty
     }
     
+    // 判断是否Direct Channel
+    private var isDirectChannel :Bool {
+        return selectedChatPartners.count == 1
+    }
+    
     init(){
         Task{
             print("FetchUsers")
@@ -132,13 +137,20 @@ final class ChatPartnerPickerViewModel:ObservableObject {
         membersUids.forEach{ userId in
             // keeping an index of the channel that a specific user belongs to
             FirebaseConstants.UserChannelRef.child(userId).child(channelId).setValue(true)
-            // make sure that a direct channel is unique
-            FirebaseConstants.UserDirectChannels.child(userId).child(channelId).setValue(true)
         }
         
         // 存储用户所属的direct channel
+        if isDirectChannel{
+            let chatPartner = selectedChatPartners[0]
+            // 这两个是创建Channel的uid,用户和另外一个用户
+            // child(currentUid)
+            // child(chatPartner.uid)
+            FirebaseConstants.UserDirectChannels.child(currentUid).child(chatPartner.uid).setValue([channelId : true])
+            FirebaseConstants.UserDirectChannels.child(chatPartner.uid).child(currentUid).setValue([channelId : true])
+        }
         
-        let newChannelItem = ChannelItem(channelDict)
+        var newChannelItem = ChannelItem(channelDict)
+        newChannelItem.members = selectedChatPartners
         return .success(newChannelItem)
         
     }
