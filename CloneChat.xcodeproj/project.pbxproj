@@ -103,6 +103,7 @@
 		DF0346A42C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedChatPartnerScreen.swift; sourceTree = "<group>"; };
 		DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupSetUpScreen.swift; sourceTree = "<group>"; };
 		DF8583A42C0DB8360052B6A2 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		DF8583A72C0EEE6B0052B6A2 /* DatabaseDesignPrinciple.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DatabaseDesignPrinciple.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +146,7 @@
 		DF03461D2C0D583F00A70B47 /* CloneChat */ = {
 			isa = PBXGroup;
 			children = (
+				DF8583A72C0EEE6B0052B6A2 /* DatabaseDesignPrinciple.md */,
 				DF8583A32C0DB8200052B6A2 /* Service */,
 				DF0346472C0D594000A70B47 /* Screens */,
 				DF0346442C0D593900A70B47 /* Helpers */,
