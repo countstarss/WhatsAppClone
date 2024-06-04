@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Firebase
 
 enum ChannelCreationRoute{
     case groupPartnerPicker
@@ -58,10 +58,13 @@ final class ChatPartnerPickerViewModel:ObservableObject {
     
     func fetchUsers() async {
         do{
+            // 在获取数据的时候,过滤掉当前的用户
             let userNode = try await UserService.paginateUsers(lastCursor: lastCursor, pageSize: 10)
-            self.users.append(contentsOf: userNode.users)
+            var fetchUsers = userNode.users
+            guard let currentUid = Auth.auth().currentUser?.uid else { return }
+            fetchUsers = fetchUsers.filter { $0.uid != currentUid}
+            self.users.append(contentsOf: fetchUsers)
             self.lastCursor = userNode.currentCursor
-            print("💿DEBUG:\(lastCursor) --- userCount :\(users.count)")
         }catch{
             print("💿 Failed to fetch user in ChatPartnerPickerViewModel : \(error.localizedDescription)")
         }

@@ -16,10 +16,11 @@ struct ChatPartnerPickerScreen: View {
         NavigationStack(path: $viewModel.navStack){
             List{
                 ForEach(ChatPartnerPickerOption.allCases){ item in
-                    HeaderItemView(item: item)
-                        .onTapGesture {
-                            viewModel.navStack.append(.groupPartnerPicker)
-                        }
+                    HeaderItemView(item: item){
+                        // 如果item不是newGroup,--自动忽略--
+                        guard item == ChatPartnerPickerOption.newGroup else { return }
+                        viewModel.navStack.append(.groupPartnerPicker)
+                    }
                 }
                 
                 Section{
@@ -115,10 +116,11 @@ extension ChatPartnerPickerScreen{
     private struct HeaderItemView : View {
         
         let item : ChatPartnerPickerOption
+        let opTapHandler: () -> Void
         
         var body: some View{
             Button{
-                
+                opTapHandler()
             }label: {
                 ButtonBody()
             }
@@ -139,6 +141,7 @@ extension ChatPartnerPickerScreen{
     }
 }
 
+// 这个是三个选项,分别通向不同的地方
 enum ChatPartnerPickerOption: String,CaseIterable,Identifiable{
     case newGroup = "New Group"
     case newContact = "New Contact"
