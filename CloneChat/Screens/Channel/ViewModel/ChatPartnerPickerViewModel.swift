@@ -32,6 +32,8 @@ final class ChatPartnerPickerViewModel:ObservableObject {
     @Published var selectedChatPartners = [UserItem]()
     // 用于保存
     @Published private(set) var users = [UserItem]()
+    //
+    @Published var errorState: (showError :Bool , errorMessage :String) = (false,"Uh Oh")
     // 保存第一个作为指针
     private var lastCursor : String?
     
@@ -93,6 +95,11 @@ final class ChatPartnerPickerViewModel:ObservableObject {
             guard let index = selectedChatPartners.firstIndex(where: { $0.uid == item.uid }) else { return }
             selectedChatPartners.remove(at: index)
         }else{
+            guard selectedChatPartners.count < ChannelConstants.maxGroupParticipants else {
+                let errorMessage = "Sorry ,we only allow maxumum of \(ChannelConstants.maxGroupParticipants) particapants in a group chat"
+                showError(errorMessage)
+                return
+            }
             // 如果没有被选中,那就选择
             // selectedChatPartners是一个被选中的UserItem数组
             selectedChatPartners.append(item)
@@ -109,14 +116,45 @@ final class ChatPartnerPickerViewModel:ObservableObject {
     func createDirectChannel(chatPartner : UserItem,completion:@escaping (_ newChannel: ChannelItem) -> Void){
         // 下面是很关键的一步,把选中user添加到selectedChatPartners中
         selectedChatPartners.append(chatPartner)
-        let channerCreation = createChannel(nil)
-        switch channerCreation{
-        case .success(let channel):
-            completion(channel)
-        case .failure(let failure):
-            print("💿 Failure to create a direct channel\(failure.localizedDescription)")
+        
+        Task{
+            if let channelId = await vertifyIfDirectChannelExists(with: chatPartner.uid){
+                // 如果已经存在,get the channel
+                let snapshot = try await FirebaseConstants.ChannelRef.child(channelId).getData()
+                let channelDict = snapshot.value as! [String : Any]
+                var directChannel = ChannelItem(channelDict)
+                directChannel.members = selectedChatPartners
+                // completion是在程序执行完之后执行的程序
+                completion(directChannel)
+            }else{
+                // create a new directMessage tith the user
+                let channerCreation = createChannel(nil)
+                switch channerCreation{
+                case .success(let channel):
+                    completion(channel)
+                case .failure(let failure):
+                    showError("Sorry, something wrong when creating a direct channel")
+                    print("💿 Failure to create a direct channel\(failure.localizedDescription)")
+                }
+            }
         }
     }
+    
+    // 验证是否已经存在此会话,如果存在,那么就不创建channel,而是导航到已经创建的chat
+    // 实际上realtime Database 不会重复生成,我们需要判断出来然后导航到目标Screen
+    typealias ChannelId = String
+    private func vertifyIfDirectChannelExists(with chatPartnerId :String ) async -> ChannelId? {
+        guard let currentUid = Auth.auth().currentUser?.uid,
+              let snapshot = try? await FirebaseConstants.UserChannelRef.child(currentUid).child(chatPartnerId).getData(),
+              snapshot.exists()
+        else { return nil }
+        
+        let directMessageDict = snapshot.value as! [String : Bool]
+        let channelId = directMessageDict.compactMap{ $0.key }.first
+        print("🥳DEBUG: channelId is \(String(describing: channelId))")
+        return channelId
+    }
+    
     
     func createGroupChannel(_ groupName:String?,completion:@escaping (_ newChannel: ChannelItem) -> Void){
         let channerCreation = createChannel(groupName)
@@ -124,8 +162,15 @@ final class ChatPartnerPickerViewModel:ObservableObject {
         case .success(let channel):
             completion(channel)
         case .failure(let failure):
+            showError("Sorry, something wrong when creating a group channel")
             print("💿 Failure to create a group channel\(failure.localizedDescription)")
         }
+    }
+    
+    //MARK: - Private Function
+    private func showError(_ errorMessage: String) {
+        errorState.errorMessage = errorMessage
+        errorState.showError = true
     }
     
     //MARK: - CreateChannel common method
@@ -135,7 +180,7 @@ final class ChatPartnerPickerViewModel:ObservableObject {
         //
         guard !selectedChatPartners.isEmpty else { return .failure(ChannelCreationError.noChatPartner) }
         
-        guard let channelId = FirebaseConstants.ChannerRef.childByAutoId().key,
+        guard let channelId = FirebaseConstants.ChannelRef.childByAutoId().key,
               let currentUid = Auth.auth().currentUser?.uid,
               let messageId = FirebaseConstants.MessageRef.childByAutoId().key
         else{ return .failure(ChannelCreationError.failedToCreateIds) }
@@ -161,7 +206,9 @@ final class ChatPartnerPickerViewModel:ObservableObject {
             .createdBy: currentUid
                 
         ]
-        if let channelname = channelName{
+        
+        if let channelname = (channelName?.isEmptyorWhiteSpace)! ? channelName : nil {
+            print("channelname is vaild : \(channelname)")
             channelDict[.name] = channelname
         }
         
@@ -176,7 +223,7 @@ final class ChatPartnerPickerViewModel:ObservableObject {
         // ------ 需要存储的东西 ------
         // channel - 存储channelDict
         // 只有一层结构,每新建一个对话,就存储一个channel
-        FirebaseConstants.ChannerRef.child(channelId).setValue(channelDict)
+        FirebaseConstants.ChannelRef.child(channelId).setValue(channelDict)
         // 两层结构,message文件夹里,每个Channel有一个message文件夹,里边包含所有人的message记录
         FirebaseConstants.MessageRef.child(channelId).child(messageId).setValue(messageDict)
         

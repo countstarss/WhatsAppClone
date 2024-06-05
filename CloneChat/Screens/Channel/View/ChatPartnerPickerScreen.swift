@@ -61,6 +61,16 @@ struct ChatPartnerPickerScreen: View {
                     }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .alert(isPresented: $viewModel.errorState.showError){
+                // 添加错误提醒,出发条件是viewModel.errorState.showError
+                // 如果想要触发报错,那么就需要在可能发生错误的地方设置判断条件,最好用guard
+                // 发生错误就将viewModel.errorState.showError改为true
+                Alert(
+                    title: Text("Uh Oh 🙅🏻"),
+                    message: Text(viewModel.errorState.errorMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
             .searchable(
                 text: $searchText,
                 placement: .navigationBarDrawer(

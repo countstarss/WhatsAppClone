@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewGroupSetUpScreen: View {
-    @State private var channelName = ""
+    @State private var channelName  = ""
     @ObservedObject var viewModel = ChatPartnerPickerViewModel()
     var onCreate:(_ newChannel:ChannelItem) -> Void
     
