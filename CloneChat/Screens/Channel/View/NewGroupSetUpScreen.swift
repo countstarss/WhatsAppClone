@@ -10,6 +10,7 @@ import SwiftUI
 struct NewGroupSetUpScreen: View {
     @State private var channelName = ""
     @ObservedObject var viewModel = ChatPartnerPickerViewModel()
+    var onCreate:(_ newChannel:ChannelItem) -> Void
     
     var body: some View {
             List{
@@ -50,7 +51,7 @@ struct NewGroupSetUpScreen: View {
             TextField(
                 "",
                 text: $channelName,
-                prompt: Text("Group Name (optional)"),
+                prompt: Text("Group Name"),
                 axis: .vertical
             )
         }
@@ -75,7 +76,7 @@ struct NewGroupSetUpScreen: View {
     private func trailingNavItem() -> some ToolbarContent{
         ToolbarItem(placement:.topBarTrailing){
             Button{
-                
+                viewModel.createGroupChannel(channelName, completion: onCreate)
             }label: {
                 Text("Create")
                     .bold()
@@ -87,6 +88,8 @@ struct NewGroupSetUpScreen: View {
 
 #Preview {
     NavigationStack{
-        NewGroupSetUpScreen(viewModel: ChatPartnerPickerViewModel())
+        NewGroupSetUpScreen(viewModel: ChatPartnerPickerViewModel()){ _ in
+             
+        }
     }
 }

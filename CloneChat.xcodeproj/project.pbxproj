@@ -56,6 +56,7 @@
 		DF0346A22C0D596C00A70B47 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF0346A02C0D596C00A70B47 /* GoogleService-Info.plist */; };
 		DF0346A32C0D596C00A70B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF0346A12C0D596C00A70B47 /* Assets.xcassets */; };
 		DF0346A52C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0346A42C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift */; };
+		DF4FCB662C0FE8A6008883AE /* MessageItems+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4FCB652C0FE8A6008883AE /* MessageItems+Types.swift */; };
 		DF8583A22C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */; };
 		DF8583A52C0DB8360052B6A2 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8583A42C0DB8360052B6A2 /* UserService.swift */; };
 		DF8583AA2C0EEF390052B6A2 /* ChannelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8583A92C0EEF390052B6A2 /* ChannelItem.swift */; };
@@ -104,6 +105,7 @@
 		DF0346A02C0D596C00A70B47 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF0346A12C0D596C00A70B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF0346A42C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedChatPartnerScreen.swift; sourceTree = "<group>"; };
+		DF4FCB652C0FE8A6008883AE /* MessageItems+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageItems+Types.swift"; sourceTree = "<group>"; };
 		DF8583A12C0D7B4C0052B6A2 /* NewGroupSetUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupSetUpScreen.swift; sourceTree = "<group>"; };
 		DF8583A42C0DB8360052B6A2 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		DF8583A72C0EEE6B0052B6A2 /* DatabaseDesignPrinciple.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DatabaseDesignPrinciple.md; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				DF0346542C0D594000A70B47 /* MessageItem.swift */,
+				DF4FCB652C0FE8A6008883AE /* MessageItems+Types.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				DF0346862C0D594000A70B47 /* TextInputArea.swift in Sources */,
 				DF03469B2C0D594000A70B47 /* ChatPartnerPickerScreen.swift in Sources */,
 				DF0346992C0D594000A70B47 /* ChannelTabScreen.swift in Sources */,
+				DF4FCB662C0FE8A6008883AE /* MessageItems+Types.swift in Sources */,
 				DF0346832C0D594000A70B47 /* BubbleImageView.swift in Sources */,
 				DF0346882C0D594000A70B47 /* CommunityTabScreen.swift in Sources */,
 				DF0346852C0D594000A70B47 /* ChatRoomScreen.swift in Sources */,

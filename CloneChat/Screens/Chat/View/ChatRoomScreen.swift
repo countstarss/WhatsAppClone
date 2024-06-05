@@ -9,9 +9,6 @@ import SwiftUI
 
 struct ChatRoomScreen: View {
     let channel : ChannelItem
-    
-    
-    
     var body: some View {
         MessageListView()
         .toolbar(.hidden, for: .tabBar)

@@ -35,15 +35,11 @@ struct ChatPartnerPickerScreen: View {
                             // 与单个用户创建聊天
                             .onTapGesture{
 //                                onCreate(.placeholder)
-                                viewModel.selectedChatPartners.append(user)
-                                let createChannel = viewModel.createChannel(nil)
-                                switch createChannel{
-                                case .success(let channelItem):
-                                    onCreate(channelItem)
-                                case .failure(let error):
-                                    //
-                                    print("💿Failed to create channel : \(error.localizedDescription)")
-                                }
+                                // 将添加user逻辑放到函数createDirectChannel中
+                                viewModel.createDirectChannel(
+                                    chatPartner: user,
+                                    completion: onCreate
+                                )
                             }
                     }
                 }header: {
@@ -75,6 +71,9 @@ struct ChatPartnerPickerScreen: View {
             .toolbar{
                 trailingNavItem()
             }
+            .onAppear{
+                viewModel.deSelectAllChatPartners()
+            }
         }
         
     }
@@ -97,8 +96,7 @@ extension ChatPartnerPickerScreen{
         case .groupPartnerPicker:
             GroupChatPartnersScreen(viewModel: viewModel)
         case .setUpGroupChat:
-            NewGroupSetUpScreen(viewModel: viewModel)
-//            Text("SET UP GROUP CHAT")
+            NewGroupSetUpScreen(viewModel: viewModel,onCreate: onCreate)
         }
         
     }

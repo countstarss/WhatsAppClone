@@ -14,11 +14,12 @@ struct ChannelItem :Identifiable{
     var lastMessage :String
     var creationDate :Date
     var lastMessageTimeStmp:Date
-    var membersCount:UInt
+    var membersCount:Int
     var adminUids: [String]
     var membersUids :[String]
     var members : [UserItem] //fetch
     var thumbnailUrl :String?
+    let createdBy :String
     
     var isGroupChat: Bool {
         return membersCount > 2
@@ -34,10 +35,26 @@ struct ChannelItem :Identifiable{
             return name
         }
         if isGroupChat{
-            return "Group Chat"
+            return groupMembersNames
         }else{
-            return membersExcludingMe.first?.username ?? ""
+            return membersExcludingMe.first?.username ?? "UnKnown"
         }
+        
+        
+    }
+    
+    private var groupMembersNames:String {
+        let membersCount = membersExcludingMe.count
+        let fullNames :[String] = membersExcludingMe.map{ $0.username }
+        
+        if membersCount == 2 {
+            return fullNames.joined(separator: " and ")
+        }else if membersCount > 2 {
+            // example : luke, jonas, and 4 others
+            let remainingCount =  membersCount - 2
+            return fullNames.prefix(2).joined(separator: ", ") + ", and \(remainingCount) " + "others"
+        }
+        return "UnKnown"
     }
     
     static let placeholder = ChannelItem.init(
@@ -48,7 +65,8 @@ struct ChannelItem :Identifiable{
         membersCount: 2,
         adminUids: [],
         membersUids: [],
-        members: []
+        members: [],
+        createdBy: ""
     )
 }
 
@@ -65,11 +83,12 @@ extension ChannelItem {
         let lastMsgTimeStmpInterval = dict[.lastMessageTimeStmp] as? Double ?? 0
         self.lastMessageTimeStmp = Date(timeIntervalSince1970: lastMsgTimeStmpInterval)
         
-        self.membersCount = dict[.membersCount] as? UInt ?? 0
+        self.membersCount = dict[.membersCount] as? Int ?? 0
         self.adminUids = dict[.adminUids] as? [String] ?? []
         self.thumbnailUrl = dict[.thumbnailUrl] as? String ?? nil
         self.membersUids = dict[.membersUids] as? [String] ?? []
         self.members = dict[.members] as? [UserItem] ?? []
+        self.createdBy = dict[.createdBy] as? String ?? ""
     }
 }
 
@@ -84,4 +103,6 @@ extension String{
     static let membersUids = "membersUids"
     static let thumbnailUrl = "thumbnailUrl"
     static let members = "members"
+    static let createdBy = "createdBy"
+    
 }

@@ -52,15 +52,11 @@ struct MessageItem:Identifiable{
     
 }
 
-enum MessageDirection{
-    case sent,received
-    
-    static var random : MessageDirection {
-        return [MessageDirection.sent ,.received].randomElement() ?? .sent
-    }
-}
+// 将enum类型全部迁移到Types文件中
 
-enum MessageType {
-    case text,photo,video
-    case audio
+// 这样主要是为了防止拼写错误,将String作为String选项不容易出错
+extension String{
+    static let type = "type"
+    static let timeStmp = "timeStmp"
+    static let ownerUid = "ownerUid"
 }
