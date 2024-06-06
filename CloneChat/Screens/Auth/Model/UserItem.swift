@@ -43,7 +43,7 @@ struct UserItem :Identifiable,Hashable,Decodable{
 }
 
 
-// 字典映射
+// 字典映射 -- PaginateUser获取的User信息的模板
 extension UserItem{
     init(dictionary :[String : Any]) {
         self.uid = dictionary[.uid] as? String ?? ""

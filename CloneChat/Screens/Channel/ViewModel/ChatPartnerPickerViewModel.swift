@@ -32,7 +32,7 @@ final class ChatPartnerPickerViewModel:ObservableObject {
     @Published var selectedChatPartners = [UserItem]()
     // 用于保存
     @Published private(set) var users = [UserItem]()
-    //
+    // Error
     @Published var errorState: (showError :Bool , errorMessage :String) = (false,"Uh Oh")
     // 保存第一个作为指针
     private var lastCursor : String?
@@ -144,8 +144,9 @@ final class ChatPartnerPickerViewModel:ObservableObject {
     // 实际上realtime Database 不会重复生成,我们需要判断出来然后导航到目标Screen
     typealias ChannelId = String
     private func vertifyIfDirectChannelExists(with chatPartnerId :String ) async -> ChannelId? {
+        print("Vertify")
         guard let currentUid = Auth.auth().currentUser?.uid,
-              let snapshot = try? await FirebaseConstants.UserChannelRef.child(currentUid).child(chatPartnerId).getData(),
+              let snapshot = try? await FirebaseConstants.UserDirectChannels.child(currentUid).child(chatPartnerId).getData(),
               snapshot.exists()
         else { return nil }
         
@@ -207,7 +208,11 @@ final class ChatPartnerPickerViewModel:ObservableObject {
                 
         ]
         
-        if let channelname = (channelName?.isEmptyorWhiteSpace)! ? channelName : nil {
+//        if let channelname = ((channelName?.isEmptyorWhiteSpace) != nil) ? channelName : nil {
+//            print("channelname is vaild : \(channelname)")
+//            channelDict[.name] = channelname
+//        }
+        if let channelname = channelName{
             print("channelname is vaild : \(channelname)")
             channelDict[.name] = channelname
         }

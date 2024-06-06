@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ChannelTabScreen: View {
     @State private var searchText:String = ""
-    
     @StateObject private var viewModel = ChannelTabViewModel()
     var body: some View {
         NavigationStack{
@@ -17,11 +16,11 @@ struct ChannelTabScreen: View {
                 archivedButton()
                     .padding(.horizontal)
                 
-                ForEach(0..<5){_ in
+                ForEach(viewModel.channels){channel in
                     NavigationLink{
-                        ChatRoomScreen(channel: .placeholder)
+                        ChatRoomScreen(channel: channel)
                     }label:{
-                        ChannelItemView()
+                        ChannelItemView(channel: channel)
                     }
                 }
                 inboxFooterView()
@@ -47,6 +46,10 @@ struct ChannelTabScreen: View {
                 if let newChannel = viewModel.newChannel{
                     ChatRoomScreen(channel: newChannel)
                 }
+            }
+            .refreshable {
+//                viewModel.channels.removeAll()
+//                viewModel.fetchCurrentUserChannels()
             }
         }
     }
