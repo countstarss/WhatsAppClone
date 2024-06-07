@@ -15,6 +15,9 @@ final class ChannelTabViewModel: ObservableObject {
     @Published var newChannel: ChannelItem?
     @Published var showChatPartnerPickerScreen = false
     @Published var channels = [ChannelItem]()
+    // channelDictionary用来存放所有的channel
+    typealias ChannelId = String
+    @Published var channelDictionary : [ChannelId: ChannelItem] = [:]
     
     func onNewChannelCreation(_ channel:ChannelItem) {
         showChatPartnerPickerScreen = false
@@ -53,7 +56,9 @@ final class ChannelTabViewModel: ObservableObject {
             var channel = ChannelItem(dict)
             self?.getChannelMembers(channel) { members in
                 channel.members = members
-                self?.channels.append(channel)
+                self?.channelDictionary[channelId] = channel
+                self?.reloadData()
+//                self?.channels.append(channel)
             }
         } withCancel: { error in
             print("🙅🏻 Failed to get the channel for id \(channelId) :\(error.localizedDescription)")
@@ -61,9 +66,16 @@ final class ChannelTabViewModel: ObservableObject {
     }
     
     func getChannelMembers(_ channel: ChannelItem, completion: @escaping (_ members: [UserItem])-> Void){
-        UserService.getUser(with: channel.membersUids) { userNode in
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        let channelMemberUids = Array(channel.membersUids.filter{$0 != currentUid}.prefix(2))
+        UserService.getUser(with: channelMemberUids) { userNode in
             completion(userNode.users) // 得到的是[UserItem]
         }
+    }
+    
+    private func reloadData() {
+        self.channels = Array(channelDictionary.values)
+        self.channels.sort{ $0.lastMessageTimeStmp > $1.lastMessageTimeStmp }
     }
 }
 

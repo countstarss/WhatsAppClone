@@ -49,7 +49,7 @@ struct ChannelTabScreen: View {
             }
             .refreshable {
 //                viewModel.channels.removeAll()
-//                viewModel.fetchCurrentUserChannels()
+                viewModel.fetchCurrentUserChannels()
             }
         }
     }
