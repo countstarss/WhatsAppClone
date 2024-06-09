@@ -56,6 +56,7 @@ struct MessageItem:Identifiable{
 
 // 这样主要是为了防止拼写错误,将String作为String选项不容易出错
 extension String{
+    static let text = "text"
     static let type = "type"
     static let timeStmp = "timeStmp"
     static let ownerUid = "ownerUid"

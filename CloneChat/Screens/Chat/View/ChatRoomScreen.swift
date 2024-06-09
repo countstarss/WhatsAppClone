@@ -9,6 +9,20 @@ import SwiftUI
 
 struct ChatRoomScreen: View {
     let channel : ChannelItem
+    @StateObject private var viewModel :ChatRoomViewModel
+    
+    // 使用依赖注入的方式将 ChatRoomViewModel 实例注入到视图中
+    init(channel: ChannelItem) {
+        self.channel = channel
+        // 依赖注入
+        // 将viewModel传入
+        _viewModel = StateObject(wrappedValue: ChatRoomViewModel(channel: channel))
+    }
+
+    // 生命周期：@StateObject状态由SwiftUI管理，确保对象的生命周期与视图的生命周期保持一致。当视图被重新创建时（例如在视图树中被移动或被删除再添加）
+    // @StateObject: 会重新创建对象实例。
+    // 使用场景：适用于需要在多个视图之间共享的状态或者复杂的对象状态。
+    
     var body: some View {
         MessageListView()
         .toolbar(.hidden, for: .tabBar)
@@ -17,7 +31,9 @@ struct ChatRoomScreen: View {
             trailingNavItem()
         }
         .safeAreaInset(edge: .bottom) {
-            TextInputArea()
+            TextInputArea(textMessage: $viewModel.textMessage){
+                viewModel.sendMessage()
+            }
         }
     }
 }

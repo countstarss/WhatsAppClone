@@ -11,6 +11,7 @@ import Firebase
 // 使用final 将其设置为静态类
 final class ChannelTabViewModel: ObservableObject {
     
+    
     @Published var navigateToChatRoom = false
     @Published var newChannel: ChannelItem?
     @Published var showChatPartnerPickerScreen = false

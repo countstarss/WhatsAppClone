@@ -9,21 +9,28 @@ import SwiftUI
 
 struct TextInputArea: View {
     
-    @State private var messageText : String = ""
+    @Binding var textMessage : String
+    private var disableSendButton : Bool {
+        return !textMessage.isEmptyorWhiteSpace!
+    }
+    let onSendHandle :() -> Void
+    
     var body: some View {
         HStack(alignment:.bottom,spacing:5){
             imagePickerButton()
             audioRecorderButton()
             messageTextField()
             sendMessageButton()
+                .disabled(disableSendButton)
+                .grayscale(disableSendButton ? 1 : 0)
         }
         .padding(.horizontal,4)
-        .padding(.bottom,10)
+        .padding(.vertical,15)
         .background(.whatsAppWhite)
     }
     
     private func messageTextField() -> some View{
-        TextField("",text: $messageText)
+        TextField("",text: $textMessage)
             .frame(width: 280,height: 30)
             .padding(.leading,10)
             .background(
@@ -53,21 +60,22 @@ struct TextInputArea: View {
     
     private func sendMessageButton() -> some View{
         Button{
-            
+            onSendHandle()
         }label: {
             Image(systemName: "arrow.up")
                 .fontWeight(.heavy)
                 .imageScale(.small)
                 .foregroundStyle(.white)
                 .padding(6)
-                .background(Color(.systemGray))
+                .background(Color(.systemBlue))
                 .clipShape(Circle())
         }
+        
     }
     
     private func audioRecorderButton() -> some View{
         Button{
-            
+            onSendHandle()
         }label: {
             Image(systemName: "mic.fill")
                 .fontWeight(.heavy)
@@ -81,5 +89,11 @@ struct TextInputArea: View {
 }
 
 #Preview {
-    TextInputArea()
+    ZStack{
+        Color.white
+        
+        TextInputArea(textMessage: .constant("")){
+            
+        }
+    }
 }

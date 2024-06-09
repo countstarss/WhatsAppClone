@@ -48,7 +48,7 @@ extension AuthError: LocalizedError {
 }
 
 
-// Singleten 单例
+//MARK: - Singleten 单例
 final class AuthManager:AuthProvider {
     
     private init(){
