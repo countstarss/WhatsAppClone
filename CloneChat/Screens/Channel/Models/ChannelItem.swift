@@ -18,7 +18,7 @@ struct ChannelItem :Identifiable{
     var adminUids: [String]
     var membersUids :[String]
     var members : [UserItem] //fetch
-    var thumbnailUrl :String?
+    private var thumbnailUrl :String?
     let createdBy :String
     
     var isGroupChat: Bool {
@@ -41,6 +41,7 @@ struct ChannelItem :Identifiable{
         }
     }
     
+    //MARK: - 以下两个用于添加AdminMessage
     var isCreatedByMe: Bool {
         return createdBy == Auth.auth().currentUser?.uid ?? ""
     }
@@ -48,6 +49,20 @@ struct ChannelItem :Identifiable{
     var creatorName: String {
         // 这快有点问题，找不到实际的创建者
         return members.first {$0.uid == createdBy}?.username ?? "Someone"
+    }
+    
+    // 对thumbnailUrl进行进一步封装，实现判断功能
+    var coverImageUrl:String? {
+        if let thumbnailUrl{
+            return thumbnailUrl
+        }
+        
+        if isGroupChat == false {
+            // 如果不是群聊，那么直接返回除了我之外的另外一个人的profileImageView
+            return membersExcludingMe.first?.profileImageUrl
+        }
+        
+        return nil
     }
     
     private var groupMembersNames:String {
