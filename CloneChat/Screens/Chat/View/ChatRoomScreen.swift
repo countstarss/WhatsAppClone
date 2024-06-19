@@ -24,7 +24,7 @@ struct ChatRoomScreen: View {
     // 使用场景：适用于需要在多个视图之间共享的状态或者复杂的对象状态。
     
     var body: some View {
-        MessageListView()
+        MessageListView(viewModel: viewModel)
         .toolbar(.hidden, for: .tabBar)
         .toolbar{
             leadingNavItem()

@@ -36,4 +36,21 @@ struct MessageSeverce {
         
         completion()
     }
+    
+    static func getMessages(for channel :ChannelItem,completion: @escaping([MessageItem])-> Void) {
+        FirebaseConstants.MessageRef.child(channel.id).observe(.value){ snapshot in
+            var messages : [MessageItem] = [MessageItem]()
+            guard let dict = snapshot.value as? [String:Any] else { return }
+            dict.forEach { key,value in
+                let messageDict = value as? [String: Any] ?? [:]
+                let message = MessageItem(id: key, dict: messageDict)
+                messages.append(message)
+//                print("MessageDict:\(messageDict)")
+                // 使用completion将调用这个函数的函数所需要的变量传过去！
+                completion(messages)
+            }
+        }withCancel: { error in
+            print("Failed to get message for \(channel.title),error :\(error.localizedDescription)")
+        }
+    }
 }

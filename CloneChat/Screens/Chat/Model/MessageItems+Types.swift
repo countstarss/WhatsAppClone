@@ -17,12 +17,13 @@ enum AdminMessageType:String{
 enum MessageDirection{
     case sent,received
     
+    // 静态方法，链式调用
     static var random : MessageDirection {
         return [MessageDirection.sent ,.received].randomElement() ?? .sent
     }
 }
 
-enum MessageType {
+enum MessageType :String{
     case text,photo,video,audio
     
     var title:String {
@@ -35,6 +36,23 @@ enum MessageType {
             return "video"
         case .audio:
             return "audio"
+        }
+    }
+    
+    //MARK: - 使用外部字符串初始化MessageType
+    //功能： 本来MessageType是需要传入enum类型的，通过这个初始化，可以传入字符串，自动返回enum类型
+    init(_ stringVlue :String) {
+        switch stringVlue {
+        case "text":
+            self = .text
+        case "photo":
+            self = .photo
+        case "video":
+            self = .video
+        case "audio":
+            self = .audio
+        default:
+            self = .text
         }
     }
 }
