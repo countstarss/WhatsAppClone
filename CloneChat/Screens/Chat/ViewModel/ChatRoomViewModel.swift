@@ -13,7 +13,8 @@ final class ChatRoomViewModel:ObservableObject{
     @Published var textMessage = ""
     // 在MessageSevercve中创建的messages只是一个临时的，我们需要在这里创建messages来保存
     @Published var messages : [MessageItem] = [MessageItem]()
-    private let channel:ChannelItem
+    // private(set) var 让外部也能访问到channel
+    private(set) var channel:ChannelItem
     
     // AnyCancellable <关键点>
     // Set<AnyCancellable>：在视图模型中，我们通常使用一个集合来存储 AnyCancellable 实例，以便在视图模型的生命周期内保持订阅有效。

@@ -20,7 +20,7 @@ struct BubbleTailView: View {
             .renderingMode(.template)
             .resizable()
             .frame(width: 10, height: 10)
-//            .offset(x:direction == .sent ? 5 : -5,y:3)
+            .offset(x:direction == .sent ? -2 : 2)
             .offset(y:1)
             .foregroundStyle(backgroundColor)
             .rotationEffect(.degrees(item.degree))

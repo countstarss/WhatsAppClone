@@ -26,6 +26,7 @@ struct MessageItem:Identifiable{
         type:.text,
         ownerUid: "send",
         timeStmp: Date()
+//        direction: .sent
     )
     static var receivePlaceHolder = MessageItem(
         id:UUID().uuidString,
@@ -53,6 +54,8 @@ struct MessageItem:Identifiable{
     }
     
     // 静态资源,可以通过struct MessageItem调用
+    
+    // 不使用 init()：适用于简单的静态属性或常量，可以直接在定义时进行赋值。这样做简洁明了，并且适用于不需要额外初始化逻辑的情况。
     static let stubMessage: [MessageItem] = [
         MessageItem(id: UUID().uuidString,text: "Hi,there", type: .text,ownerUid: "send", timeStmp: Date()),
         MessageItem(id: UUID().uuidString,text: "check out this photo", type: .photo,ownerUid: "receive", timeStmp: Date()),
@@ -70,7 +73,7 @@ extension MessageItem {
         self.id = id
         self.text = dict[.text] as? String ?? ""
         let type = dict[.type] as? String ?? "text"
-        self.type = MessageType(type)
+        self.type = MessageType(type) ?? .text
         self.ownerUid = dict[.ownerUid] as? String ?? ""
         
         let timeInterval = dict[.timeStmp] as? TimeInterval ?? 0

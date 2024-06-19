@@ -122,5 +122,12 @@ struct BubbleImageView: View {
 
 
 #Preview {
-    BubbleImageView(item: .sentPlaceHolder)
+    ZStack{
+        Color.black
+        
+        VStack{
+            BubbleImageView(item: .sentPlaceHolder)
+            BubbleImageView(item: .receivePlaceHolder)
+        }
+    }
 }

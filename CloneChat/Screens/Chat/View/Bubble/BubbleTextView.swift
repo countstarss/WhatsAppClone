@@ -54,5 +54,5 @@ struct BubbleTextView: View {
         BubbleTextView(item: .stubMessage[1])
     }
 //    .frame(maxWidth: .infinity)
-    .background(Color(.systemGray5))
+    .background(Color(.systemGray3))
 }
