@@ -45,7 +45,7 @@ struct MessageSeverce {
                 let messageDict = value as? [String: Any] ?? [:]
                 let message = MessageItem(id: key, dict: messageDict)
                 messages.append(message)
-//                print("MessageDict:\(messageDict)")
+                messages.sort { $0.timeStmp < $1.timeStmp }
                 // 使用completion将调用这个函数的函数所需要的变量传过去！
                 completion(messages)
             }
