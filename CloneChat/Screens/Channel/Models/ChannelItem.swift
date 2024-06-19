@@ -53,7 +53,7 @@ struct ChannelItem :Identifiable{
     
     // 对thumbnailUrl进行进一步封装，实现判断功能
     var coverImageUrl:String? {
-        if let thumbnailUrl{
+        if let thumbnailUrl = thumbnailUrl{
             return thumbnailUrl
         }
         
@@ -88,7 +88,7 @@ struct ChannelItem :Identifiable{
         lastMessage: "Hello world",
         creationDate: Date(),
         lastMessageTimeStmp: Date(),
-        membersCount: 2,
+        membersCount: 10,
         adminUids: [],
         membersUids: [],
         members: [],

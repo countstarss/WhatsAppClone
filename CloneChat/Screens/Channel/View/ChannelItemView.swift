@@ -11,7 +11,8 @@ struct ChannelItemView: View {
     let channel:ChannelItem
     var body: some View {
         HStack{
-            CircularProfileImageView(size: .small)
+            // 这里一定别忘了传递channel
+            CircularProfileImageView(channel,size: .small)
                 .frame(width: 60,height: 60)
                 
             VStack(alignment:.leading,spacing:4){
@@ -28,7 +29,7 @@ struct ChannelItemView: View {
 
             Spacer()
             
-            Text("5:50 PM")
+            Text(channel.lastMessageTimeStmp.dayOrTimeRepresentation)
                 .foregroundStyle(.gray)
                 .font(.system(size: 15))
         }

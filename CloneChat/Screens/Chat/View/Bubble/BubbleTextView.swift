@@ -33,7 +33,8 @@ struct BubbleTextView: View {
     
     private func timeStampTextView() -> some View {
         HStack{
-            Text("3:05 PM")
+            // 添加时间字符串（使用Date Extension生成）
+            Text(item.timeStmp.formatToTime)
                 .font(.system(size: 13))
                 .foregroundStyle(.gray)
             

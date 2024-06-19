@@ -73,7 +73,7 @@ extension CircularProfileImageView {
         case directChatIcon = "person.circle.fill"
         case groupChatIcon = "person.2.circle.fill"
         
-        init(forCount membersCount:Int) {
+        init(for membersCount:Int) {
             switch membersCount{
             case 2:
                 self = .directChatIcon
@@ -89,7 +89,7 @@ extension CircularProfileImageView {
     init(_ channel:ChannelItem,size: Size) {
         self.profileImageUrl = channel.coverImageUrl
         self.size = size
-        self.fallbackImage = FallBackImage(forCount: channel.membersCount)
+        self.fallbackImage = FallBackImage(for: channel.membersCount)
     }
 }
 
