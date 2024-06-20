@@ -8,10 +8,15 @@
 import Foundation
 import Firebase
 
+//MARK: - 添加channelRoutes
+enum ChannelTabRoutes: Hashable {
+    case chatRoom(_ channel: ChannelItem)
+}
+
 // 使用final 将其设置为静态类
 final class ChannelTabViewModel: ObservableObject {
     
-    
+    @Published var navRoutes = [ChannelTabRoutes]()
     @Published var navigateToChatRoom = false
     @Published var newChannel: ChannelItem?
     @Published var showChatPartnerPickerScreen = false
@@ -35,6 +40,7 @@ final class ChannelTabViewModel: ObservableObject {
     // 当在闭包内部引用了self时，如果使用[weak self]，则表示该闭包对self是弱引用的，不会增加self的引用计数，
     // 因此在闭包执行时，如果self已经被释放了，那么该闭包内部对self的引用会自动被置为nil，避免了循环引用导致的内存泄漏问题
     
+    //MARK: - fetchCurrentUserChannels
     func fetchCurrentUserChannels() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         
@@ -51,6 +57,7 @@ final class ChannelTabViewModel: ObservableObject {
         
     }
     
+    //MARK: - getChannel
     private func getChannel(with channelId: String) {
         FirebaseConstants.ChannelRef.child(channelId).observe(.value) { [weak self] snapshot in
             guard let dict = snapshot.value as? [String : Any] else { return }
@@ -66,6 +73,7 @@ final class ChannelTabViewModel: ObservableObject {
         }
     }
     
+    //MARK: - getChannelMembers
     func getChannelMembers(_ channel: ChannelItem, completion: @escaping (_ members: [UserItem])-> Void){
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         let channelMemberUids = Array(channel.membersUids.filter{$0 != currentUid}.prefix(2))

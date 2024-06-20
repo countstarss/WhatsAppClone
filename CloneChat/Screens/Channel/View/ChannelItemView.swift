@@ -22,10 +22,19 @@ struct ChannelItemView: View {
         }
     }
     
+    //MARK: - 重写title，防止trailingNavItem() 被压缩导致UI错乱
+    private var channelTitle : String {
+        let maxChar = 25
+        let trailingChars = channel.title.count > maxChar ? "..." : ""
+        let title = String(channel.title.prefix(maxChar) + trailingChars)
+        return title
+    }
+    
     private func titleTextView() -> some View {
         HStack{
-            Text(channel.title)
+            Text(channelTitle)
                 .bold()
+                .lineLimit(1)
 
             Spacer()
             

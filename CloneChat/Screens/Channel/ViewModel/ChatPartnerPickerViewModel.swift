@@ -8,6 +8,8 @@
 import Foundation
 import Firebase
 
+//MARK: - Navigation Route
+// 用于导航。一般来说有几层就有几个case
 enum ChannelCreationRoute{
     case groupPartnerPicker
     case setUpGroupChat
@@ -27,6 +29,8 @@ enum ChannelCreationError :Error {
 final class ChatPartnerPickerViewModel:ObservableObject {
     // ObservableObject可以让app更加响应式
     // 通过创建ViewModel来协调所有的功能
+    
+    //MARK: - 导航的栈
     @Published var navStack = [ChannelCreationRoute]()
     // 用于选中和取消
     @Published var selectedChatPartners = [UserItem]()

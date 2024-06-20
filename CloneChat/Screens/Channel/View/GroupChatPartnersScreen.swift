@@ -100,6 +100,7 @@ extension GroupChatPartnersScreen {
             VStack{
                 Button("Next"){
                     print("Button Next is Pressed")
+                    //MARK: - 第二层导航
                     viewModel.navStack.append(.setUpGroupChat)
                 }
                 .disabled(viewModel.disableNextButton)

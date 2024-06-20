@@ -11,6 +11,7 @@ struct ChatRoomScreen: View {
     let channel : ChannelItem
     @StateObject private var viewModel :ChatRoomViewModel
     
+    //MARK: - 依赖注入
     // 使用依赖注入的方式将 ChatRoomViewModel 实例注入到视图中
     init(channel: ChannelItem) {
         self.channel = channel
@@ -39,18 +40,27 @@ struct ChatRoomScreen: View {
 }
 
 extension ChatRoomScreen{
+    
+    //MARK: - 重写title，防止trailingNavItem() 被压缩导致UI错乱
+    private var channelTitle : String {
+        let maxChar = 20
+        let trailingChars = channel.title.count > maxChar ? "..." : ""
+        let title = String(channel.title.prefix(maxChar) + trailingChars)
+        return title
+    }
+    
     @ToolbarContentBuilder
     private func leadingNavItem() -> some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             HStack{
-                Circle()
+                CircularProfileImageView(size: .mini)
                     .frame(width: 35, height: 35)
                 // 本身没有定义title,如果想这样使用,
                 // 就要先使用Firebase获取到当前的user,然后使用filter过滤一下members
                 // 声明title,根据不同的条件返回不同的值,ChannelItem中的name是可选值,所以使用if-binding
                 // 如果是group channel 返回"Group channel"
                 // 如果是direct channel 返回member中的第一个的userName
-                Text(channel.title)
+                Text(channelTitle)
                     .bold()
             }
         }

@@ -25,6 +25,7 @@ struct ChatPartnerPickerScreen: View {
                     HeaderItemView(item: item){
                         // 如果item不是newGroup,--自动忽略--
                         guard item == ChatPartnerPickerOption.newGroup else { return }
+                        //MARK: - 第一层导航
                         viewModel.navStack.append(.groupPartnerPicker)
                     }
                 }
@@ -40,6 +41,7 @@ struct ChatPartnerPickerScreen: View {
                                     chatPartner: user,
                                     completion: onCreate
                                 )
+                                //createDirectChannel 不使用导航，而是生成直接转过去
                             }
                     }
                 }header: {

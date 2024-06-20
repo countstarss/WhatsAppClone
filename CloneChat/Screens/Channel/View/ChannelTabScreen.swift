@@ -11,17 +11,20 @@ struct ChannelTabScreen: View {
     @State private var searchText:String = ""
     @StateObject private var viewModel = ChannelTabViewModel()
     var body: some View {
-        NavigationStack{
+        NavigationStack(path: $viewModel.navRoutes){
             List{
                 archivedButton()
                     .padding(.horizontal)
                 
+                // 把原来的NavigationLink修改为使用自定义的Routes控制
                 ForEach(viewModel.channels){channel in
-                    NavigationLink{
-                        ChatRoomScreen(channel: channel)
-                    }label:{
+                    Button{
+                        viewModel.navRoutes.append(.chatRoom(channel))
+                    }label: {
                         ChannelItemView(channel: channel)
                     }
+                    // 写到这里，还需要添加导航的目的地
+
                 }
                 inboxFooterView()
                     .listRowSeparator(.hidden)
@@ -33,6 +36,11 @@ struct ChannelTabScreen: View {
                 leadingNavItem()
                 trailingNavItem()
             }
+            // 需要两个参数，第一个
+            .navigationDestination(for: ChannelTabRoutes.self){ route in
+                // 用来为Button导航
+                destinationView(for: route)
+            }
             .sheet(isPresented: $viewModel.showChatPartnerPickerScreen){
                 ChatPartnerPickerScreen(
                     showChatPartnerPickerScreen: $viewModel.showChatPartnerPickerScreen,
@@ -42,11 +50,11 @@ struct ChannelTabScreen: View {
                     
             }
             // 导航到新的ChatRom
-            .navigationDestination(isPresented: $viewModel.navigateToChatRoom) {
-                if let newChannel = viewModel.newChannel{
-                    ChatRoomScreen(channel: newChannel)
-                }
-            }
+//            .navigationDestination(isPresented: $viewModel.navigateToChatRoom) {
+//                if let newChannel = viewModel.newChannel{
+//                    ChatRoomScreen(channel: newChannel)
+//                }
+//            }
             .refreshable {
 //                viewModel.channels.removeAll()
                 viewModel.fetchCurrentUserChannels()
@@ -58,6 +66,15 @@ struct ChannelTabScreen: View {
 
 //MARK: - Toolbar Buttons
 extension ChannelTabScreen{
+    
+    @ViewBuilder
+    private func destinationView(for route :ChannelTabRoutes) -> some View {
+        switch route {
+        // 导航到各自channel对应的ChatRoomScreen ，他们都依赖channel
+        case .chatRoom(let channel):
+            ChatRoomScreen(channel: channel)
+        }
+    }
     
     @ToolbarContentBuilder
     private func leadingNavItem() -> some ToolbarContent{
@@ -103,6 +120,7 @@ extension ChannelTabScreen{
     
     private func newChatButton() -> some View{
         Button{
+            // 使用变量控制显示，不是导航
             viewModel.showChatPartnerPickerScreen = true
         } label: {
             Image(.plus)

@@ -8,7 +8,7 @@
 import Foundation
 import Firebase
 
-struct ChannelItem :Identifiable{
+struct ChannelItem :Identifiable,Hashable{
     var id:String
     var name:String?
     var lastMessage :String
@@ -88,10 +88,11 @@ struct ChannelItem :Identifiable{
         lastMessage: "Hello world",
         creationDate: Date(),
         lastMessageTimeStmp: Date(),
-        membersCount: 10,
+        membersCount: 3,
         adminUids: [],
         membersUids: [],
-        members: [],
+        members: [UserItem(uid: "1", username: "Luke", email: "swiftSkool@gamil.com"),
+                  UserItem(uid: "2", username: "smith", email: "smith@gamil.com")],
         createdBy: ""
     )
 }
