@@ -9,8 +9,8 @@ import SwiftUI
 
 struct NewGroupSetUpScreen: View {
     @State private var channelName  = "Default Group Name"
-    @ObservedObject var viewModel = ChatPartnerPickerViewModel()
-    @StateObject var channelViewModel = ChannelTabViewModel()
+    @ObservedObject var viewModel : ChatPartnerPickerViewModel
+    
     var onCreate:(_ newChannel:ChannelItem) -> Void
     
     var body: some View {
@@ -78,8 +78,8 @@ struct NewGroupSetUpScreen: View {
         ToolbarItem(placement:.topBarTrailing){
             Button{
                 viewModel.createGroupChannel(channelName, completion: onCreate)
-                channelViewModel.channels.removeAll()
-                channelViewModel.fetchCurrentUserChannels()
+//                channelViewModel.channels.removeAll()
+//                channelViewModel.fetchCurrentUserChannels()
             }label: {
                 Text("Create")
                     .bold()

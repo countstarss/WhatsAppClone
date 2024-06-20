@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import Combine
 
 //MARK: - Navigation Route
 // 用于导航。一般来说有几层就有几个case
@@ -38,8 +39,11 @@ final class ChatPartnerPickerViewModel:ObservableObject {
     @Published private(set) var users = [UserItem]()
     // Error
     @Published var errorState: (showError :Bool , errorMessage :String) = (false,"Uh Oh")
+    // 用于存储登陆状态
+    private var subScription: AnyCancellable? //使用AnyCancellable需要引入Combine
     // 保存第一个作为指针
     private var lastCursor : String?
+    private var currentUser: UserItem?
     
     
     // 用于显示/隐藏选中的chatPartners的视图
@@ -64,12 +68,33 @@ final class ChatPartnerPickerViewModel:ObservableObject {
     }
     
     init(){
-        Task{
-            print("FetchUsers")
-            await fetchUsers()
+        listenToAuthState()
+    }
+    
+    deinit {
+        // subScription存储的是登录状态，生命周期结束之后清空
+        subScription?.cancel()
+        subScription = nil
+    }
+    
+    private func listenToAuthState() {
+        subScription = AuthManager.shared.authState.receive(on: DispatchQueue.main).sink{ [weak self] authState in
+            switch authState{
+                // 如果通过Firebase Auth拿到当前的登陆状态是LogedIn
+            case .loggedIn(let loggedUser):
+                self?.currentUser = loggedUser
+                Task{
+                    // 一进入ChatPartnerPickerView，就马上加载第一批User，后面的分页加载
+                    await self?.fetchUsers()
+                }
+            default :
+                break
+            }
         }
     }
     
+    // For commit 33. Fetching Channel Members in ChatRoom
+    // 这一节的任务是拿到当前的登录用户，将其添加到新建的channel中
     //MARK: - Public Methods
     
     func fetchUsers() async {
@@ -116,6 +141,7 @@ final class ChatPartnerPickerViewModel:ObservableObject {
         return isSelected
     }
     
+    //MARK: - Create Direct Channel
     // 重新创建一个用于创建direction function,将通用方法设为private,只能在viewModel中调用
     func createDirectChannel(chatPartner : UserItem,completion:@escaping (_ newChannel: ChannelItem) -> Void){
         // 下面是很关键的一步,把选中user添加到selectedChatPartners中
@@ -128,6 +154,10 @@ final class ChatPartnerPickerViewModel:ObservableObject {
                 let channelDict = snapshot.value as! [String : Any]
                 var directChannel = ChannelItem(channelDict)
                 directChannel.members = selectedChatPartners
+                if let currentUser{
+                    // 添加当前登录用户
+                    directChannel.members.append(currentUser)
+                }
                 // completion是在程序执行完之后执行的程序
                 completion(directChannel)
             }else{
@@ -161,6 +191,7 @@ final class ChatPartnerPickerViewModel:ObservableObject {
     }
     
     
+    //MARK: - Create Group Channel
     func createGroupChannel(_ groupName:String?,completion:@escaping (_ newChannel: ChannelItem) -> Void){
         let channerCreation = createChannel(groupName)
         switch channerCreation{
@@ -179,7 +210,7 @@ final class ChatPartnerPickerViewModel:ObservableObject {
     }
     
     //MARK: - CreateChannel common method
-    // 这是一个创建Chat的通用方法
+    //MARK: - 创建Chat的通用方法
     private func createChannel(_ channelName:String?) -> Result<ChannelItem,Error>{
         // 为了适配创建Group,所以selectedChatPartners不为空时才能createChannel
         //
@@ -255,6 +286,10 @@ final class ChatPartnerPickerViewModel:ObservableObject {
         
         var newChannelItem = ChannelItem(channelDict)
         newChannelItem.members = selectedChatPartners
+        if let currentUser{
+            // 添加当前登录用户
+            newChannelItem.members.append(currentUser)
+        }
         return .success(newChannelItem)
         
     }

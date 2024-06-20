@@ -79,8 +79,13 @@ struct ChannelItem :Identifiable,Hashable{
         return "UnKnown"
     }
     
-    // 使用 init() 方法。这种方法会在类加载时立即执行初始化操作，并保证静态属性在类第一次访问之前已经被初始化
+    // 写这个变量的目的是解决打开directe channel 不会输出members的问题
+    // 因为只有两个人，最开始的prefix就已经全部获取了
+    var allMembersFetched : Bool {
+        return members.count == membersUids.count
+    }
     
+    // 使用 init() 方法。这种方法会在类加载时立即执行初始化操作，并保证静态属性在类第一次访问之前已经被初始化
     // 使用 init()：适用于需要在类加载时立即执行初始化操作的情况，允许您在初始化闭包中进行复杂的计算或初始化逻辑。这种方式确保了静态资源在第一次访问之前已经准备好使用。
     // 不使用 init()：适用于简单的静态属性或常量，可以直接在定义时进行赋值。这样做简洁明了，并且适用于不需要额外初始化逻辑的情况。
     static let placeholder = ChannelItem.init(

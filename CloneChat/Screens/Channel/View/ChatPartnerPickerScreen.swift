@@ -41,7 +41,7 @@ struct ChatPartnerPickerScreen: View {
                                     chatPartner: user,
                                     completion: onCreate
                                 )
-                                //createDirectChannel 不使用导航，而是生成直接转过去
+                                //createDirectChannel 不使用导航，而是生成直接
                             }
                     }
                 }header: {
