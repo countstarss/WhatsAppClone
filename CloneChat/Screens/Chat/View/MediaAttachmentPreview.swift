@@ -9,12 +9,14 @@
 import SwiftUI
 
 struct MediaAttachmentPreview: View {
+    let selectedPhotos :[UIImage]
+    
     var body: some View {
         ScrollView(.horizontal,showsIndicators: false){
             HStack{
                 audioAttachmentPreview()
-                ForEach(0..<12) {_ in
-                    thumbnailImageView()
+                ForEach(selectedPhotos,id:\.self) {image in
+                    thumbnailImageView(image)
                 }
             }
             .padding(.leading,5)
@@ -24,11 +26,11 @@ struct MediaAttachmentPreview: View {
         .background(.whatsAppWhite)
     }
     
-    private func thumbnailImageView() -> some View {
+    private func thumbnailImageView(_ image:UIImage) -> some View {
         Button{
             
         }label: {
-            Image(.stubImage1)
+            Image(uiImage: image)
                 .resizable()
                 .scaledToFill()
                 .frame(width: Constants.imageDimen, height: Constants.imageDimen)
@@ -110,7 +112,7 @@ extension MediaAttachmentPreview{
         static let imageDimen : CGFloat = 80
     }
 }
-
-#Preview {
-    MediaAttachmentPreview()
-}
+//
+//#Preview {
+//    MediaAttachmentPreview(selectedPhotos: ChatRoomViewModel.selectedPhotos)
+//}

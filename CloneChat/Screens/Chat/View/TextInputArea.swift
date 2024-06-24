@@ -6,14 +6,19 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct TextInputArea: View {
     
     @Binding var textMessage : String
+    let viewModel = ChatRoomViewModel(channel: .placeholder)
+    
+    let actionHandle :(_ action: userAction) -> Void
+    
+    // Enable发送按钮
     private var disableSendButton : Bool {
         return !textMessage.isEmptyorWhiteSpace!
     }
-    let onSendHandle :() -> Void
     
     var body: some View {
         HStack(alignment:.bottom,spacing:5){
@@ -48,7 +53,9 @@ struct TextInputArea: View {
     //MARK: - TextInputArea button
     private func imagePickerButton() -> some View{
         Button{
-            
+            // 用enum来表示用户可能进行的几个操作
+            // 调用actionHandle，才chatRoom中才能正确的调用到对应的action
+            actionHandle(.presentPhotoPicker)
         }label: {
             Image(systemName: "photo.on.rectangle")
                 .font(.system(size: 20))
@@ -60,7 +67,7 @@ struct TextInputArea: View {
     
     private func sendMessageButton() -> some View{
         Button{
-            onSendHandle()
+            actionHandle(.sendMessage)
         }label: {
             Image(systemName: "arrow.up")
                 .fontWeight(.heavy)
@@ -75,7 +82,7 @@ struct TextInputArea: View {
     
     private func audioRecorderButton() -> some View{
         Button{
-            onSendHandle()
+            actionHandle(.presentPhotoPicker)
         }label: {
             Image(systemName: "mic.fill")
                 .fontWeight(.heavy)
@@ -87,12 +94,18 @@ struct TextInputArea: View {
         }
     }
 }
+extension TextInputArea {
+    enum userAction {
+        case presentPhotoPicker
+        case sendMessage
+    }
+}
 
 #Preview {
     ZStack{
         Color.white
         
-        TextInputArea(textMessage: .constant("")){
+        TextInputArea(textMessage: .constant("")){action in 
             
         }
     }

@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import PhotosUI
+
 
 struct ChatRoomScreen: View {
     let channel : ChannelItem
-    @StateObject private var viewModel :ChatRoomViewModel
+    @StateObject private var viewModel : ChatRoomViewModel
     
     //MARK: - 依赖注入
     // 使用依赖注入的方式将 ChatRoomViewModel 实例注入到视图中
@@ -25,22 +27,21 @@ struct ChatRoomScreen: View {
     // 使用场景：适用于需要在多个视图之间共享的状态或者复杂的对象状态。
     @MainActor
     var body: some View {
-            MessageListView(viewModel: viewModel)
-                .offset(y:-60)
-    //            .toolbar(.hidden, for: .tabBar)
+            MessageListView(viewModel)
+                .frame(maxHeight: .infinity)
+//                .offset(y:-60)
+                .toolbar(.hidden, for: .tabBar)
                 .toolbar{
                     leadingNavItem()
                     trailingNavItem()
                 }
-                .safeAreaInset(edge: .top, content: {
-                    Color.clear.frame(height: 10)
-                })
-                .ignoresSafeArea()
+                .photosPicker(isPresented: $viewModel.showPhotoPicker, 
+                              selection: $viewModel.photoPickerItems,
+                              maxSelectionCount: 6
+                )
+                .navigationBarTitleDisplayMode(.inline)
                 .safeAreaInset(edge:.bottom) {
                     bottomSafeAreaView()
-                }
-                .overlay {
-                    overlayRoundRectangle()
                 }
             
     }
@@ -48,21 +49,18 @@ struct ChatRoomScreen: View {
     private func bottomSafeAreaView() -> some View {
         VStack(spacing:0){
             
+            if viewModel.showPhotoPickerPreview {
+                Divider()
+                MediaAttachmentPreview(selectedPhotos: viewModel.selectedPhotos)
+            }
+            
             Divider()
-            MediaAttachmentPreview()
-            Divider()
-            TextInputArea(textMessage: $viewModel.textMessage){
-                viewModel.sendMessage()
+            TextInputArea(textMessage: $viewModel.textMessage){action in 
+                viewModel.handleTextInputArea(action)
             }
         }
     }
     
-    private func overlayRoundRectangle() -> some View {
-        RoundedRectangle(cornerRadius: 1)
-            .fill(.black)
-            .frame(width: .infinity,height: 160)
-            .offset(y:-435)
-    }
     
     
 }

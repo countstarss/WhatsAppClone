@@ -12,7 +12,7 @@ struct MessageListView: UIViewControllerRepresentable {
     private var viewModel :ChatRoomViewModel
     
     // 注入viewModel
-    init(viewModel: ChatRoomViewModel) {
+    init(_ viewModel: ChatRoomViewModel) {
         self.viewModel = viewModel
     }
     func makeUIViewController(context: Context) -> MessageListController {
@@ -25,5 +25,5 @@ struct MessageListView: UIViewControllerRepresentable {
 }
 
 #Preview {
-    MessageListView(viewModel: ChatRoomViewModel(channel: .placeholder))
+    MessageListView(ChatRoomViewModel(channel: .placeholder))
 }

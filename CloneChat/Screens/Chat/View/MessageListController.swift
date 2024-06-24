@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SwiftUI
 import Combine
+import PhotosUI
 
 final class MessageListController:UIViewController{
     //MARK: -  View's lifeCycle
@@ -152,6 +153,6 @@ extension MessageListController:UITableViewDelegate,UITableViewDataSource{
 
 
 #Preview {
-    MessageListView(viewModel: ChatRoomViewModel(channel: .placeholder))
+    MessageListView(ChatRoomViewModel(channel: .placeholder))
 //        .ignoresSafeArea()
 }

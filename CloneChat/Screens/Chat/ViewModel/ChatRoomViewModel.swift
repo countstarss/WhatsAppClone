@@ -7,14 +7,30 @@
 
 import Foundation
 import Combine
+import PhotosUI
+import SwiftUI
 
 // `final` 关键字用于防止类被继承或者防止类的方法、属性被重写
 final class ChatRoomViewModel:ObservableObject{
+    
     @Published var textMessage = ""
+    
     // 在MessageSevercve中创建的messages只是一个临时的，我们需要在这里创建messages来保存
     @Published var messages : [MessageItem] = [MessageItem]()
+    
     // private(set) var 让外部也能访问到channel
     private(set) var channel:ChannelItem
+    
+    // 用于打开PhotoPicker
+    @Published var showPhotoPicker = false
+    @Published var photoPickerItems : [PhotosPickerItem] = []
+    
+    @Published var selectedPhotos:[UIImage] = []
+    
+    // 用于控制显示MediaAttachmentPreview
+    var showPhotoPickerPreview: Bool {
+        return !photoPickerItems.isEmpty
+    }
     
     // AnyCancellable <关键点>
     // Set<AnyCancellable>：在视图模型中，我们通常使用一个集合来存储 AnyCancellable 实例，以便在视图模型的生命周期内保持订阅有效。
@@ -27,6 +43,8 @@ final class ChatRoomViewModel:ObservableObject{
         self.channel = channel
         // listenToAuthState初始化currentUser
         listenToAuthState()
+        // 加到init中执行，以监控selectedPhotos的变化
+        onPhotoPickerSelection()
     }
     
     private func listenToAuthState() {
@@ -86,6 +104,46 @@ final class ChatRoomViewModel:ObservableObject{
             print("fetchAllChannelMembers: \(channel.members.map {$0.username})")
         }
         getMessage()
+    }
+    
+    // 根据点击的按钮选择不同的方法，这个方法是TextInput的actionHandle
+    func handleTextInputArea(_ action:TextInputArea.userAction) {
+        switch action {
+        case .presentPhotoPicker:
+            showPhotoPicker = true
+            print("showPhotoPicker:\(showPhotoPicker)")
+        case .sendMessage:
+            sendMessage()
+        }
+    }
+    
+    
+    
+    // 添加照片的思路分析： 
+    // 1. 监控$photoPickerItems，当其中有内容时，将PhotosPicker得到的整个数组拿去解码
+    // 2. 把数组中的item循环取出，将其转换成可传输的对象，然后将得到的数据转成UIImage类型
+    // 3. 把得到的图片插入到selectedPhotots中，每次都插入到最前面
+    
+    private func onPhotoPickerSelection() {
+        $photoPickerItems.sink { [weak self] photoItems in
+            guard let self = self else { return }
+            Task{
+                await self.parsePhotoPickerItem(photoItems)
+            }
+        }.store(in: &subScriptions)
+        // store的作用 ：管理订阅生命周期
+        // 确保Combine的订阅在subScriptions集合中保存,这意味着只要subScriptions存在，订阅就会保持活动状态。
+    }
+    
+    private func parsePhotoPickerItem(_ photoPickerItems: [PhotosPickerItem]) async {
+        for photoItem in photoPickerItems {
+            guard
+                let data = try? await photoItem.loadTransferable(type: Data.self),
+                // loadTransferable，将特定数据类型中加载数据并将其转换为可传输的对象。通常用于处理和传输数据的场景，比如从照片库中加载照片、从文件中读取数据等。
+                let uiImage = UIImage(data: data)
+            else { return }
+            self.selectedPhotos.insert(uiImage, at: 0)
+        }
     }
     
 }
