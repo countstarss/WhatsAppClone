@@ -10,7 +10,7 @@ import Firebase
 import Combine
 
 //MARK: - Navigation Route
-// 用于导航。一般来说有几层就有几个case
+// 用于多层导航，一般来说有几层就有几个case
 enum ChannelCreationRoute{
     case groupPartnerPicker
     case setUpGroupChat
@@ -67,6 +67,8 @@ final class ChatPartnerPickerViewModel:ObservableObject {
         return selectedChatPartners.count == 1
     }
     
+    
+    //MARK: - 初始化，程序执行
     init(){
         listenToAuthState()
     }
@@ -176,6 +178,7 @@ final class ChatPartnerPickerViewModel:ObservableObject {
     
     // 验证是否已经存在此会话,如果存在,那么就不创建channel,而是导航到已经创建的chat
     // 实际上realtime Database 不会重复生成,我们需要判断出来然后导航到目标Screen
+    //MARK: - 验证channel
     typealias ChannelId = String
     private func vertifyIfDirectChannelExists(with chatPartnerId :String ) async -> ChannelId? {
         print("Vertify")
@@ -260,6 +263,7 @@ final class ChatPartnerPickerViewModel:ObservableObject {
             .ownerUid : currentUid
         ]
         
+        //MARK: - 写入数据库
         // ------ 需要存储的东西 ------
         // channel - 存储channelDict
         // 只有一层结构,每新建一个对话,就存储一个channel

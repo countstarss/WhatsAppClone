@@ -15,7 +15,7 @@ final class MessageListController:UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = .clear
-//        view.backgroundColor = .clear
+        view.backgroundColor = .clear
         setUpViews()
         setUpMessageListners()
     }
@@ -63,15 +63,15 @@ final class MessageListController:UIViewController{
     //MARK: - Methods
     private func setUpViews(){
         // 添加背景
-//        view.addSubview(backgroundImageView)
+        view.addSubview(backgroundImageView)
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
             
-//            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
-//            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
