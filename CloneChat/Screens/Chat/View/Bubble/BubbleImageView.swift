@@ -13,12 +13,18 @@ struct BubbleImageView: View {
     var body: some View {
         HStack{
             if item.direction == .sent { Spacer() }
-            HStack{
+            HStack(alignment:.bottom){
+                // 头像在下方
+                if item.showGroupPartnerInfo {
+                    // 由于初始化时图片链接是可选的，所以可传可不传，当然首选是图片url，而不是fallbackImage
+                    CircularProfileImageView(item.sender?.profileImageUrl,size: .mini)
+                    // 图片链接在UserItem中，直接将UserItem作为一个属性添加到MessageItem中
+                }
                 if item.direction == .sent { shareButton() }
                 
                 messageTextView()
                     .shadow(color: Color(.systemGray3).opacity(0.1), radius: 10, x: 0, y: 20)
-                    .padding(.vertical)
+//                    .padding(.vertical)
                     
                     .overlay {
                         playButton()
@@ -31,6 +37,10 @@ struct BubbleImageView: View {
             
             if item.direction == .received { Spacer() }
         }
+        // 使用MessageItem规范排版（padding）
+        .frame(maxWidth: .infinity,alignment: item.alignment)
+        .padding(.leading,item.leadingPadding)
+        .padding(.trailing,item.trailingPadding)
         
     }
     
@@ -67,11 +77,13 @@ struct BubbleImageView: View {
                 }
 
                 
-            Text(item.text)
-                .padding([.horizontal,.bottom],8)
-                .frame(maxWidth: .infinity,alignment: .leading)
-                .frame(width: 220)
-        }
+            if !(item.text.isEmptyorWhiteSpace ?? true){
+                Text(item.text)
+                    .padding([.horizontal,.bottom],8)
+                    .frame(maxWidth: .infinity,alignment: .leading)
+                    .frame(width: 220)
+            }
+        }.padding(5)
         .background(item.direction == .sent ? .bubbleGreen : .bubbleWhite)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .applyTail(item.direction)

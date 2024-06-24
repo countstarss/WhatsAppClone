@@ -96,10 +96,8 @@ final class ChannelTabViewModel: ObservableObject {
             var channel = ChannelItem(dict)
             seff.getChannelMembers(channel) { members in
                 channel.members = members
-                if channel.isGroupChat == false {
-                    // 当channel为directChannel时，不需要fetchUser，但是channel里又只有一个成员，所以把currentUser添加进来
-                    channel.members.append(seff.currentUser) // 使用seff代替self，解开self，这样才能添加currentUser
-                }
+                // 所有的情况都添加currentUser
+                channel.members.append(seff.currentUser) // 使用seff代替self，解开self，这样才能添加currentUser
                 seff.channelDictionary[channelId] = channel
                 seff.reloadData()
 //                self?.channels.append(channel)

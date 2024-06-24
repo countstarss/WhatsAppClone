@@ -43,7 +43,7 @@ struct MessageSeverce {
             guard let dict = snapshot.value as? [String:Any] else { return }
             dict.forEach { key,value in
                 let messageDict = value as? [String: Any] ?? [:]
-                let message = MessageItem(id: key, dict: messageDict)
+                let message = MessageItem(id: key, dict: messageDict, isGroupChat: channel.isGroupChat,sender: .placeholder)
                 messages.append(message)
                 messages.sort { $0.timeStmp < $1.timeStmp }
                 // 使用completion将调用这个函数的函数所需要的变量传过去！

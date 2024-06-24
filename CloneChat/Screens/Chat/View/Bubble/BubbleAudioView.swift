@@ -13,7 +13,15 @@ struct BubbleAudioView: View {
     @State private var sliderRange : ClosedRange<Double> = 0...20
     
     var body: some View {
-        VStack(alignment:item.horizontalAlignment){
+        HStack(alignment:.bottom){
+            if item.showGroupPartnerInfo {
+                // 由于初始化时图片链接是可选的，所以可传可不传，当然首选是图片url，而不是fallbackImage
+                CircularProfileImageView(item.sender?.profileImageUrl,size: .mini)
+                // 图片链接在UserItem中，直接将UserItem作为一个属性添加到MessageItem中
+            }
+            if item.direction == .sent{
+                timeStampTextView()
+            }
             HStack{
                 playButton()
                 Slider(value: $sliderValue,in: sliderRange)
@@ -24,17 +32,20 @@ struct BubbleAudioView: View {
             .background(Color.gray.opacity(0.1))
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .padding(5)
+            .frame(width: 200)
             .background(item.backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .applyTail(item.direction)
             
             
-            timeStmpTextView()
+            if item.direction == .received{
+                timeStampTextView()
+            }
         }
         .shadow(color: Color(.systemGray3).opacity(0.1), radius: 10, x: 0, y: 20)
         .frame(maxWidth: .infinity,alignment: item.alignment)
-        .padding(.leading,item.direction == .received ? 0 : 100)
-        .padding(.trailing,item.direction == .received ? 100 : 0)
+        .padding(.leading,item.leadingPadding)
+        .padding(.trailing,item.trailingPadding)
     }
     
     private func playButton() -> some View {
@@ -50,20 +61,11 @@ struct BubbleAudioView: View {
         }
     }
     
-    private func timeStmpTextView() -> some View {
-        HStack{
-            Text("13:41 AM")
-                .font(.system(size: 13))
-                .foregroundStyle(.gray)
-            
-            if item.direction == .sent {
-                Image(.seen)
-                    .resizable()
-                    .renderingMode(.template)
-                    .frame(width: 15,height: 15)
-                    .foregroundStyle(Color(.systemBlue))
-            }
-        }
+    private func timeStampTextView() -> some View {
+        // 插入时间字符串formatToTime（使用Date Extension生成）
+        Text(item.timeStmp.formatToTime)
+            .font(.footnote)
+            .foregroundStyle(.gray)
     }
 }
 
