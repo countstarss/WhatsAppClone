@@ -24,6 +24,9 @@
 		A3D57BA72C28FBBB0079822D /* Commit 34.md in Resources */ = {isa = PBXBuildFile; fileRef = A3D57BA62C28FBBB0079822D /* Commit 34.md */; };
 		A3D57BA92C290D190079822D /* MediaAttachmentPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BA82C290D190079822D /* MediaAttachmentPreview.swift */; };
 		A3D57BAB2C29132D0079822D /* MediaPreviewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BAA2C29132D0079822D /* MediaPreviewModifier.swift */; };
+		A3D57BAD2C2A47910079822D /* PhotosPickerItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BAC2C2A47910079822D /* PhotosPickerItem+Extensions.swift */; };
+		A3D57BAF2C2A4AC70079822D /* MediaPickerItem+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BAE2C2A4AC70079822D /* MediaPickerItem+Types.swift */; };
+		A3D57BB12C2A57160079822D /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BB02C2A57160079822D /* URL+Extension.swift */; };
 		A3E0B0FD2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md in Resources */ = {isa = PBXBuildFile; fileRef = A3E0B0FC2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md */; };
 		DF03461F2C0D583F00A70B47 /* WhatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03461E2C0D583F00A70B47 /* WhatsApp.swift */; };
 		DF0346262C0D584100A70B47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF0346252C0D584100A70B47 /* Preview Assets.xcassets */; };
@@ -82,6 +85,9 @@
 		A3D57BA62C28FBBB0079822D /* Commit 34.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Commit 34.md"; sourceTree = "<group>"; };
 		A3D57BA82C290D190079822D /* MediaAttachmentPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAttachmentPreview.swift; sourceTree = "<group>"; };
 		A3D57BAA2C29132D0079822D /* MediaPreviewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewModifier.swift; sourceTree = "<group>"; };
+		A3D57BAC2C2A47910079822D /* PhotosPickerItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotosPickerItem+Extensions.swift"; sourceTree = "<group>"; };
+		A3D57BAE2C2A4AC70079822D /* MediaPickerItem+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaPickerItem+Types.swift"; sourceTree = "<group>"; };
+		A3D57BB02C2A57160079822D /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		A3E0B0FC2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Episode-36-Fetching channel members in ChatRoom.md"; sourceTree = "<group>"; };
 		DF03461B2C0D583F00A70B47 /* CloneChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloneChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF03461E2C0D583F00A70B47 /* WhatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsApp.swift; sourceTree = "<group>"; };
@@ -243,9 +249,9 @@
 		DF0346482C0D594000A70B47 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				DF0346532C0D594000A70B47 /* Model */,
 				DF7A9D652C129D840058510D /* ViewModel */,
 				DF0346492C0D594000A70B47 /* View */,
-				DF0346532C0D594000A70B47 /* Model */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -281,6 +287,7 @@
 			children = (
 				DF0346542C0D594000A70B47 /* MessageItem.swift */,
 				DF4FCB652C0FE8A6008883AE /* MessageItems+Types.swift */,
+				A3D57BAE2C2A4AC70079822D /* MediaPickerItem+Types.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -494,6 +501,8 @@
 			children = (
 				DF8583AE2C0F03130052B6A2 /* String+Extensions.swift */,
 				A30F60972C23157600A4D4CB /* Date+Extensions.swift */,
+				A3D57BAC2C2A47910079822D /* PhotosPickerItem+Extensions.swift */,
+				A3D57BB02C2A57160079822D /* URL+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -613,6 +622,7 @@
 				A3D57BA92C290D190079822D /* MediaAttachmentPreview.swift in Sources */,
 				DF8583AA2C0EEF390052B6A2 /* ChannelItem.swift in Sources */,
 				DF03469D2C0D594000A70B47 /* ChatPartnerPickerViewModel.swift in Sources */,
+				A3D57BB12C2A57160079822D /* URL+Extension.swift in Sources */,
 				DF0346962C0D594000A70B47 /* RootScreen.swift in Sources */,
 				DF03467F2C0D594000A70B47 /* MessageListController.swift in Sources */,
 				DF03468A2C0D594000A70B47 /* UpdataTabScreen.swift in Sources */,
@@ -630,10 +640,12 @@
 				DF03469C2C0D594000A70B47 /* GroupChatPartnersScreen.swift in Sources */,
 				DF0346982C0D594000A70B47 /* ChannelItemView.swift in Sources */,
 				DF03468E2C0D594000A70B47 /* SignUpScreen.swift in Sources */,
+				A3D57BAF2C2A4AC70079822D /* MediaPickerItem+Types.swift in Sources */,
 				A30F60982C23157600A4D4CB /* Date+Extensions.swift in Sources */,
 				DF8583A52C0DB8360052B6A2 /* UserService.swift in Sources */,
 				DF03461F2C0D583F00A70B47 /* WhatsApp.swift in Sources */,
 				DF0346912C0D594000A70B47 /* LoginScreen.swift in Sources */,
+				A3D57BAD2C2A47910079822D /* PhotosPickerItem+Extensions.swift in Sources */,
 				DF03468D2C0D594000A70B47 /* SettingsItem.swift in Sources */,
 				DF0346802C0D594000A70B47 /* MessageListView.swift in Sources */,
 				DF0346432C0D592C00A70B47 /* FirebaseConstants.swift in Sources */,

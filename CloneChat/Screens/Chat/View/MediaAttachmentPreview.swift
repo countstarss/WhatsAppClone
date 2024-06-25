@@ -9,14 +9,14 @@
 import SwiftUI
 
 struct MediaAttachmentPreview: View {
-    let selectedPhotos :[UIImage]
+    let mediaAttachments :[MediaAttachment]
     
     var body: some View {
         ScrollView(.horizontal,showsIndicators: false){
             HStack{
-                audioAttachmentPreview()
-                ForEach(selectedPhotos,id:\.self) {image in
-                    thumbnailImageView(image)
+//                audioAttachmentPreview()
+                ForEach(mediaAttachments) {attachment in
+                    thumbnailImageView(attachment)
                 }
             }
             .padding(.leading,5)
@@ -26,11 +26,12 @@ struct MediaAttachmentPreview: View {
         .background(.whatsAppWhite)
     }
     
-    private func thumbnailImageView(_ image:UIImage) -> some View {
+    private func thumbnailImageView(_ attachment:MediaAttachment) -> some View {
         Button{
             
         }label: {
-            Image(uiImage: image)
+            // attachment不包括thumbnail，所以添加一个属性thumbnail
+            Image(uiImage: attachment.thumbnail)
                 .resizable()
                 .scaledToFill()
                 .frame(width: Constants.imageDimen, height: Constants.imageDimen)
@@ -44,6 +45,7 @@ struct MediaAttachmentPreview: View {
                 .overlay(alignment:.center){
                     playButton("play.fill")
                         .padding(3)
+                        .opacity(attachment.type == .video(UIImage(), .stubURL) ? 1.0 : 0.0)
                 }
         }
     }
@@ -112,7 +114,7 @@ extension MediaAttachmentPreview{
         static let imageDimen : CGFloat = 80
     }
 }
-//
-//#Preview {
-//    MediaAttachmentPreview(selectedPhotos: ChatRoomViewModel.selectedPhotos)
-//}
+
+#Preview {
+    MediaAttachmentPreview(mediaAttachments: [])
+}
