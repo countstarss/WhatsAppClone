@@ -28,6 +28,9 @@ final class ChatRoomViewModel:ObservableObject{
     // 用于保存已选择的媒体文件 // 改用覆盖范围更广的MediaAttachment，它包括三种类型
     @Published var mediaAttachments:[MediaAttachment] = []
     
+    // 用于保存VideoPlayer状态
+    @Published var videoPlayerState: (show: Bool,player:AVPlayer?) = (false,nil)
+    
     // 用于控制显示MediaAttachmentPreview
     var showPhotoPickerPreview: Bool {
         return !mediaAttachments.isEmpty
@@ -128,6 +131,7 @@ final class ChatRoomViewModel:ObservableObject{
     private func onPhotoPickerSelection() {
         $photoPickerItems.sink { [weak self] photoItems in
             guard let self = self else { return }
+            self.mediaAttachments.removeAll() //在向mediaAttachments中添加内容的时候，先把之前的内容删除掉
             Task{
                 await self.parsePhotoPickerItem(photoItems)
             }
@@ -146,10 +150,6 @@ final class ChatRoomViewModel:ObservableObject{
                         let videoAttachment = MediaAttachment(id: UUID().uuidString, type: .video(thumbnail, movie.url))
                         self.mediaAttachments.insert(videoAttachment, at: 0)
                     }
-                    
-                    
-//                    let videoAttachment = MediaAttachment(id: UUID().uuidString, type: .video(thumbnail, movie))
-//                    self.mediaAttachments.insert(photoAttachment, at: 0)
                 }
             }else {
                 guard
@@ -160,6 +160,26 @@ final class ChatRoomViewModel:ObservableObject{
                 let photoAttachment = MediaAttachment(id: UUID().uuidString, type: .photo(thumbnail))
                 self.mediaAttachments.insert(photoAttachment, at: 0)
             }
+        }
+    }
+    
+    func dismissMediaPlayer() {
+        videoPlayerState.player?.replaceCurrentItem(with: nil)
+        videoPlayerState.player = nil
+        videoPlayerState.show = false
+    }
+    
+    func showMediaPlayer(_ fileURL:URL) {
+        videoPlayerState.show = true
+        videoPlayerState.player = AVPlayer(url: fileURL)
+        videoPlayerState.player = nil
+    }
+    
+    func handleMediaAttachmentPreview(_ action:MediaAttachmentPreview.userAction) {
+        switch action {
+        case .play(let attachment):
+            guard let fileURL = attachment.fileURL else { return }
+            showMediaPlayer(fileURL)
         }
     }
     

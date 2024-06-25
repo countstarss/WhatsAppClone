@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MediaAttachmentPreview: View {
     let mediaAttachments :[MediaAttachment]
+    let actionHandler: (_ action: userAction) -> Void
     
     var body: some View {
         ScrollView(.horizontal,showsIndicators: false){
@@ -43,7 +44,7 @@ struct MediaAttachmentPreview: View {
                         .padding(3)
                 }
                 .overlay(alignment:.center){
-                    playButton("play.fill")
+                    playButton("play.fill", item: attachment)
                         .padding(3)
                         .opacity(attachment.type == .video(UIImage(), .stubURL) ? 1.0 : 0.0)
                 }
@@ -65,9 +66,9 @@ struct MediaAttachmentPreview: View {
         }
     }
     
-    private func playButton(_ systemName:String) -> some View {
+    private func playButton(_ systemName:String,item:MediaAttachment) -> some View {
         Button{
-            
+            actionHandler(.play(item))
         }label: {
             Image(systemName: systemName)
                 .scaledToFit()
@@ -80,11 +81,11 @@ struct MediaAttachmentPreview: View {
         }
     }
     
-    private func audioAttachmentPreview() -> some View {
+    private func audioAttachmentPreview(_ attachment:MediaAttachment) -> some View {
         ZStack{
             LinearGradient(colors: [.green,.green.opacity(0.6),.teal], startPoint: .topLeading, endPoint: .bottomTrailing)
             
-            playButton("mic.fill")
+            playButton("mic.fill", item: attachment)
                 .padding(5)
                 .padding(.bottom,15)
         }
@@ -113,8 +114,15 @@ extension MediaAttachmentPreview{
         static let listHeight : CGFloat = 100
         static let imageDimen : CGFloat = 80
     }
+    
+    // 被选中的Media全都是按钮，是可以有点击动作的，所以在这里添加UserAction
+    enum userAction {
+        case play(_ item: MediaAttachment)
+    }
 }
 
 #Preview {
-    MediaAttachmentPreview(mediaAttachments: [])
+    MediaAttachmentPreview(mediaAttachments: []){ action in
+        
+    }
 }

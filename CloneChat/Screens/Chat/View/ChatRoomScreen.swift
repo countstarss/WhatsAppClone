@@ -43,6 +43,13 @@ struct ChatRoomScreen: View {
                 .safeAreaInset(edge:.bottom) {
                     bottomSafeAreaView()
                 }
+                .fullScreenCover(isPresented: $viewModel.videoPlayerState.show){
+                    if let player = viewModel.videoPlayerState.player{
+                        mediaPlayerView(player: player) {
+                            viewModel.dismissMediaPlayer()
+                        }
+                    }
+                }
             
     }
     
@@ -51,7 +58,10 @@ struct ChatRoomScreen: View {
             
             if viewModel.showPhotoPickerPreview {
                 Divider()
-                MediaAttachmentPreview(mediaAttachments: viewModel.mediaAttachments)
+                MediaAttachmentPreview(mediaAttachments: viewModel.mediaAttachments){
+                    action in
+                    viewModel.handleMediaAttachmentPreview(action)
+                }
             }
             
             Divider()
