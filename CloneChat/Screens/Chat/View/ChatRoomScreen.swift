@@ -41,7 +41,7 @@ struct ChatRoomScreen: View {
                               photoLibrary: .shared()
                 )
                 .navigationBarTitleDisplayMode(.inline)
-                .ignoresSafeArea(edges: .bottom) // 可以隐藏previre的白边
+//                .ignoresSafeArea(edges: .bottom) // 可以隐藏previre的白边
                 .safeAreaInset(edge:.bottom) {
                     bottomSafeAreaView()
                 }
@@ -59,16 +59,18 @@ struct ChatRoomScreen: View {
     private func bottomSafeAreaView() -> some View {
         VStack(spacing:0){
             
+            Divider().opacity(viewModel.showPhotoPickerPreview ? 1 : 0)
+            
             if viewModel.showPhotoPickerPreview {
-                Divider()
+
                 MediaAttachmentPreview(mediaAttachments: viewModel.mediaAttachments){
                     action in
                     viewModel.handleMediaAttachmentPreview(action)
                 }
             }
             
-            Divider()
-            TextInputArea(textMessage: $viewModel.textMessage){action in 
+            Divider().opacity(viewModel.showPhotoPickerPreview ? 1 : 0)
+            TextInputArea(textMessage: $viewModel.textMessage){action in
                 viewModel.handleTextInputArea(action)
             }
         }

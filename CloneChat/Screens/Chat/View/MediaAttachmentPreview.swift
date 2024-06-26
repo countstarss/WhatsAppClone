@@ -21,6 +21,7 @@ struct MediaAttachmentPreview: View {
                 }
             }
             .padding(.leading,5)
+            .padding(.vertical,5)
         }
         .frame(height: Constants.listHeight)
         .frame(maxWidth: .infinity)
@@ -111,7 +112,7 @@ struct MediaAttachmentPreview: View {
 
 extension MediaAttachmentPreview{
     enum Constants {
-        static let listHeight : CGFloat = 100
+        static let listHeight : CGFloat = 90
         static let imageDimen : CGFloat = 80
     }
     

@@ -65,10 +65,9 @@ final class ChatRoomViewModel:ObservableObject{
                 // 导致无法正确判断allMembersFetched是否为true的原因是：
                     // 在ChannelTabViewModel中获取Channel时，没有把当前user添加进去,导致channel只有一个
                 if self.channel.allMembersFetched{
-                    print("In GroupChannel:allMembersFetched -> \(channel.members.map { $0.username })")
+                    print("allMembersFetched -> \(channel.members.map { $0.username })")
                     self.getMessage()
                 }else {
-                    print("In DirectChannel")
                     // 改变顺序，先获取所有的channelMembers，然后在fetchAllChannelMembers函数里getMessage
                     self.fetchAllChannelMembers()
                 }
@@ -119,7 +118,13 @@ final class ChatRoomViewModel:ObservableObject{
             print("showPhotoPicker:\(showPhotoPicker)")
         case .sendMessage:
             sendMessage()
+        case .recordAudio:
+            toggleAudioRecorder()
         }
+    }
+    
+    private func toggleAudioRecorder() {
+        
     }
     
     
@@ -186,8 +191,12 @@ final class ChatRoomViewModel:ObservableObject{
             showMediaPlayer(fileURL)
         case .remove(let attachment):
             remove(attachment)
+//        case .record(_):
+//            toggleAudioRecorder()
         }
     }
+    
+
     
     private func remove(_ item:MediaAttachment) {
         guard let attachmentIndex = mediaAttachments.firstIndex(where: { $0.id == item.id}) else { return }

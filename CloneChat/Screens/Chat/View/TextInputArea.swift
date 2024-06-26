@@ -15,6 +15,9 @@ struct TextInputArea: View {
     
     let actionHandle :(_ action: userAction) -> Void
     
+    @State private var isRecording : Bool = false
+    
+    @State private var ispulsing  = false
     // Enable发送按钮
     private var disableSendButton : Bool {
         return !textMessage.isEmptyorWhiteSpace!
@@ -24,19 +27,25 @@ struct TextInputArea: View {
         HStack(alignment:.bottom,spacing:5){
             imagePickerButton()
             audioRecorderButton()
-            messageTextField()
+            if isRecording {
+                audioSessionIndicatorView()
+            }else {
+                messageTextField()
+            }
             sendMessageButton()
                 .disabled(disableSendButton)
                 .grayscale(disableSendButton ? 1 : 0)
         }
         .padding(.horizontal,4)
-        .padding(.vertical,15)
+        .padding(.top,8)
+        .padding(.bottom,15)
         .background(.whatsAppWhite)
+        .animation(.spring(bounce:0.5),value: isRecording)
     }
     
     private func messageTextField() -> some View{
         TextField("",text: $textMessage)
-            .frame(width: 280,height: 30)
+            .frame(width: 240,height: 40)
             .padding(.leading,10)
             .background(
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
@@ -58,7 +67,7 @@ struct TextInputArea: View {
             actionHandle(.presentPhotoPicker)
         }label: {
             Image(systemName: "photo.on.rectangle")
-                .font(.system(size: 20))
+                .font(.system(size: 30))
                 .imageScale(.medium)
                 .padding(.bottom,2)
                 
@@ -70,6 +79,7 @@ struct TextInputArea: View {
             actionHandle(.sendMessage)
         }label: {
             Image(systemName: "arrow.up")
+                .font(.system(size: 30))
                 .fontWeight(.heavy)
                 .imageScale(.small)
                 .foregroundStyle(.white)
@@ -82,22 +92,61 @@ struct TextInputArea: View {
     
     private func audioRecorderButton() -> some View{
         Button{
-            actionHandle(.presentPhotoPicker)
+            actionHandle(.recordAudio)
+            isRecording.toggle()
+            withAnimation(.easeInOut(duration:1).repeatForever()) {
+                ispulsing.toggle()
+            }
         }label: {
-            Image(systemName: "mic.fill")
+            Image(systemName: isRecording ? "square.fill" : "mic.fill")
+                .frame(width: 25,height: 25)
+                .font(.system(size: 25))
                 .fontWeight(.heavy)
                 .imageScale(.small)
                 .foregroundStyle(.white)
-                .padding(5)
-                .background(Color(.systemBlue))
+                .padding(6)
+                .background(isRecording ? .red : .blue)
                 .clipShape(Circle())
         }
+    }
+    
+    private func audioSessionIndicatorView() -> some View {
+        HStack{
+            Button{
+                
+            }label: {
+                Image(systemName: "circle.fill")
+                    .foregroundStyle(.red)
+                    .font(.caption)
+                    .scaleEffect(ispulsing ? 1.8 : 1.0)
+                    
+            }
+            
+            Text("Recording Audio")
+                .font(.callout)
+                .lineLimit(1)
+            
+            Spacer()
+            
+            Text("0:01")
+                .fontWeight(.semibold)
+                .lineLimit(1)
+                .padding(.horizontal,10)
+        }
+        .frame(width: 240,height: 40)
+        .padding(.leading,10)
+        .background(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(.blue.opacity(0.1))
+        )
+        .overlay(textViewBorder())
     }
 }
 extension TextInputArea {
     enum userAction {
         case presentPhotoPicker
         case sendMessage
+        case recordAudio
     }
 }
 
