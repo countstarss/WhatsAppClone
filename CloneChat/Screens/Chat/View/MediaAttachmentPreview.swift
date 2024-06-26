@@ -40,7 +40,7 @@ struct MediaAttachmentPreview: View {
                 .clipped()
             // 添加取消按钮
                 .overlay(alignment:.topTrailing){
-                    cancleButton()
+                    cancleButton(attachment)
                         .padding(3)
                 }
                 .overlay(alignment:.center){
@@ -51,9 +51,9 @@ struct MediaAttachmentPreview: View {
         }
     }
     
-    private func cancleButton() -> some View {
+    private func cancleButton(_ attachment:MediaAttachment) -> some View {
         Button{
-            
+            actionHandler(.remove(attachment))
         }label: {
             Image(systemName: "xmark")
                 .scaledToFit()
@@ -92,7 +92,7 @@ struct MediaAttachmentPreview: View {
         .frame(width: Constants.imageDimen * 2,height: Constants.imageDimen)
         .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
         .overlay(alignment:.topTrailing){
-            cancleButton()
+            cancleButton(attachment)
                 .padding(3)
         }
         .overlay(alignment:.bottom){
@@ -118,6 +118,7 @@ extension MediaAttachmentPreview{
     // 被选中的Media全都是按钮，是可以有点击动作的，所以在这里添加UserAction
     enum userAction {
         case play(_ item: MediaAttachment)
+        case remove(_ item: MediaAttachment)
     }
 }
 

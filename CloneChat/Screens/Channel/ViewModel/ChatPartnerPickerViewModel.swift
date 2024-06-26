@@ -246,10 +246,6 @@ final class ChatPartnerPickerViewModel:ObservableObject {
                 
         ]
         
-//        if let channelname = ((channelName?.isEmptyorWhiteSpace) != nil) ? channelName : nil {
-//            print("channelname is vaild : \(channelname)")
-//            channelDict[.name] = channelname
-//        }
         if let channelname = channelName{
             print("channelname is vaild : \(channelname)")
             channelDict[.name] = channelname

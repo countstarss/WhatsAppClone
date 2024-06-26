@@ -23,9 +23,11 @@ final class ChatRoomViewModel:ObservableObject{
     
     // 用于打开PhotoPicker
     @Published var showPhotoPicker = false
+    
+    // 用于保存已选择的图片文件
     @Published var photoPickerItems : [PhotosPickerItem] = []
     
-    // 用于保存已选择的媒体文件 // 改用覆盖范围更广的MediaAttachment，它包括三种类型
+    // 用于保存已选择的媒体文件选择video // 改用覆盖范围更广的MediaAttachment，它包括三种类型
     @Published var mediaAttachments:[MediaAttachment] = []
     
     // 用于保存VideoPlayer状态
@@ -33,7 +35,7 @@ final class ChatRoomViewModel:ObservableObject{
     
     // 用于控制显示MediaAttachmentPreview
     var showPhotoPickerPreview: Bool {
-        return !mediaAttachments.isEmpty
+        return !mediaAttachments.isEmpty || !photoPickerItems.isEmpty
     }
     
     // AnyCancellable <关键点>
@@ -63,10 +65,10 @@ final class ChatRoomViewModel:ObservableObject{
                 // 导致无法正确判断allMembersFetched是否为true的原因是：
                     // 在ChannelTabViewModel中获取Channel时，没有把当前user添加进去,导致channel只有一个
                 if self.channel.allMembersFetched{
-                    print("allMembersFetched: \(channel.members.map { $0.username })")
+                    print("In GroupChannel:allMembersFetched -> \(channel.members.map { $0.username })")
                     self.getMessage()
                 }else {
-                    print("in else")
+                    print("In DirectChannel")
                     // 改变顺序，先获取所有的channelMembers，然后在fetchAllChannelMembers函数里getMessage
                     self.fetchAllChannelMembers()
                 }
@@ -88,7 +90,6 @@ final class ChatRoomViewModel:ObservableObject{
         // 这里闭包中的messages是 MessageSeverce.getMessages 的completion传过来的
         MessageSeverce.getMessages(for:channel) {[weak self] messages in
             self?.messages = messages // 把channel对应的messages赋值给模板messages
-            print("messages: \(messages.map{ $0.text })")
         }
     }
     
@@ -146,8 +147,8 @@ final class ChatRoomViewModel:ObservableObject{
                 if let movie = try? await photoItem.loadTransferable(type: VideoPickerTransferable.self){
                     // 使用AVAssetImageGenerator生成视频的略缩图
                     // 我们要直接使用URL类型值生成Thumbnail，要使用这个功能就需要给URL添加扩展
-                    if let thumbnail = try? await movie.url.generateVideoThumbnail(){
-                        let videoAttachment = MediaAttachment(id: UUID().uuidString, type: .video(thumbnail, movie.url))
+                    if let thumbnail = try? await movie.url.generateVideoThumbnail(), let itemIdentifier = photoItem.itemIdentifier{
+                        let videoAttachment = MediaAttachment(id: itemIdentifier, type: .video(thumbnail, movie.url))
                         self.mediaAttachments.insert(videoAttachment, at: 0)
                     }
                 }
@@ -157,8 +158,11 @@ final class ChatRoomViewModel:ObservableObject{
                     // loadTransferable，将特定数据类型中加载数据并将其转换为可传输的对象。通常用于处理和传输数据的场景，比如从照片库中加载照片、从文件中读取数据等。
                     let thumbnail = UIImage(data: data)
                 else { return }
-                let photoAttachment = MediaAttachment(id: UUID().uuidString, type: .photo(thumbnail))
-                self.mediaAttachments.insert(photoAttachment, at: 0)
+                    if let itemIdentifier = photoItem.itemIdentifier {
+                        let photoAttachment = MediaAttachment(id: itemIdentifier, type: .photo(thumbnail))
+                        self.mediaAttachments.insert(photoAttachment, at: 0)
+                    }
+                
             }
         }
     }
@@ -180,7 +184,17 @@ final class ChatRoomViewModel:ObservableObject{
         case .play(let attachment):
             guard let fileURL = attachment.fileURL else { return }
             showMediaPlayer(fileURL)
+        case .remove(let attachment):
+            remove(attachment)
         }
+    }
+    
+    private func remove(_ item:MediaAttachment) {
+        guard let attachmentIndex = mediaAttachments.firstIndex(where: { $0.id == item.id}) else { return }
+        mediaAttachments.remove(at: attachmentIndex)
+        
+        guard let photoIndex = photoPickerItems.firstIndex(where: { $0.itemIdentifier == item.id}) else { return }
+        photoPickerItems.remove(at: photoIndex)
     }
     
 }

@@ -35,14 +35,17 @@ struct ChatRoomScreen: View {
                     leadingNavItem()
                     trailingNavItem()
                 }
-                .photosPicker(isPresented: $viewModel.showPhotoPicker, 
+                .photosPicker(isPresented: $viewModel.showPhotoPicker,
                               selection: $viewModel.photoPickerItems,
-                              maxSelectionCount: 6
+                              maxSelectionCount: 6,
+                              photoLibrary: .shared()
                 )
                 .navigationBarTitleDisplayMode(.inline)
+                .ignoresSafeArea(edges: .bottom) // 可以隐藏previre的白边
                 .safeAreaInset(edge:.bottom) {
                     bottomSafeAreaView()
                 }
+                .animation(.easeInOut,value: viewModel.showPhotoPickerPreview)
                 .fullScreenCover(isPresented: $viewModel.videoPlayerState.show){
                     if let player = viewModel.videoPlayerState.player{
                         mediaPlayerView(player: player) {

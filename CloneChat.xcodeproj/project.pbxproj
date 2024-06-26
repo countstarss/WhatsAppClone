@@ -28,6 +28,7 @@
 		A3D57BAF2C2A4AC70079822D /* MediaPickerItem+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BAE2C2A4AC70079822D /* MediaPickerItem+Types.swift */; };
 		A3D57BB12C2A57160079822D /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BB02C2A57160079822D /* URL+Extension.swift */; };
 		A3D57BB32C2AA0BD0079822D /* mediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BB22C2AA0BD0079822D /* mediaPlayerView.swift */; };
+		A3D57BB52C2BA3020079822D /* commit 38.md in Resources */ = {isa = PBXBuildFile; fileRef = A3D57BB42C2BA3020079822D /* commit 38.md */; };
 		A3E0B0FD2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md in Resources */ = {isa = PBXBuildFile; fileRef = A3E0B0FC2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md */; };
 		DF03461F2C0D583F00A70B47 /* WhatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03461E2C0D583F00A70B47 /* WhatsApp.swift */; };
 		DF0346262C0D584100A70B47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF0346252C0D584100A70B47 /* Preview Assets.xcassets */; };
@@ -90,6 +91,7 @@
 		A3D57BAE2C2A4AC70079822D /* MediaPickerItem+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaPickerItem+Types.swift"; sourceTree = "<group>"; };
 		A3D57BB02C2A57160079822D /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		A3D57BB22C2AA0BD0079822D /* mediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mediaPlayerView.swift; sourceTree = "<group>"; };
+		A3D57BB42C2BA3020079822D /* commit 38.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "commit 38.md"; sourceTree = "<group>"; };
 		A3E0B0FC2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Episode-36-Fetching channel members in ChatRoom.md"; sourceTree = "<group>"; };
 		DF03461B2C0D583F00A70B47 /* CloneChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloneChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF03461E2C0D583F00A70B47 /* WhatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsApp.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				DF0346A12C0D596C00A70B47 /* Assets.xcassets */,
 				DF0346A02C0D596C00A70B47 /* GoogleService-Info.plist */,
 				A3E0B0FC2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md */,
+				A3D57BB42C2BA3020079822D /* commit 38.md */,
 				DF8583A72C0EEE6B0052B6A2 /* DatabaseDesignPrinciple.md */,
 				A3D57BA62C28FBBB0079822D /* Commit 34.md */,
 				DF0346242C0D584100A70B47 /* Preview Content */,
@@ -589,6 +592,7 @@
 				A3D57BA72C28FBBB0079822D /* Commit 34.md in Resources */,
 				A3E0B0FD2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md in Resources */,
 				DF0346A22C0D596C00A70B47 /* GoogleService-Info.plist in Resources */,
+				A3D57BB52C2BA3020079822D /* commit 38.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

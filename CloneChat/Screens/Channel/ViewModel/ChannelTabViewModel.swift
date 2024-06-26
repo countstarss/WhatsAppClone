@@ -62,31 +62,6 @@ final class ChannelTabViewModel: ObservableObject {
         
     }
     
-//    private func listenToAuthState() {
-//        AuthManager.shared.authState.receive(on: DispatchQueue.main).sink{ [weak self] authState in
-//            guard let self = self else { return }
-//            switch authState{
-//                // 如果通过Firebase Auth拿到当前的登陆状态是LogedIn
-//            case .loggedIn(let current):
-//                self.currentUser = current
-//                // 如果不需要fetch，直接调用getMessage()
-//                
-//                // 导致无法正确判断allMembersFetched是否为true的原因是：
-//                    // 在ChannelTabViewModel中获取Channel时，没有把当前user添加进去,导致channel只有一个
-//                if self.channel.allMembersFetched{
-//                    print("allMembersFetched")
-//                    self.getMessage()
-//                }else {
-//                    print("in else")
-//                    // 改变顺序，先获取所有的channelMembers，然后在fetchAllChannelMembers函数里getMessage
-//                    self.fetchAllChannelMembers()
-//                }
-//            default :
-//                break
-//            }
-//            //
-//        }.store(in: &subScriptions)
-//    }
     
     //MARK: - getChannel
     private func getChannel(with channelId: String) {
@@ -100,8 +75,6 @@ final class ChannelTabViewModel: ObservableObject {
                 channel.members.append(seff.currentUser) // 使用seff代替self，解开self，这样才能添加currentUser
                 seff.channelDictionary[channelId] = channel
                 seff.reloadData()
-//                self?.channels.append(channel)
-//                print("Channel: \(channel.members.map {$0.})")
             }
         } withCancel: { error in
             print("🙅🏻 Failed to get the channel for id \(channelId) :\(error.localizedDescription)")
