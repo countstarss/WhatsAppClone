@@ -30,9 +30,16 @@ extension Date {
     }
     
     var formatToTime :String {
-        let dataFormatter = DateFormatter()
-        dataFormatter.dateFormat = "h:mm a"
-        let formattedTime = dataFormatter.string(from: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        let formattedTime = dateFormatter.string(from: self)
         return formattedTime
+    }
+    
+    func toString(format: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        let formattedTimeString = dateFormatter.string(from: self)
+        return formattedTimeString
     }
 }

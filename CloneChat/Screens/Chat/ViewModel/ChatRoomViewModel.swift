@@ -33,18 +33,20 @@ final class ChatRoomViewModel:ObservableObject{
     // 用于保存VideoPlayer状态
     @Published var videoPlayerState: (show: Bool,player:AVPlayer?) = (false,nil)
     
+    // 用于调用服务
+    private let voiceRecorderService = VoiceRecorderService()
+    
     // 用于控制显示MediaAttachmentPreview
     var showPhotoPickerPreview: Bool {
         return !mediaAttachments.isEmpty || !photoPickerItems.isEmpty
     }
     
-    // AnyCancellable <关键点>
-    // Set<AnyCancellable>：在视图模型中，我们通常使用一个集合来存储 AnyCancellable 实例，以便在视图模型的生命周期内保持订阅有效。
-    // store(in:)：通过调用 store(in:) 方法，可以将 AnyCancellable 实例存储在一个集合中，这样在需要时可以统一管理这些订阅。
+    // AnyCancellable <关键点> 存储订阅
     private var subScriptions = Set<AnyCancellable>()
     
     private var currentUser :UserItem?
     
+    //MARK: - Init
     init(channel: ChannelItem) {
         self.channel = channel
         // listenToAuthState初始化currentUser
@@ -99,7 +101,8 @@ final class ChatRoomViewModel:ObservableObject{
         let membersAlreadyFetched = channel.members.compactMap { $0.uid } // 得到的是一个uid数组
         // 需要获取的是membersUids中不包含membersAlreadyFetched中的部分
         var membersUidsToFetch = channel.membersUids.filter { !membersAlreadyFetched.contains($0) } // 去掉已获取
-        membersUidsToFetch = membersUidsToFetch.filter{ $0 != currentUser.uid } // 去掉currentUser
+        membersUidsToFetch = membersUidsToFetch.filter{ $0 != currentUser.uid } 
+        // 去掉currentUser
         
         UserService.getUser(with: membersUidsToFetch) { [weak self] userNode in
             guard let self = self else { return }
@@ -110,6 +113,7 @@ final class ChatRoomViewModel:ObservableObject{
         getMessage()
     }
     
+    //MARK: - HandleTextInputArea 触发输入区域的动作
     // 根据点击的按钮选择不同的方法，这个方法是TextInput的actionHandle
     func handleTextInputArea(_ action:TextInputArea.userAction) {
         switch action {
@@ -123,12 +127,30 @@ final class ChatRoomViewModel:ObservableObject{
         }
     }
     
+    
+    //MARK: - <-- Audio
     private func toggleAudioRecorder() {
-        
+        if voiceRecorderService.isRecording {
+            voiceRecorderService.stopRecord { audioURL, audioDuration in
+                self.createAudioAttachment(from: audioURL, audioDuration)
+            }
+        }else {
+            voiceRecorderService.startRecord()
+        }
     }
     
+    private func createAudioAttachment(from audioURL: URL?, _ audioDuration: TimeInterval) {
+        guard let audioURL = audioURL else { return }
+        let id = UUID().uuidString
+        let audioAttachment = MediaAttachment(id: id, type: .audio)
+        mediaAttachments.insert(audioAttachment, at: 0) // 在开头插入
+    }
+    //MARK: - Audio -->
     
-    //MARK: - PhotoPicker
+    
+    
+    
+    //MARK: - <-- PhotoPicker & Video
     // 添加照片的思路分析：
     // 1. 监控$photoPickerItems，当其中有内容时，将PhotosPicker得到的整个数组拿去解码
     // 2. 把数组中的item循环取出，将其转换成可传输的对象，然后将得到的数据转成UIImage类型
@@ -172,18 +194,16 @@ final class ChatRoomViewModel:ObservableObject{
         }
     }
     
+    //MARK: - PhotoPicker & Video -->
+    
     func dismissMediaPlayer() {
         videoPlayerState.player?.replaceCurrentItem(with: nil)
         videoPlayerState.player = nil
         videoPlayerState.show = false
     }
+  
     
-    func showMediaPlayer(_ fileURL:URL) {
-        videoPlayerState.show = true
-        videoPlayerState.player = AVPlayer(url: fileURL)
-        videoPlayerState.player = nil
-    }
-    
+    //MARK: - <-- HandleMedia Attachment Preview
     func handleMediaAttachmentPreview(_ action:MediaAttachmentPreview.userAction) {
         switch action {
         case .play(let attachment):
@@ -191,12 +211,15 @@ final class ChatRoomViewModel:ObservableObject{
             showMediaPlayer(fileURL)
         case .remove(let attachment):
             remove(attachment)
-//        case .record(_):
-//            toggleAudioRecorder()
         }
     }
     
 
+    func showMediaPlayer(_ fileURL:URL) {
+        videoPlayerState.show = true
+        videoPlayerState.player = AVPlayer(url: fileURL)
+        videoPlayerState.player = nil
+    }
     
     private func remove(_ item:MediaAttachment) {
         guard let attachmentIndex = mediaAttachments.firstIndex(where: { $0.id == item.id}) else { return }
@@ -205,5 +228,6 @@ final class ChatRoomViewModel:ObservableObject{
         guard let photoIndex = photoPickerItems.firstIndex(where: { $0.itemIdentifier == item.id}) else { return }
         photoPickerItems.remove(at: photoIndex)
     }
+    //MARK: - HandleMedia Attachment Preview -->
     
 }

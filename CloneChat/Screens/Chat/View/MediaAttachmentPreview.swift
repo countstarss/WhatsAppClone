@@ -15,9 +15,12 @@ struct MediaAttachmentPreview: View {
     var body: some View {
         ScrollView(.horizontal,showsIndicators: false){
             HStack{
-//                audioAttachmentPreview()
                 ForEach(mediaAttachments) {attachment in
-                    thumbnailImageView(attachment)
+                    if attachment.type == .audio{
+                        audioAttachmentPreview(attachment)
+                    }else{
+                        thumbnailImageView(attachment)
+                    }
                 }
             }
             .padding(.leading,5)
@@ -39,7 +42,6 @@ struct MediaAttachmentPreview: View {
                 .frame(width: Constants.imageDimen, height: Constants.imageDimen)
                 .cornerRadius(5)
                 .clipped()
-            // 添加取消按钮
                 .overlay(alignment:.topTrailing){
                     cancleButton(attachment)
                         .padding(3)
@@ -115,8 +117,6 @@ extension MediaAttachmentPreview{
         static let listHeight : CGFloat = 90
         static let imageDimen : CGFloat = 80
     }
-    
-    // 被选中的Media全都是按钮，是可以有点击动作的，所以在这里添加UserAction
     enum userAction {
         case play(_ item: MediaAttachment)
         case remove(_ item: MediaAttachment)

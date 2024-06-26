@@ -29,6 +29,7 @@
 		A3D57BB12C2A57160079822D /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BB02C2A57160079822D /* URL+Extension.swift */; };
 		A3D57BB32C2AA0BD0079822D /* mediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BB22C2AA0BD0079822D /* mediaPlayerView.swift */; };
 		A3D57BB52C2BA3020079822D /* commit 38.md in Resources */ = {isa = PBXBuildFile; fileRef = A3D57BB42C2BA3020079822D /* commit 38.md */; };
+		A3D57BB72C2C01A10079822D /* VoiceRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BB62C2C01A00079822D /* VoiceRecorderService.swift */; };
 		A3E0B0FD2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md in Resources */ = {isa = PBXBuildFile; fileRef = A3E0B0FC2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md */; };
 		DF03461F2C0D583F00A70B47 /* WhatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03461E2C0D583F00A70B47 /* WhatsApp.swift */; };
 		DF0346262C0D584100A70B47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF0346252C0D584100A70B47 /* Preview Assets.xcassets */; };
@@ -92,6 +93,8 @@
 		A3D57BB02C2A57160079822D /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		A3D57BB22C2AA0BD0079822D /* mediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mediaPlayerView.swift; sourceTree = "<group>"; };
 		A3D57BB42C2BA3020079822D /* commit 38.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "commit 38.md"; sourceTree = "<group>"; };
+		A3D57BB62C2C01A00079822D /* VoiceRecorderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecorderService.swift; sourceTree = "<group>"; };
+		A3D57BB82C2C275F0079822D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A3E0B0FC2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Episode-36-Fetching channel members in ChatRoom.md"; sourceTree = "<group>"; };
 		DF03461B2C0D583F00A70B47 /* CloneChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloneChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF03461E2C0D583F00A70B47 /* WhatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsApp.swift; sourceTree = "<group>"; };
@@ -193,6 +196,7 @@
 		DF03461D2C0D583F00A70B47 /* CloneChat */ = {
 			isa = PBXGroup;
 			children = (
+				A3D57BB82C2C275F0079822D /* Info.plist */,
 				A30F60942C22D2E400A4D4CB /* Components */,
 				DF8583AD2C0F02EC0052B6A2 /* Extensions */,
 				DF0346412C0D592C00A70B47 /* Utils */,
@@ -490,6 +494,7 @@
 			children = (
 				DF8583A42C0DB8360052B6A2 /* UserService.swift */,
 				DF7A9D682C12A68E0058510D /* MessageSeverce.swift */,
+				A3D57BB62C2C01A00079822D /* VoiceRecorderService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -649,6 +654,7 @@
 				DF0346982C0D594000A70B47 /* ChannelItemView.swift in Sources */,
 				DF03468E2C0D594000A70B47 /* SignUpScreen.swift in Sources */,
 				A3D57BAF2C2A4AC70079822D /* MediaPickerItem+Types.swift in Sources */,
+				A3D57BB72C2C01A10079822D /* VoiceRecorderService.swift in Sources */,
 				A30F60982C23157600A4D4CB /* Date+Extensions.swift in Sources */,
 				DF8583A52C0DB8360052B6A2 /* UserService.swift in Sources */,
 				DF03461F2C0D583F00A70B47 /* WhatsApp.swift in Sources */,
@@ -793,6 +799,8 @@
 				DEVELOPMENT_TEAM = JF56Q52HA5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CloneChat/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "access to record your voice to send your firends";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -803,7 +811,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.luke.SwiftUIPractice.CloneChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.luke.SwiftSkool.WhatsAppClone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -822,6 +830,8 @@
 				DEVELOPMENT_TEAM = JF56Q52HA5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CloneChat/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "access to record your voice to send your firends";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -832,7 +842,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.luke.SwiftUIPractice.CloneChat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.luke.SwiftSkool.WhatsAppClone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
