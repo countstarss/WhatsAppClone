@@ -19,7 +19,7 @@ struct ChatRoomScreen: View {
         self.channel = channel
         // 依赖注入
         // 将viewModel传入
-        _viewModel = StateObject(wrappedValue: ChatRoomViewModel(channel: channel, disableSendButton: false))
+        _viewModel = StateObject(wrappedValue: ChatRoomViewModel(channel: channel))
     }
 
     // 生命周期：@StateObject状态由SwiftUI管理，确保对象的生命周期与视图的生命周期保持一致。当视图被重新创建时（例如在视图树中被移动或被删除再添加）

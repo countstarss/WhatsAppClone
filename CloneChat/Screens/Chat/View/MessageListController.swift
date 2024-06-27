@@ -153,6 +153,5 @@ extension MessageListController:UITableViewDelegate,UITableViewDataSource{
 
 
 #Preview {
-    MessageListView(ChatRoomViewModel(channel: .placeholder, disableSendButton: false))
-//        .ignoresSafeArea()
+    MessageListView(ChatRoomViewModel(channel: .placeholder))
 }

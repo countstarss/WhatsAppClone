@@ -9,6 +9,6 @@ import Foundation
 
 extension String{
     var isEmptyorWhiteSpace :Bool {
-        return !trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }

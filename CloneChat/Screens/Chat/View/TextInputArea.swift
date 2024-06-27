@@ -11,16 +11,17 @@ import PhotosUI
 struct TextInputArea: View {
     @State private var ispulsing  = false
     @Binding var textMessage : String
-    let viewModel = ChatRoomViewModel(channel: .placeholder, disableSendButton: false)
+    let viewModel = ChatRoomViewModel(channel: .placeholder)
     // 以下两个属性和VoiceRecorderService中的绑定
     @Binding var isRecording : Bool
     @Binding var elapsedTime : TimeInterval
     var disableSendButton: Bool
     let actionHandle :(_ action: userAction) -> Void
     
-    // Enable发送按钮
+    // Enable发送Button
     private var isSendButtonDisabled : Bool {
-        return textMessage.isEmptyorWhiteSpace || isRecording
+        return disableSendButton || isRecording
+
     }
     
     var body: some View {
@@ -35,7 +36,7 @@ struct TextInputArea: View {
                 messageTextField()
             }
             sendMessageButton()
-                .disabled(disableSendButton)
+                .disabled(isSendButtonDisabled)
                 .grayscale(disableSendButton ? 1 : 0)
         }
         .padding(.horizontal,4)

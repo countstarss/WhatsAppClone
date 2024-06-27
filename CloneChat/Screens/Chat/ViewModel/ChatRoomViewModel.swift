@@ -13,7 +13,7 @@ import SwiftUI
 // `final` 关键字用于防止类被继承或者防止类的方法、属性被重写
 final class ChatRoomViewModel:ObservableObject{
     
-    @Published var textMessage = ""
+    @Published var textMessage :String = ""
     
     // 在MessageSevercve中创建的messages只是一个临时的，我们需要在这里创建messages来保存
     @Published var messages : [MessageItem] = [MessageItem]()
@@ -55,7 +55,7 @@ final class ChatRoomViewModel:ObservableObject{
     }
     
     //MARK: - Init
-    init(channel: ChannelItem,disableSendButton: Bool) {
+    init(channel: ChannelItem) {
         self.channel = channel
         // listenToAuthState初始化currentUser
         listenToAuthState()
@@ -63,6 +63,7 @@ final class ChatRoomViewModel:ObservableObject{
         onPhotoPickerSelection()
         
         setUpVoiceRecorderListner()
+        print("disableSendButton :\(disableSendButton)")
     }
     
     deinit{
