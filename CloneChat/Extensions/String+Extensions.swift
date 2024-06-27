@@ -8,7 +8,7 @@
 import Foundation
 
 extension String{
-    var isEmptyorWhiteSpace :Bool? {
+    var isEmptyorWhiteSpace :Bool {
         return !trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }

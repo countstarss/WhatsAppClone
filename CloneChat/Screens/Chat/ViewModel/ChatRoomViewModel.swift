@@ -50,8 +50,12 @@ final class ChatRoomViewModel:ObservableObject{
     private var subScriptions = Set<AnyCancellable>()
     private var currentUser :UserItem?
     
+    var disableSendButton: Bool {
+        return mediaAttachments.isEmpty && textMessage.isEmptyorWhiteSpace
+    }
+    
     //MARK: - Init
-    init(channel: ChannelItem) {
+    init(channel: ChannelItem,disableSendButton: Bool) {
         self.channel = channel
         // listenToAuthState初始化currentUser
         listenToAuthState()

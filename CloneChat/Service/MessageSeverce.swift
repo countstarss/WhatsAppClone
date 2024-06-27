@@ -54,3 +54,18 @@ struct MessageSeverce {
         }
     }
 }
+
+// 创建MessageUploadParams
+struct MessageUploadParams {
+    let channel :ChannelItem
+    let text: String
+    let type: MessageType
+    let attachment: MediaAttachment
+    
+    var sender :UserItem
+    var thumbnail: String?
+    var videoURL: String?
+    var audioURL: String?
+    var audioDuration: TimeInterval
+    
+}

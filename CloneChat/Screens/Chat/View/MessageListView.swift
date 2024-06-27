@@ -25,5 +25,5 @@ struct MessageListView: UIViewControllerRepresentable {
 }
 
 #Preview {
-    MessageListView(ChatRoomViewModel(channel: .placeholder))
+    MessageListView(ChatRoomViewModel(channel: .placeholder, disableSendButton: false))
 }

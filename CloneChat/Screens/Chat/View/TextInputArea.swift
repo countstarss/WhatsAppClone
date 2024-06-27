@@ -11,15 +11,16 @@ import PhotosUI
 struct TextInputArea: View {
     @State private var ispulsing  = false
     @Binding var textMessage : String
-    let viewModel = ChatRoomViewModel(channel: .placeholder)
+    let viewModel = ChatRoomViewModel(channel: .placeholder, disableSendButton: false)
     // 以下两个属性和VoiceRecorderService中的绑定
     @Binding var isRecording : Bool
     @Binding var elapsedTime : TimeInterval
+    var disableSendButton: Bool
     let actionHandle :(_ action: userAction) -> Void
     
     // Enable发送按钮
-    private var disableSendButton : Bool {
-        return !textMessage.isEmptyorWhiteSpace!
+    private var isSendButtonDisabled : Bool {
+        return textMessage.isEmptyorWhiteSpace || isRecording
     }
     
     var body: some View {
@@ -160,7 +161,7 @@ extension TextInputArea {
     ZStack{
         Color.white
         
-        TextInputArea(textMessage: .constant(""),isRecording: .constant(false), elapsedTime: .constant(0)){ action in
+        TextInputArea(textMessage: .constant(""),isRecording: .constant(false), elapsedTime: .constant(0), disableSendButton: false){ action in
             //
         }
     }

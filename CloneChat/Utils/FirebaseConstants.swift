@@ -10,6 +10,7 @@ import Firebase
 import FirebaseStorage
 
 enum FirebaseConstants{
+    static let StorageRef = Storage.storage(url: "gs://whatsapp-a26a2.appspot.com").reference()
     private static let DatabaseRef = Database.database(url:"https://whatsapp-a26a2-default-rtdb.asia-southeast1.firebasedatabase.app").reference()
     static let UserRef = DatabaseRef.child("user")
     static let ChannelRef = DatabaseRef.child("channels")
