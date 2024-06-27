@@ -16,7 +16,7 @@ struct MediaAttachmentPreview: View {
         ScrollView(.horizontal,showsIndicators: false){
             HStack{
                 ForEach(mediaAttachments) {attachment in
-                    if attachment.type == .audio{
+                    if attachment.type == .audio(.stubURL,.stubTimeInterval){
                         audioAttachmentPreview(attachment)
                     }else{
                         thumbnailImageView(attachment)
@@ -47,7 +47,7 @@ struct MediaAttachmentPreview: View {
                         .padding(3)
                 }
                 .overlay(alignment:.center){
-                    playButton("play.fill", item: attachment)
+                    playButton("play.fill", attachment: attachment)
                         .padding(3)
                         .opacity(attachment.type == .video(UIImage(), .stubURL) ? 1.0 : 0.0)
                 }
@@ -69,9 +69,9 @@ struct MediaAttachmentPreview: View {
         }
     }
     
-    private func playButton(_ systemName:String,item:MediaAttachment) -> some View {
+    private func playButton(_ systemName:String,attachment:MediaAttachment) -> some View {
         Button{
-            actionHandler(.play(item))
+            actionHandler(.play(attachment))
         }label: {
             Image(systemName: systemName)
                 .scaledToFit()
@@ -88,7 +88,7 @@ struct MediaAttachmentPreview: View {
         ZStack{
             LinearGradient(colors: [.green,.green.opacity(0.6),.teal], startPoint: .topLeading, endPoint: .bottomTrailing)
             
-            playButton("mic.fill", item: attachment)
+            playButton("mic.fill", attachment: attachment)
                 .padding(5)
                 .padding(.bottom,15)
         }
@@ -99,7 +99,7 @@ struct MediaAttachmentPreview: View {
                 .padding(3)
         }
         .overlay(alignment:.bottom){
-            Text("test audio name.mp3")
+            Text(attachment.fileURL?.absoluteString ?? "Unknow.m4a")
                 .lineLimit(1)
                 .font(.footnote)
                 .foregroundStyle(.secondary)

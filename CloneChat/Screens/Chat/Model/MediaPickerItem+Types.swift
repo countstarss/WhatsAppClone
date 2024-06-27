@@ -49,9 +49,9 @@ struct MediaAttachment:Identifiable {
             return nil
         case .video(_, let fileURL):
             return fileURL
-        case .audio:
+        case .audio(let voiceURL,_):
             // 后面再写audio资源的内容
-            return nil
+            return voiceURL
         }
     }
 }
@@ -60,7 +60,7 @@ enum MediaAttachmentType :Equatable{
     // 图片和视频文件还应该有略缩图thumbnail
     case photo(_ thumbnail: UIImage)
     case video(_ thumbnail: UIImage,_ url: URL)
-    case audio
+    case audio(_ url:URL,_ duration: TimeInterval)
     
     static func ==(lhs:MediaAttachmentType,rhs:MediaAttachmentType) -> Bool {
         switch (lhs,rhs){

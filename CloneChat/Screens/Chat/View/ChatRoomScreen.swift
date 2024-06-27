@@ -70,7 +70,12 @@ struct ChatRoomScreen: View {
             }
             
             Divider().opacity(viewModel.showPhotoPickerPreview ? 1 : 0)
-            TextInputArea(textMessage: $viewModel.textMessage){action in
+            // 同步$viewModel数据
+            TextInputArea(
+                textMessage: $viewModel.textMessage,
+                isRecording: $viewModel.isRecordingVoiceMessage,
+                elapsedTime: $viewModel.elapsedVoiceMessageTime
+            ) { action in
                 viewModel.handleTextInputArea(action)
             }
         }

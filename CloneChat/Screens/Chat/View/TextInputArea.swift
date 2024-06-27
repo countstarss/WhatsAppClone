@@ -9,15 +9,14 @@ import SwiftUI
 import PhotosUI
 
 struct TextInputArea: View {
-    
+    @State private var ispulsing  = false
     @Binding var textMessage : String
     let viewModel = ChatRoomViewModel(channel: .placeholder)
-    
+    // 以下两个属性和VoiceRecorderService中的绑定
+    @Binding var isRecording : Bool
+    @Binding var elapsedTime : TimeInterval
     let actionHandle :(_ action: userAction) -> Void
     
-    @State private var isRecording : Bool = false
-    
-    @State private var ispulsing  = false
     // Enable发送按钮
     private var disableSendButton : Bool {
         return !textMessage.isEmptyorWhiteSpace!
@@ -26,6 +25,8 @@ struct TextInputArea: View {
     var body: some View {
         HStack(alignment:.bottom,spacing:5){
             imagePickerButton()
+                .disabled(isRecording)
+                .grayscale(isRecording ? 0.8 : 0)
             audioRecorderButton()
             if isRecording {
                 audioSessionIndicatorView()
@@ -41,6 +42,15 @@ struct TextInputArea: View {
         .padding(.bottom,15)
         .background(.whatsAppWhite)
         .animation(.spring(bounce:0.5),value: isRecording)
+        .onChange(of: isRecording) { oldValue, isRecording in
+            if isRecording {
+                withAnimation(.easeInOut(duration:1).repeatForever()) {
+                    ispulsing = true
+                }
+            }else {
+                ispulsing = false
+            }
+        }
     }
     
     private func messageTextField() -> some View{
@@ -93,10 +103,6 @@ struct TextInputArea: View {
     private func audioRecorderButton() -> some View{
         Button{
             actionHandle(.recordAudio)
-            isRecording.toggle()
-            withAnimation(.easeInOut(duration:1).repeatForever()) {
-                ispulsing.toggle()
-            }
         }label: {
             Image(systemName: isRecording ? "square.fill" : "mic.fill")
                 .frame(width: 25,height: 25)
@@ -128,7 +134,7 @@ struct TextInputArea: View {
             
             Spacer()
             
-            Text("0:01")
+            Text(elapsedTime.formatElaspedTime)
                 .fontWeight(.semibold)
                 .lineLimit(1)
                 .padding(.horizontal,10)
@@ -154,8 +160,8 @@ extension TextInputArea {
     ZStack{
         Color.white
         
-        TextInputArea(textMessage: .constant("")){action in 
-            
+        TextInputArea(textMessage: .constant(""),isRecording: .constant(false), elapsedTime: .constant(0)){ action in
+            //
         }
     }
 }

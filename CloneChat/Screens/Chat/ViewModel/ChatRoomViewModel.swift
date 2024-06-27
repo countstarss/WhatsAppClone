@@ -33,6 +33,11 @@ final class ChatRoomViewModel:ObservableObject{
     // 用于保存VideoPlayer状态
     @Published var videoPlayerState: (show: Bool,player:AVPlayer?) = (false,nil)
     
+    // 用于同步数据
+    @Published var isRecordingVoiceMessage : Bool = false
+    @Published var elapsedVoiceMessageTime : TimeInterval = 0
+    
+    
     // 用于调用服务
     private let voiceRecorderService = VoiceRecorderService()
     
@@ -43,7 +48,6 @@ final class ChatRoomViewModel:ObservableObject{
     
     // AnyCancellable <关键点> 存储订阅
     private var subScriptions = Set<AnyCancellable>()
-    
     private var currentUser :UserItem?
     
     //MARK: - Init
@@ -53,6 +57,15 @@ final class ChatRoomViewModel:ObservableObject{
         listenToAuthState()
         // 加到init中执行，以监控selectedPhotos的变化
         onPhotoPickerSelection()
+        
+        setUpVoiceRecorderListner()
+    }
+    
+    deinit{
+        // 结果viewModel的生命周期之后清除订阅内容
+        subScriptions.forEach{ $0.cancel() }
+        subScriptions.removeAll()
+        currentUser = nil
     }
     
     private func listenToAuthState() {
@@ -79,6 +92,19 @@ final class ChatRoomViewModel:ObservableObject{
             //
         }.store(in: &subScriptions)
     }
+    
+    private func setUpVoiceRecorderListner() {
+        voiceRecorderService.$isRecording.receive(on: DispatchQueue.main)
+            .sink { [weak self] isRecording in
+                self?.isRecordingVoiceMessage = isRecording
+            }.store(in: &subScriptions)
+        
+        voiceRecorderService.$elapsedTime.receive(on: DispatchQueue.main)
+            .sink { [weak self] elaspedTime in
+                self?.elapsedVoiceMessageTime = elaspedTime
+            }.store(in: &subScriptions)
+    }
+    
     
     func sendMessage() {
         MessageSeverce.sendTextMessage(to: channel, from: currentUser ?? .placeholder, textMessage) { [weak self] in
@@ -142,7 +168,7 @@ final class ChatRoomViewModel:ObservableObject{
     private func createAudioAttachment(from audioURL: URL?, _ audioDuration: TimeInterval) {
         guard let audioURL = audioURL else { return }
         let id = UUID().uuidString
-        let audioAttachment = MediaAttachment(id: id, type: .audio)
+        let audioAttachment = MediaAttachment(id: id, type: .audio(audioURL,audioDuration))
         mediaAttachments.insert(audioAttachment, at: 0) // 在开头插入
     }
     //MARK: - Audio -->
@@ -159,7 +185,8 @@ final class ChatRoomViewModel:ObservableObject{
     private func onPhotoPickerSelection() {
         $photoPickerItems.sink { [weak self] photoItems in
             guard let self = self else { return }
-            self.mediaAttachments.removeAll() //在向mediaAttachments中添加内容的时候，先把之前的内容删除掉
+            let audioAttachments = mediaAttachments.filter({ $0.type == .audio(.stubURL,.stubTimeInterval) })
+            mediaAttachments = audioAttachments
             Task{
                 await self.parsePhotoPickerItem(photoItems)
             }
@@ -210,7 +237,12 @@ final class ChatRoomViewModel:ObservableObject{
             guard let fileURL = attachment.fileURL else { return }
             showMediaPlayer(fileURL)
         case .remove(let attachment):
-            remove(attachment)
+            remove(attachment) // 删除略缩图
+            guard let fileURL = attachment.fileURL else { return }
+            if attachment.type == .audio(.stubURL, .stubTimeInterval) {
+                print("handleMediaAttachmentPreview -> deleteRecordings-2 ...")
+                voiceRecorderService.deleteRecordings(at: fileURL)
+            }
         }
     }
     
@@ -218,7 +250,6 @@ final class ChatRoomViewModel:ObservableObject{
     func showMediaPlayer(_ fileURL:URL) {
         videoPlayerState.show = true
         videoPlayerState.player = AVPlayer(url: fileURL)
-        videoPlayerState.player = nil
     }
     
     private func remove(_ item:MediaAttachment) {

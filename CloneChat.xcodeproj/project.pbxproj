@@ -21,15 +21,15 @@
 		A30F60932C22C65500A4D4CB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A30F60922C22C65500A4D4CB /* Kingfisher */; };
 		A30F60962C22D31900A4D4CB /* CircularProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30F60952C22D31900A4D4CB /* CircularProfileImageView.swift */; };
 		A30F60982C23157600A4D4CB /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30F60972C23157600A4D4CB /* Date+Extensions.swift */; };
-		A3D57BA72C28FBBB0079822D /* Commit 34.md in Resources */ = {isa = PBXBuildFile; fileRef = A3D57BA62C28FBBB0079822D /* Commit 34.md */; };
+		A330E1072C2D0537007095AD /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A330E1062C2D0536007095AD /* TimeInterval+Extensions.swift */; };
 		A3D57BA92C290D190079822D /* MediaAttachmentPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BA82C290D190079822D /* MediaAttachmentPreview.swift */; };
-		A3D57BAB2C29132D0079822D /* MediaPreviewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BAA2C29132D0079822D /* MediaPreviewModifier.swift */; };
 		A3D57BAD2C2A47910079822D /* PhotosPickerItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BAC2C2A47910079822D /* PhotosPickerItem+Extensions.swift */; };
 		A3D57BAF2C2A4AC70079822D /* MediaPickerItem+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BAE2C2A4AC70079822D /* MediaPickerItem+Types.swift */; };
 		A3D57BB12C2A57160079822D /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BB02C2A57160079822D /* URL+Extension.swift */; };
 		A3D57BB32C2AA0BD0079822D /* mediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BB22C2AA0BD0079822D /* mediaPlayerView.swift */; };
 		A3D57BB52C2BA3020079822D /* commit 38.md in Resources */ = {isa = PBXBuildFile; fileRef = A3D57BB42C2BA3020079822D /* commit 38.md */; };
 		A3D57BB72C2C01A10079822D /* VoiceRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BB62C2C01A00079822D /* VoiceRecorderService.swift */; };
+		A3D57BBA2C2CE5AB0079822D /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BB92C2CE5AB0079822D /* FirebaseHelper.swift */; };
 		A3E0B0FD2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md in Resources */ = {isa = PBXBuildFile; fileRef = A3E0B0FC2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md */; };
 		DF03461F2C0D583F00A70B47 /* WhatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF03461E2C0D583F00A70B47 /* WhatsApp.swift */; };
 		DF0346262C0D584100A70B47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF0346252C0D584100A70B47 /* Preview Assets.xcassets */; };
@@ -85,9 +85,8 @@
 		A30F608F2C22B72100A4D4CB /* AdminMessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMessageTextView.swift; sourceTree = "<group>"; };
 		A30F60952C22D31900A4D4CB /* CircularProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProfileImageView.swift; sourceTree = "<group>"; };
 		A30F60972C23157600A4D4CB /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
-		A3D57BA62C28FBBB0079822D /* Commit 34.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Commit 34.md"; sourceTree = "<group>"; };
+		A330E1062C2D0536007095AD /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		A3D57BA82C290D190079822D /* MediaAttachmentPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAttachmentPreview.swift; sourceTree = "<group>"; };
-		A3D57BAA2C29132D0079822D /* MediaPreviewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewModifier.swift; sourceTree = "<group>"; };
 		A3D57BAC2C2A47910079822D /* PhotosPickerItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotosPickerItem+Extensions.swift"; sourceTree = "<group>"; };
 		A3D57BAE2C2A4AC70079822D /* MediaPickerItem+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaPickerItem+Types.swift"; sourceTree = "<group>"; };
 		A3D57BB02C2A57160079822D /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
@@ -95,6 +94,7 @@
 		A3D57BB42C2BA3020079822D /* commit 38.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "commit 38.md"; sourceTree = "<group>"; };
 		A3D57BB62C2C01A00079822D /* VoiceRecorderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecorderService.swift; sourceTree = "<group>"; };
 		A3D57BB82C2C275F0079822D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A3D57BB92C2CE5AB0079822D /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
 		A3E0B0FC2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Episode-36-Fetching channel members in ChatRoom.md"; sourceTree = "<group>"; };
 		DF03461B2C0D583F00A70B47 /* CloneChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloneChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF03461E2C0D583F00A70B47 /* WhatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsApp.swift; sourceTree = "<group>"; };
@@ -210,7 +210,6 @@
 				A3E0B0FC2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md */,
 				A3D57BB42C2BA3020079822D /* commit 38.md */,
 				DF8583A72C0EEE6B0052B6A2 /* DatabaseDesignPrinciple.md */,
-				A3D57BA62C28FBBB0079822D /* Commit 34.md */,
 				DF0346242C0D584100A70B47 /* Preview Content */,
 			);
 			path = CloneChat;
@@ -236,7 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				DF0346452C0D593900A70B47 /* CustomModifiers.swift */,
-				A3D57BAA2C29132D0079822D /* MediaPreviewModifier.swift */,
+				A3D57BB92C2CE5AB0079822D /* FirebaseHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -514,6 +513,7 @@
 				A30F60972C23157600A4D4CB /* Date+Extensions.swift */,
 				A3D57BAC2C2A47910079822D /* PhotosPickerItem+Extensions.swift */,
 				A3D57BB02C2A57160079822D /* URL+Extension.swift */,
+				A330E1062C2D0536007095AD /* TimeInterval+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -594,7 +594,6 @@
 			files = (
 				DF0346262C0D584100A70B47 /* Preview Assets.xcassets in Resources */,
 				DF0346A32C0D596C00A70B47 /* Assets.xcassets in Resources */,
-				A3D57BA72C28FBBB0079822D /* Commit 34.md in Resources */,
 				A3E0B0FD2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md in Resources */,
 				DF0346A22C0D596C00A70B47 /* GoogleService-Info.plist in Resources */,
 				A3D57BB52C2BA3020079822D /* commit 38.md in Resources */,
@@ -617,7 +616,7 @@
 				DF0346A52C0D6CF100A70B47 /* SelectedChatPartnerScreen.swift in Sources */,
 				DF7A9D692C12A68E0058510D /* MessageSeverce.swift in Sources */,
 				DF0346972C0D594000A70B47 /* RootScreenModel.swift in Sources */,
-				A3D57BAB2C29132D0079822D /* MediaPreviewModifier.swift in Sources */,
+				A3D57BBA2C2CE5AB0079822D /* FirebaseHelper.swift in Sources */,
 				DF0346952C0D594000A70B47 /* UserItem.swift in Sources */,
 				DF0346922C0D594000A70B47 /* AuthButton.swift in Sources */,
 				DF8583AC2C0EF3EE0052B6A2 /* ChannelTabViewModel.swift in Sources */,
@@ -639,6 +638,7 @@
 				DF0346962C0D594000A70B47 /* RootScreen.swift in Sources */,
 				DF03467F2C0D594000A70B47 /* MessageListController.swift in Sources */,
 				DF03468A2C0D594000A70B47 /* UpdataTabScreen.swift in Sources */,
+				A330E1072C2D0537007095AD /* TimeInterval+Extensions.swift in Sources */,
 				DF03468F2C0D594000A70B47 /* AuthTextField.swift in Sources */,
 				A30F608E2C22B3E100A4D4CB /* ChannelCreationTextView.swift in Sources */,
 				DF0346932C0D594000A70B47 /* AuthProvider.swift in Sources */,

@@ -11,12 +11,14 @@ import Combine
 
 final class VoiceRecorderService {
     private var audioRecorder: AVAudioRecorder?
-    // 加上set之后表示只能在这个文件中设置，但是在其他文件中可以读取
-    private(set) var isRecording = false
-    private var elaspedTime : TimeInterval = 0
+    // 保持以下两个变量对外公开，但是只读，本文件内可以修改
+    @Published private(set) var isRecording = false
+    @Published private(set) var elapsedTime : TimeInterval = 0
     private var startTime : Date?
     // AnyCancellable 可以持有这个订阅对象，并在不再需要时取消订阅
     private var timer :AnyCancellable?
+    
+
     
     func startRecord() {
         // step 1: setup audioSession
@@ -29,9 +31,9 @@ final class VoiceRecorderService {
             try audioSession.overrideOutputAudioPort(.speaker)
             // 激活audioSession
             try audioSession.setActive(true)
-            print("VoiceRecorderService : Successfully setup AVAudioSession")
+            print("VoiceRecorderService : startRecord -> Successfully setup AVAudioSession")
         } catch {
-            print("VoiceRecorderService : Failed to setup AVAudioSession")
+            print("VoiceRecorderService : startRecord -> Failed to setup AVAudioSession")
         }
         
         // step 2: 设置录音文件存储目录
@@ -59,7 +61,7 @@ final class VoiceRecorderService {
             print("VoiceRecorderService : Start Record")
 
         }catch {
-            print("VoiceRecorderService: startRecord ->Failed to Setup AudioRecorder")
+            print("VoiceRecorderService: startRecord -> Failed to Setup AudioRecorder")
         }
     }
     
@@ -67,12 +69,12 @@ final class VoiceRecorderService {
     func stopRecord(completion:((_ audioURL: URL, _ audioDuration: TimeInterval) -> Void)? = nil) {
         guard isRecording else { return } // 只有正在录音时有效
         // step 8: 添加completion 参数2:audioDuration
-        let audioDuration = elaspedTime // 在归零之前保存鹿录音的时长
+        let audioDuration = elapsedTime // 在归零之前保存鹿录音的时长
         // 关闭服务
         audioRecorder?.stop()
         isRecording = false
         timer?.cancel()
-        elaspedTime = 0 // 归零
+        elapsedTime = 0 // 归零
         
         //
         let audioSession = AVAudioSession.sharedInstance()
@@ -90,6 +92,8 @@ final class VoiceRecorderService {
     
     // step 9: 清除无用的录音文件
     func tearDown() {
+        if isRecording { stopRecord() }
+        
         // 找到录音文件位置，folder是第一个，也就是首地址
         let fileManager = FileManager.default
         // .documentDirectory 指定搜索文档目录    .userDomainMask 限定搜索范围为 - **用户的主目录**
@@ -101,18 +105,18 @@ final class VoiceRecorderService {
         deleteRecordings(folderContents)
     }
     
-    private func deleteRecordings(_ urls:[URL]) {
+    func deleteRecordings(_ urls:[URL]) {
         for url in urls {
             deleteRecordings(at: url)
         }
     }
     
-    private func deleteRecordings(at fileUrl:URL) {
+    func deleteRecordings(at fileUrl:URL) {
         do {
             try FileManager.default.removeItem(at: fileUrl)
-            print("VoiceRecorderService: Audio Record was deleted at \(fileUrl)")
+            print("VoiceRecorderService: deleteRecordings-2 -> Audio Record was deleted at \(fileUrl)")
         }catch {
-            print("VoiceRecorderService: tearDown -> Failed to delete File")
+            print("VoiceRecorderService: deleteRecordings-2 -> Failed to delete File")
         }
     }
     
@@ -122,8 +126,7 @@ final class VoiceRecorderService {
             .autoconnect()
             .sink{ [weak self] _ in
                 guard let startTime = self?.startTime else { return }
-                self?.elaspedTime = Date().timeIntervalSince(startTime)
-                print("elaspedTime：\(self?.elaspedTime)")
+                self?.elapsedTime = Date().timeIntervalSince(startTime)
             }
     }
 }
