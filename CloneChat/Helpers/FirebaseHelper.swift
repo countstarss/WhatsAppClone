@@ -90,7 +90,7 @@ extension FirebaseHelper {
         
         
         var filePath: StorageReference {
-            let filename = UUID().uuidString
+            let filename = UUID().uuidString + ".jpeg"
             switch self {
             case .profile:
                 return FirebaseConstants.StorageRef.child("profile_image_urls").child(filename)

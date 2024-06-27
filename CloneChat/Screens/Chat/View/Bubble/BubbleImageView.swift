@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct BubbleImageView: View {
     let item : MessageItem
@@ -13,14 +14,14 @@ struct BubbleImageView: View {
     var body: some View {
         HStack{
             if item.direction == .sent { Spacer() }
-            HStack(alignment:.bottom){
+            HStack(alignment:.center){
                 // 头像在下方
                 if item.showGroupPartnerInfo {
                     // 由于初始化时图片链接是可选的，所以可传可不传，当然首选是图片url，而不是fallbackImage
                     CircularProfileImageView(item.sender?.profileImageUrl,size: .mini)
                     // 图片链接在UserItem中，直接将UserItem作为一个属性添加到MessageItem中
                 }
-                if item.direction == .sent { shareButton() }
+//                if item.direction == .sent { shareButton() }
                 
                 messageTextView()
                     .shadow(color: Color(.systemGray3).opacity(0.1), radius: 10, x: 0, y: 20)
@@ -46,8 +47,9 @@ struct BubbleImageView: View {
     
     private func messageTextView() -> some View {
         VStack(alignment:.leading,spacing:5){
-            Image(.stubImage0)
+            KFImage(URL(string:item.thumbnailUrl ?? ""))
                 .resizable()
+                .placeholder{ ProgressView() }
                 .scaledToFill()
                 .frame(width: 220,height: 180)
                 .clipShape(

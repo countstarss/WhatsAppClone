@@ -124,6 +124,7 @@ extension ChannelItem {
     }
 }
 
+// 为String写扩展，可以在选择的时候使用选项，而不是字符串，减少出错的几率
 extension String{
     static let id = "id"
     static let name = "name"
@@ -136,5 +137,6 @@ extension String{
     static let thumbnailUrl = "thumbnailUrl"
     static let members = "members"
     static let createdBy = "createdBy"
+    static let lastMessageType = "lastMessageType"
     
 }

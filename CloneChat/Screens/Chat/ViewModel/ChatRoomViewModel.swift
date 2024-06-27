@@ -63,7 +63,6 @@ final class ChatRoomViewModel:ObservableObject{
         onPhotoPickerSelection()
         
         setUpVoiceRecorderListner()
-        print("disableSendButton :\(disableSendButton)")
     }
     
     deinit{
@@ -112,15 +111,80 @@ final class ChatRoomViewModel:ObservableObject{
     
     
     func sendMessage() {
-        MessageSeverce.sendTextMessage(to: channel, from: currentUser ?? .placeholder, textMessage) { [weak self] in
-            self?.textMessage = ""
+        guard let currentUser else { return }
+        if mediaAttachments.isEmpty {
+            MessageService.sendTextMessage(to: channel, from: currentUser, textMessage) { [weak self] in
+                self?.textMessage = ""
+            }
+        } else {
+            sendMultipleMediaMessage(textMessage, attachment: mediaAttachments)
         }
         getMessage()
     }
     
+    // 发送多条attachmentMessage
+    private func sendMultipleMediaMessage(_ text:String,attachment: [MediaAttachment]) {
+        mediaAttachments.forEach { attachment in
+            switch attachment.type {
+            case .photo:
+                sendPhotoMessage(text: text, attachment)
+                
+            case .video:
+                break
+                
+            case .audio:
+                break
+                
+            }
+        }
+    }
+    
+    private func sendPhotoMessage(text: String, _ attachment: MediaAttachment) {
+        /// upload image to our storage
+        uploadImageToStorage(attachment) { [weak self] imageUrl in
+            /// store the matedata to database 发送到数据库里面
+            guard let self = self, let currentUser else { return }
+            print("Upload image to storage") // successfully upload
+            let uploadParams = MessageUploadParams(
+                channel: channel,
+                text: text,
+                type: .photo,
+                attachment: attachment,
+                sender: currentUser,
+                // 为了防止出错，使用的可选值，但是链接是需要传入的，将URL转成一个字符串
+                thumbnailUrl:imageUrl.absoluteString
+            )
+            
+            MessageService.sendMediaMessage(to: channel, params: uploadParams) { [weak self] in
+                self?.textMessage = ""
+                self?.mediaAttachments = []
+                print("Already send photo message to database")
+                // TODO: Scroll to bottom to upload image
+            }
+            
+        }
+    }
+    
+    
+    // 作用：上传thumbnail得到imageUrl返回值，将值传给completion
+    private func uploadImageToStorage(_ attachment: MediaAttachment,completion:@escaping(_ imageUrl :URL) -> Void) {
+        FirebaseHelper.uploadImage(attachment.thumbnail, for: .photoMessage) { result in
+            switch result {
+            case .success(let imageUrl):
+                completion(imageUrl)
+            case .failure(let error):
+                print("Failed to upload image storage: \(error.localizedDescription)")
+            }
+        } progressHandler: { progress in
+            print("UPLOAD PROGRESS : == \(progress) ==")
+        }
+
+    }
+    
+    
     private func getMessage(){
         // 这里闭包中的messages是 MessageSeverce.getMessages 的completion传过来的
-        MessageSeverce.getMessages(for:channel) {[weak self] messages in
+        MessageService.getMessages(for:channel) {[weak self] messages in
             self?.messages = messages // 把channel对应的messages赋值给模板messages
         }
     }
