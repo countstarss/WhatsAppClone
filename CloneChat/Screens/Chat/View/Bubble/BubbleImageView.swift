@@ -23,7 +23,7 @@ struct BubbleImageView: View {
                 }
 //                if item.direction == .sent { shareButton() }
                 
-                messageTextView()
+                messageImageView()
                     .shadow(color: Color(.systemGray3).opacity(0.1), radius: 10, x: 0, y: 20)
 //                    .padding(.vertical)
                     
@@ -45,13 +45,13 @@ struct BubbleImageView: View {
         
     }
     
-    private func messageTextView() -> some View {
+    private func messageImageView() -> some View {
         VStack(alignment:.leading,spacing:5){
             KFImage(URL(string:item.thumbnailUrl ?? ""))
                 .resizable()
                 .placeholder{ ProgressView() }
                 .scaledToFill()
-                .frame(width: 220,height: 180)
+                .frame(width: item.imageSize.width,height: item.imageSize.height)
                 .clipShape(
                     RoundedRectangle(
                         cornerRadius: 20,
@@ -79,11 +79,11 @@ struct BubbleImageView: View {
                 }
 
                 
-            if !(item.text.isEmptyorWhiteSpace ?? true){
+            if !(item.text.isEmptyorWhiteSpace){
                 Text(item.text)
                     .padding([.horizontal,.bottom],8)
                     .frame(maxWidth: .infinity,alignment: .leading)
-                    .frame(width: 220)
+                    .frame(width: item.imageSize.width)
             }
         }.padding(5)
         .background(item.direction == .sent ? .bubbleGreen : .bubbleWhite)

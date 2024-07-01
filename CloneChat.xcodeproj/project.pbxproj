@@ -22,6 +22,8 @@
 		A30F60962C22D31900A4D4CB /* CircularProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30F60952C22D31900A4D4CB /* CircularProfileImageView.swift */; };
 		A30F60982C23157600A4D4CB /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30F60972C23157600A4D4CB /* Date+Extensions.swift */; };
 		A330E1072C2D0537007095AD /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A330E1062C2D0536007095AD /* TimeInterval+Extensions.swift */; };
+		A3CB2A0B2C32C1DD00AB23EC /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB2A0A2C32C1DD00AB23EC /* UIApplication+Extensions.swift */; };
+		A3CB2A0D2C32C67600AB23EC /* UIWindowScene+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB2A0C2C32C67600AB23EC /* UIWindowScene+Extensions.swift */; };
 		A3D57BA92C290D190079822D /* MediaAttachmentPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BA82C290D190079822D /* MediaAttachmentPreview.swift */; };
 		A3D57BAD2C2A47910079822D /* PhotosPickerItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BAC2C2A47910079822D /* PhotosPickerItem+Extensions.swift */; };
 		A3D57BAF2C2A4AC70079822D /* MediaPickerItem+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BAE2C2A4AC70079822D /* MediaPickerItem+Types.swift */; };
@@ -86,6 +88,8 @@
 		A30F60952C22D31900A4D4CB /* CircularProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProfileImageView.swift; sourceTree = "<group>"; };
 		A30F60972C23157600A4D4CB /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		A330E1062C2D0536007095AD /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
+		A3CB2A0A2C32C1DD00AB23EC /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
+		A3CB2A0C2C32C67600AB23EC /* UIWindowScene+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindowScene+Extensions.swift"; sourceTree = "<group>"; };
 		A3D57BA82C290D190079822D /* MediaAttachmentPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAttachmentPreview.swift; sourceTree = "<group>"; };
 		A3D57BAC2C2A47910079822D /* PhotosPickerItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotosPickerItem+Extensions.swift"; sourceTree = "<group>"; };
 		A3D57BAE2C2A4AC70079822D /* MediaPickerItem+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaPickerItem+Types.swift"; sourceTree = "<group>"; };
@@ -514,6 +518,8 @@
 				A3D57BAC2C2A47910079822D /* PhotosPickerItem+Extensions.swift */,
 				A3D57BB02C2A57160079822D /* URL+Extension.swift */,
 				A330E1062C2D0536007095AD /* TimeInterval+Extensions.swift */,
+				A3CB2A0A2C32C1DD00AB23EC /* UIApplication+Extensions.swift */,
+				A3CB2A0C2C32C67600AB23EC /* UIWindowScene+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -620,6 +626,7 @@
 				DF0346952C0D594000A70B47 /* UserItem.swift in Sources */,
 				DF0346922C0D594000A70B47 /* AuthButton.swift in Sources */,
 				DF8583AC2C0EF3EE0052B6A2 /* ChannelTabViewModel.swift in Sources */,
+				A3CB2A0B2C32C1DD00AB23EC /* UIApplication+Extensions.swift in Sources */,
 				DF0346812C0D594000A70B47 /* BubbleTextView.swift in Sources */,
 				DF03468B2C0D594000A70B47 /* SettingsTabScreen.swift in Sources */,
 				DF0346902C0D594000A70B47 /* AuthHeaderView.swift in Sources */,
@@ -630,6 +637,7 @@
 				DF03469F2C0D595600A70B47 /* MainTabView.swift in Sources */,
 				DF0346822C0D594000A70B47 /* BubbleAudioView.swift in Sources */,
 				DF03468C2C0D594000A70B47 /* SettingsItemView.swift in Sources */,
+				A3CB2A0D2C32C67600AB23EC /* UIWindowScene+Extensions.swift in Sources */,
 				DF7A9D672C129DB90058510D /* ChatRoomViewModel.swift in Sources */,
 				A3D57BA92C290D190079822D /* MediaAttachmentPreview.swift in Sources */,
 				DF8583AA2C0EEF390052B6A2 /* ChannelItem.swift in Sources */,

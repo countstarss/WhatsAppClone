@@ -37,6 +37,9 @@ final class ChatRoomViewModel:ObservableObject{
     @Published var isRecordingVoiceMessage : Bool = false
     @Published var elapsedVoiceMessageTime : TimeInterval = 0
     
+    // 用于滑动到底部
+    @Published var scrollToButtomRequest: (scroll:Bool,isAnimated :Bool) = (false ,false)
+    
     
     // 用于调用服务
     private let voiceRecorderService = VoiceRecorderService()
@@ -63,6 +66,8 @@ final class ChatRoomViewModel:ObservableObject{
         onPhotoPickerSelection()
         
         setUpVoiceRecorderListner()
+        
+        scrollTobottom(isAnimated: true)
     }
     
     deinit{
@@ -109,6 +114,11 @@ final class ChatRoomViewModel:ObservableObject{
             }.store(in: &subScriptions)
     }
     
+    private func clearTextInputArea() {
+        mediaAttachments.removeAll()
+        photoPickerItems.removeAll()
+        textMessage = ""
+    }
     
     func sendMessage() {
         guard let currentUser else { return }
@@ -118,6 +128,8 @@ final class ChatRoomViewModel:ObservableObject{
             }
         } else {
             sendMultipleMediaMessage(textMessage, attachment: mediaAttachments)
+            clearTextInputArea()
+            UIApplication.dismissKeyboard()
         }
         getMessage()
     }
@@ -159,10 +171,16 @@ final class ChatRoomViewModel:ObservableObject{
                 self?.textMessage = ""
                 self?.mediaAttachments = []
                 print("Already send photo message to database")
-                // TODO: Scroll to bottom to upload image
+                //MARK: - Scroll to bottom to upload image
+                self?.scrollTobottom(isAnimated: true)
             }
             
         }
+    }
+    
+    private func scrollTobottom(isAnimated :Bool) {
+        scrollToButtomRequest.scroll = true
+        scrollToButtomRequest.isAnimated = isAnimated
     }
     
     

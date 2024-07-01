@@ -18,6 +18,8 @@ struct MessageItem:Identifiable{
     let timeStmp : Date
     let sender : UserItem?
     let thumbnailUrl :String?
+    var thumbnailHeight:CGFloat?
+    var thumbnailWidth:CGFloat?
     
     var direction:MessageDirection {
         return ownerUid == Auth.auth().currentUser?.uid ? .sent : .received
@@ -75,9 +77,22 @@ struct MessageItem:Identifiable{
     
     private let horizontalPadding:CGFloat = 25
     
+    var imageSize :CGSize {
+        let photoWidth = thumbnailWidth ?? 0
+        let photoHeight = thumbnailHeight ?? 0
+        let imageHeight = CGFloat(photoHeight / photoWidth * imageWidth)
+        return CGSize(width: imageWidth, height: imageHeight)
+    }
+    
+    var imageWidth:CGFloat {
+        let photoWidth = (UIWindowScene.current?.screenwidth ?? 0) / 1.5
+        return photoWidth
+    }
+    
     // 静态资源,可以通过struct MessageItem调用
     
-    // 不使用 init()：适用于简单的静态属性或常量，可以直接在定义时进行赋值。这样做简洁明了，并且适用于不需要额外初始化逻辑的情况。
+    // 不使用init()：适用于简单的静态属性或常量，
+    // 可以直接在定义时进行赋值。这样做简洁明了，并且适用于不需要额外初始化逻辑的情况。
     static let stubMessage: [MessageItem] = [
         MessageItem(id: UUID().uuidString, isGroupChat: false,text: "Hi,there", type: .text,ownerUid: "send", timeStmp: Date(), sender: .placeholder, thumbnailUrl: ""),
         MessageItem(id: UUID().uuidString, isGroupChat: true,text: "check out this photo", type: .photo,ownerUid: "receive", timeStmp: Date(), sender: .placeholder, thumbnailUrl: ""),
@@ -103,6 +118,8 @@ extension MessageItem {
         self.timeStmp = Date(timeIntervalSince1970: timeInterval)
         self.sender = sender
         self.thumbnailUrl = dict[.thumbnailUrl] as? String ?? nil
+        self.thumbnailWidth = dict[.thumbnailWidth] as? CGFloat ?? nil
+        self.thumbnailHeight = dict[.thumbnailHeight] as? CGFloat ?? nil
     }
 }
 

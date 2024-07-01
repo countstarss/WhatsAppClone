@@ -49,9 +49,10 @@ final class MessageListController:UIViewController{
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.keyboardDismissMode = .onDrag
         return tableView
-        // create tableView here
     }()
+//    MARK: - 滑动时关闭键盘
     
     // 创建一个UIImageView作为背景
     private let backgroundImageView:UIImageView = {
@@ -95,7 +96,17 @@ final class MessageListController:UIViewController{
                 self?.tableView.reloadData()
             } // 存储订阅
             .store(in: &subScriptions)
+        
+        //MARK: - Scroll To Bottom
+        viewModel.$scrollToButtomRequest
+            .debounce(for: .milliseconds(delay), scheduler: DispatchQueue.main)
+            .sink{[weak self] scrollRequest in
+                if scrollRequest.scroll {
+                    self?.tableView.scrollTolastRow(at: .bottom, animated: scrollRequest.isAnimated)
+                }
+            }.store(in: &subScriptions)
     }
+    
     
 }
 
@@ -151,7 +162,13 @@ extension MessageListController:UITableViewDelegate,UITableViewDataSource{
     }
 }
 
-
-#Preview {
-    MessageListView(ChatRoomViewModel(channel: .placeholder))
+private extension  UITableView{
+    func scrollTolastRow(at scrollPosition: UITableView.ScrollPosition,animated :Bool) {
+        guard numberOfRows(inSection: numberOfSections - 1) > 0 else { return }
+        
+        let lastSectionIndex = numberOfSections - 1
+        let lastRowIndex = numberOfRows(inSection: lastSectionIndex) - 1
+        let lastRowIndexPath = IndexPath(row: lastRowIndex, section: lastSectionIndex)
+        scrollToRow(at: lastRowIndexPath, at: scrollPosition, animated: animated)
+    }
 }
