@@ -145,8 +145,7 @@ final class ChatRoomViewModel:ObservableObject{
                 sendVideoMessage(text: text, attachment)
                 
             case .audio:
-                break
-                
+                sendVoiceMessage(text: text, attachment)
             }
         }
     }
@@ -179,7 +178,9 @@ final class ChatRoomViewModel:ObservableObject{
     }
     
     private func sendVideoMessage(text: String, _ attachment: MediaAttachment){
+        /// upload the file to storage
         uploadFileToStorage(forUploadType: .videoMessage, attachment) { videoURL in
+            /// upload the video thumbnail
             self.uploadImageToStorage(attachment, completion: {[weak self] thumbnailURL in
                 guard let self = self,let currentUser else { return }
                 let uploadParams = MessageUploadParams(
@@ -200,6 +201,27 @@ final class ChatRoomViewModel:ObservableObject{
         }
         
     }
+    
+    private func sendVoiceMessage(text: String, _ attachment: MediaAttachment){
+        guard let audioDuration = attachment.audioDuration ,let currentUser  = self.currentUser else { return }
+        uploadFileToStorage(forUploadType: .voiceMessage, attachment) { [weak self] fileUrl in
+            guard let self else { return }
+            let uploadParams = MessageUploadParams(
+                channel: self.channel,
+                text: text,
+                type: .audio,
+                attachment: attachment,
+                sender: currentUser,
+                audioURL: fileUrl.absoluteString,
+                audioDuration: audioDuration
+            )
+            MessageService.sendMediaMessage(to: channel, params: uploadParams) { [weak self] in
+                self?.scrollTobottom(isAnimated: true)
+                print("successfully save the video mateData and url to databse")
+            }
+        }
+    }
+
     
     private func scrollTobottom(isAnimated :Bool) {
         scrollToButtomRequest.scroll = true

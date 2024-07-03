@@ -26,17 +26,15 @@ struct BubbleAudioView: View {
                 playButton()
                 Slider(value: $sliderValue,in: sliderRange)
                     .tint(.gray)
-                Text("00:04")
+                Text(item.audioDuration ?? "0:01")
             }
             .padding(10)
             .background(Color.gray.opacity(0.1))
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .padding(5)
-            .frame(width: 200)
             .background(item.backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .applyTail(item.direction)
-            
             
             if item.direction == .received{
                 timeStampTextView()
