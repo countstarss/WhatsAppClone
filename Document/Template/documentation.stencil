@@ -1,0 +1,27 @@
+{% for type in types.all %}
+// MARK: - {{ type.name }}
+/// Documentation for {{ type.name }}
+///
+/// MARK: Properties
+{% for variable in type.variables %}
+/// - `{{ variable.name }}`: `{{ variable.typeName }}`{% if variable.isOptional %} (Optional){% endif %}{% if variable.defaultValue %} - Default: `{{ variable.defaultValue }}`{% endif %}
+{% endfor %}
+
+{% if type.methods.count > 0 %}
+/// MARK: Methods
+{% for method in type.methods %}
+/// - `{{ method.name }}`
+{% if method.parameters.count > 0 %}
+{% for parameter in method.parameters %}
+///   - parameter `{{ parameter.name }}`: `{{ parameter.typeName }}`
+{% endfor %}
+{% endif %}
+{% if method.returnTypeName %}
+///   - returns: `{{ method.returnTypeName }}`
+{% endif %}
+{% if method.accessLevel %}
+///   - access: `{{ method.accessLevel }}`
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}

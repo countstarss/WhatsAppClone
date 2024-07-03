@@ -141,7 +141,8 @@ struct BubbleImageView: View {
         
         VStack{
             BubbleImageView(item: .sentPlaceHolder)
-            BubbleImageView(item: .receivePlaceHolder)
+//            BubbleImageView(item: .receivePlaceHolder)
+            BubbleImageView(item: .receivePlaceHolder2)
         }
     }
 }

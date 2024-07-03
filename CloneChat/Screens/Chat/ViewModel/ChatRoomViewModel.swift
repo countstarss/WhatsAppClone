@@ -76,7 +76,7 @@ final class ChatRoomViewModel:ObservableObject{
         subScriptions.removeAll()
         currentUser = nil
     }
-    
+    //MARK: - Listener
     private func listenToAuthState() {
         AuthManager.shared.authState.receive(on: DispatchQueue.main).sink{ [weak self] authState in
             guard let self = self else { return }
@@ -120,6 +120,7 @@ final class ChatRoomViewModel:ObservableObject{
         textMessage = ""
     }
     
+    //MARK: - Send Message
     func sendMessage() {
         guard let currentUser else { return }
         if mediaAttachments.isEmpty {
@@ -133,7 +134,6 @@ final class ChatRoomViewModel:ObservableObject{
         }
         getMessage()
     }
-    
     // 发送多条attachmentMessage
     private func sendMultipleMediaMessage(_ text:String,attachment: [MediaAttachment]) {
         mediaAttachments.forEach { attachment in
@@ -142,7 +142,7 @@ final class ChatRoomViewModel:ObservableObject{
                 sendPhotoMessage(text: text, attachment)
                 
             case .video:
-                break
+                sendVideoMessage(text: text, attachment)
                 
             case .audio:
                 break
@@ -178,6 +178,29 @@ final class ChatRoomViewModel:ObservableObject{
         }
     }
     
+    private func sendVideoMessage(text: String, _ attachment: MediaAttachment){
+        uploadFileToStorage(forUploadType: .videoMessage, attachment) { videoURL in
+            self.uploadImageToStorage(attachment, completion: {[weak self] thumbnailURL in
+                guard let self = self,let currentUser else { return }
+                let uploadParams = MessageUploadParams(
+                    channel: self.channel,
+                    text: text,
+                    type: .video,
+                    attachment: attachment,
+                    sender: currentUser,
+                    thumbnailUrl: thumbnailURL.absoluteString,
+                    videoURL: videoURL.absoluteString)
+                /// save the mate data and url to databse
+                MessageService.sendMediaMessage(to: self.channel, params: uploadParams) { [weak self] in
+                    self?.scrollTobottom(isAnimated: true)
+                    print("successfully save the video mateData and url to databse")
+                }
+            })
+            
+        }
+        
+    }
+    
     private func scrollTobottom(isAnimated :Bool) {
         scrollToButtomRequest.scroll = true
         scrollToButtomRequest.isAnimated = isAnimated
@@ -198,6 +221,26 @@ final class ChatRoomViewModel:ObservableObject{
         }
 
     }
+    
+    // 通过添加forUploadType参数，增加可重用性能
+    private func uploadFileToStorage(
+                            forUploadType : FirebaseHelper.UploadType,
+                            _ attachment: MediaAttachment,
+                            completion:@escaping(_ imageUrl :URL) -> Void) {
+        guard let fileToUpload = attachment.fileURL else { return }
+        FirebaseHelper.uploadFile(for: forUploadType, fileURL: fileToUpload){ result in
+            switch result {
+            case .success(let fileURL):
+                completion(fileURL)
+            case .failure(let error):
+                print("Failed to upload video storage: \(error.localizedDescription)")
+            }
+        } progressHandler: { progress in
+            print("UPLOAD PROGRESS : == \(progress) ==")
+        }
+    }
+    
+    
     
     
     private func getMessage(){
@@ -226,7 +269,7 @@ final class ChatRoomViewModel:ObservableObject{
         getMessage()
     }
     
-    //MARK: - HandleTextInputArea 触发输入区域的动作
+    //MARK: - 触发Input区域的动作
     // 根据点击的按钮选择不同的方法，这个方法是TextInput的actionHandle
     func handleTextInputArea(_ action:TextInputArea.userAction) {
         switch action {
@@ -241,7 +284,7 @@ final class ChatRoomViewModel:ObservableObject{
     }
     
     
-    //MARK: - <-- Audio
+    //MARK: - Audio
     private func toggleAudioRecorder() {
         if voiceRecorderService.isRecording {
             voiceRecorderService.stopRecord { audioURL, audioDuration in
@@ -258,12 +301,11 @@ final class ChatRoomViewModel:ObservableObject{
         let audioAttachment = MediaAttachment(id: id, type: .audio(audioURL,audioDuration))
         mediaAttachments.insert(audioAttachment, at: 0) // 在开头插入
     }
-    //MARK: - Audio -->
     
     
     
     
-    //MARK: - <-- PhotoPicker & Video
+    //MARK: - PhotoPicker & Video
     // 添加照片的思路分析：
     // 1. 监控$photoPickerItems，当其中有内容时，将PhotosPicker得到的整个数组拿去解码
     // 2. 把数组中的item循环取出，将其转换成可传输的对象，然后将得到的数据转成UIImage类型
@@ -308,7 +350,6 @@ final class ChatRoomViewModel:ObservableObject{
         }
     }
     
-    //MARK: - PhotoPicker & Video -->
     
     func dismissMediaPlayer() {
         videoPlayerState.player?.replaceCurrentItem(with: nil)
@@ -317,7 +358,7 @@ final class ChatRoomViewModel:ObservableObject{
     }
   
     
-    //MARK: - <-- HandleMedia Attachment Preview
+    //MARK: - HandleMedia Attachment Preview
     func handleMediaAttachmentPreview(_ action:MediaAttachmentPreview.userAction) {
         switch action {
         case .play(let attachment):
@@ -346,6 +387,5 @@ final class ChatRoomViewModel:ObservableObject{
         guard let photoIndex = photoPickerItems.firstIndex(where: { $0.itemIdentifier == item.id}) else { return }
         photoPickerItems.remove(at: photoIndex)
     }
-    //MARK: - HandleMedia Attachment Preview -->
     
 }

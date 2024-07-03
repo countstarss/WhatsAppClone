@@ -1,0 +1,6 @@
+sources:
+  - "."
+templates:
+  - "./CloneChat/Template"
+output:
+  - "./CloneChat/Template/"

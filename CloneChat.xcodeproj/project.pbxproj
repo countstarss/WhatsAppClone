@@ -24,6 +24,8 @@
 		A330E1072C2D0537007095AD /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A330E1062C2D0536007095AD /* TimeInterval+Extensions.swift */; };
 		A3CB2A0B2C32C1DD00AB23EC /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB2A0A2C32C1DD00AB23EC /* UIApplication+Extensions.swift */; };
 		A3CB2A0D2C32C67600AB23EC /* UIWindowScene+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CB2A0C2C32C67600AB23EC /* UIWindowScene+Extensions.swift */; };
+		A3CB2A0F2C3385E200AB23EC /* .sourcery.yml in Resources */ = {isa = PBXBuildFile; fileRef = A3CB2A0E2C3385E200AB23EC /* .sourcery.yml */; };
+		A3CB2A122C3386F100AB23EC /* Documentation.stencil in Resources */ = {isa = PBXBuildFile; fileRef = A3CB2A112C3386F100AB23EC /* Documentation.stencil */; };
 		A3D57BA92C290D190079822D /* MediaAttachmentPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BA82C290D190079822D /* MediaAttachmentPreview.swift */; };
 		A3D57BAD2C2A47910079822D /* PhotosPickerItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BAC2C2A47910079822D /* PhotosPickerItem+Extensions.swift */; };
 		A3D57BAF2C2A4AC70079822D /* MediaPickerItem+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D57BAE2C2A4AC70079822D /* MediaPickerItem+Types.swift */; };
@@ -90,6 +92,8 @@
 		A330E1062C2D0536007095AD /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		A3CB2A0A2C32C1DD00AB23EC /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		A3CB2A0C2C32C67600AB23EC /* UIWindowScene+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindowScene+Extensions.swift"; sourceTree = "<group>"; };
+		A3CB2A0E2C3385E200AB23EC /* .sourcery.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .sourcery.yml; sourceTree = "<group>"; };
+		A3CB2A112C3386F100AB23EC /* Documentation.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = Documentation.stencil; sourceTree = "<group>"; };
 		A3D57BA82C290D190079822D /* MediaAttachmentPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAttachmentPreview.swift; sourceTree = "<group>"; };
 		A3D57BAC2C2A47910079822D /* PhotosPickerItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotosPickerItem+Extensions.swift"; sourceTree = "<group>"; };
 		A3D57BAE2C2A4AC70079822D /* MediaPickerItem+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaPickerItem+Types.swift"; sourceTree = "<group>"; };
@@ -181,6 +185,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		A3CB2A102C3386D700AB23EC /* Template */ = {
+			isa = PBXGroup;
+			children = (
+				A3CB2A112C3386F100AB23EC /* Documentation.stencil */,
+			);
+			path = Template;
+			sourceTree = "<group>";
+		};
 		DF0346122C0D583F00A70B47 = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +212,7 @@
 		DF03461D2C0D583F00A70B47 /* CloneChat */ = {
 			isa = PBXGroup;
 			children = (
+				A3CB2A102C3386D700AB23EC /* Template */,
 				A3D57BB82C2C275F0079822D /* Info.plist */,
 				A30F60942C22D2E400A4D4CB /* Components */,
 				DF8583AD2C0F02EC0052B6A2 /* Extensions */,
@@ -215,6 +228,7 @@
 				A3D57BB42C2BA3020079822D /* commit 38.md */,
 				DF8583A72C0EEE6B0052B6A2 /* DatabaseDesignPrinciple.md */,
 				DF0346242C0D584100A70B47 /* Preview Content */,
+				A3CB2A0E2C3385E200AB23EC /* .sourcery.yml */,
 			);
 			path = CloneChat;
 			sourceTree = "<group>";
@@ -599,6 +613,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF0346262C0D584100A70B47 /* Preview Assets.xcassets in Resources */,
+				A3CB2A0F2C3385E200AB23EC /* .sourcery.yml in Resources */,
+				A3CB2A122C3386F100AB23EC /* Documentation.stencil in Resources */,
 				DF0346A32C0D596C00A70B47 /* Assets.xcassets in Resources */,
 				A3E0B0FD2C24315200E4246D /* Episode-36-Fetching channel members in ChatRoom.md in Resources */,
 				DF0346A22C0D596C00A70B47 /* GoogleService-Info.plist in Resources */,
@@ -710,7 +726,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -729,7 +745,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -773,7 +789,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -786,10 +802,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -808,12 +825,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CloneChat/Info.plist;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "access to record your voice to send your firends";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "use micphone to recording your voice to send voice message";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -839,12 +856,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CloneChat/Info.plist;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "access to record your voice to send your firends";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "use micphone to recording your voice to send voice message";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

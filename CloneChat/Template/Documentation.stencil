@@ -1,0 +1,17 @@
+{% for type in types.all %}
+/// Documentation for {{ type.name }}
+{% for variable in type.variables %}
+/// - parameter {{ variable.name }}: {{ variable.typeName }}
+{% endfor %}
+{% if type.methods.count > 0 %}
+/// ## Methods
+{% for method in type.methods %}
+/// - method {{ method.name }}
+{% if method.parameters.count > 0 %}
+{% for parameter in method.parameters %}
+///   - parameter {{ parameter.name }}: {{ parameter.typeName }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}

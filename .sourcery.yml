@@ -1,0 +1,6 @@
+sources:
+  - "./CloneChat" # 你的源代码目录
+templates:
+  - "./Document/Template" # 模板文件目录
+output: "./Generated" # 输出生成文件目录
+
